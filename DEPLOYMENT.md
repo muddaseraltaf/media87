@@ -15,6 +15,7 @@ Use the Git integration with these settings:
 - Root directory: leave blank
 - Build command: `npm run build`
 - Build output directory: `dist`
+- Cloudflare Pages configuration confirmed: 2026-07-27
 
 The build validates `main architecture` and copies the approved static HTML,
 assets, redirects, headers, robots file, XML sitemap, `ads.txt`, and custom 404
