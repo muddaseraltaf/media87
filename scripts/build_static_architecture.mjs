@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260727-release2";
+const assetVersion = "20260727-release4";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -460,7 +460,7 @@ const customPages = [
     image: {
       src: "/images/live/smart-generation.jpg",
       alt: "Conceptual AI-assisted content production image",
-      caption: "Conceptual production image used in the local Media87 rebuild.",
+      caption: "Conceptual image representing an AI-assisted production workflow.",
     },
     signals: ["Concept direction", "AI-assisted production", "Human editing", "Channel adaptation"],
     sections: [
@@ -553,7 +553,7 @@ ${header()}
       <form class="contact-form reveal" action="mailto:hello@media87.com" method="post" enctype="text/plain">
         <div class="form-heading">
           <span>PROJECT BRIEF</span><strong>A few useful details</strong>
-          <p>Submitting opens your email application. A hosted form endpoint will be connected only after the production workflow is approved.</p>
+          <p>Complete the brief below and your email app will open a ready-to-send enquiry addressed to Media87.</p>
         </div>
         <div class="field-row">
           <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
@@ -561,7 +561,7 @@ ${header()}
         </div>
         <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
         <label><span>What would you like to improve?</span><textarea name="message" rows="6" required></textarea></label>
-        <button class="btn btn-accent" type="submit">Prepare the email →</button>
+        <button class="btn btn-accent" type="submit">Open email to send →</button>
       </form>
       <aside class="contact-panel reveal d2 hud">
         <span class="tag">DIRECT CONTACT</span>
@@ -594,9 +594,9 @@ function videoPortfolio() {
   ];
   return `<section class="portfolio-section">
   <div class="wrap">
-    <span class="tag reveal">PORTFOLIO — Original live examples</span>
+    <span class="tag reveal">PORTFOLIO — Selected examples</span>
     <h2 class="h2" data-split>Formats already explored by Media87.</h2>
-    <p class="lead reveal d2">These links are production examples from the original service page, not evidence of client results.</p>
+    <p class="lead reveal d2">Explore selected Media87 video concepts across advertising, product, narrative and short-form formats.</p>
     <div class="video-grid">${videos
       .map(
         ([id, title], index) => `<a class="video-card reveal" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noreferrer">
@@ -612,7 +612,12 @@ function articleBlocks(post, clean) {
   if (clean) {
     const headings = new Set(clean.headings.map((heading) => heading.trim()));
     return clean.paragraphs
-      .map((paragraph) => paragraph.trim())
+      .map((paragraph) =>
+        paragraph
+          .trim()
+          .replaceAll("[your number]", "+971 50 332 1743")
+          .replaceAll(" AI-Powered IMAP Email Auto-Resp…", ""),
+      )
       .filter(Boolean)
       .map((paragraph) => {
         const heading =
@@ -692,7 +697,9 @@ function articleCommercialLink(category) {
 function articlePage(post) {
   const clean = cleanArticleMap.get(post.slug);
   const title = stripHtml(post.title?.rendered) || clean?.title || post.slug;
-  const description = `A migrated Media87 article about ${title}. This draft is pending evidence, source and search-intent review before publication.`;
+  const description =
+    clean?.description ||
+    `A practical Media87 guide to ${title.toLowerCase()}.`;
   const category = categoryForPost(post, clean);
   const image = imageForPost(post, clean);
   const commercialLink = articleCommercialLink(category);
@@ -717,24 +724,24 @@ ${header()}
         <span class="tag reveal d1">${escapeHtml(category)}</span>
         <h1 data-split>${escapeHtml(title)}</h1>
         <p class="lead reveal d2">${escapeHtml(description)}</p>
-        <div class="article-meta reveal d3"><span>By <a href="/authors-team/">Media87 Editorial</a></span><span>Migration draft · noindex</span><span>${readingTime} min read</span><span>Source version ${escapeHtml(String(post.modified).slice(0, 10))}</span></div>
+        <div class="article-meta reveal d3"><span>By <a href="/authors-team/">Media87 Editorial</a></span><span>${escapeHtml(category)}</span><span>${readingTime} min read</span><span>Updated ${escapeHtml(String(post.modified).slice(0, 10))}</span></div>
         <figure class="article-lead-image reveal d3"><img src="${escapeHtml(image)}" alt="Conceptual illustration for ${escapeHtml(title)}" width="1600" height="900"></figure>
       </div>
     </header>
     <section class="article-section">
       <div class="wrap article-layout">
         <aside class="article-rail">
-          <span>EDITORIAL STATUS</span>
-          <strong>Migration draft</strong>
-          <p>The live URL and source copy are preserved in the approved design, but this page is marked noindex until its claims, sources, examples, dates and search intent are reviewed.</p>
+          <span>ABOUT THIS GUIDE</span>
+          <strong>Practical context</strong>
+          <p>Use this guide as a starting point, then confirm changing platform rules, prices, local requirements and implementation details before acting.</p>
           <a href="/editorial-guidelines/">Editorial guidelines →</a>
         </aside>
         <div class="article-body">
           ${articleBlocks(post, clean)}
           <aside class="article-trust-box">
-            <span>WHAT HAPPENS NEXT</span>
-            <h2>This article needs editorial approval before indexing.</h2>
-            <p>Media87 will verify changing facts, claims, examples, source links, authorship and overlapping search intent before removing the noindex directive.</p>
+            <span>USEFUL NEXT STEP</span>
+            <h2>Apply the guidance to your actual situation.</h2>
+            <p>Check the goal, available evidence, platform constraints and responsible owner before turning any recommendation into a live campaign or workflow.</p>
             <div>
               <a href="${commercialLink.href}">${escapeHtml(commercialLink.label)} →</a>
               <a href="/editorial-guidelines/">Read the editorial standard →</a>
@@ -745,7 +752,7 @@ ${header()}
             relatedArticles.length
               ? `<section class="article-related" aria-labelledby="related-articles">
               <span>CONTINUE READING</span>
-              <h2 id="related-articles">Related ${escapeHtml(category)} drafts</h2>
+              <h2 id="related-articles">Related ${escapeHtml(category)} guides</h2>
               <div>${relatedArticles
                 .map(
                   (candidate) =>
@@ -774,7 +781,9 @@ function blogPage() {
       return {
         slug: post.slug,
         title: stripHtml(post.title?.rendered) || clean?.title,
-        description: `A migrated Media87 guide about ${stripHtml(post.title?.rendered) || clean?.title}. Editorial and evidence review is pending.`,
+        description:
+          clean?.description ||
+          `A practical Media87 guide to ${(stripHtml(post.title?.rendered) || clean?.title).toLowerCase()}.`,
         category: categoryForPost(post, clean),
         date: post.date,
         image: imageForPost(post, clean),
@@ -796,19 +805,19 @@ ${header()}
     <div class="wrap">
       <span class="tag reveal">BLOG — Useful posts</span>
       <h1 data-split>Practical guides for clearer digital decisions.</h1>
-      <p class="lead reveal d2">The live Media87 library is preserved here in the approved design. Each article will receive its evidence, source, internal-link and search-intent review in the SEO phase.</p>
+      <p class="lead reveal d2">Browse practical guides about search visibility, paid media, content, reputation and responsible AI workflows.</p>
     </div>
   </section>
   <section class="blog-library">
     <div class="wrap">
       <a class="blog-feature reveal" href="/${featured.slug}/">
-        <img src="${escapeHtml(featured.image)}" alt="" width="1200" height="800">
+        <img src="${escapeHtml(featured.image)}" alt="Illustration for ${escapeHtml(featured.title)}" width="1200" height="800">
         <div><span>${escapeHtml(featured.category)} · Latest</span><h2>${escapeHtml(featured.title)}</h2><p>${escapeHtml(featured.description)}</p><b>Read the guide →</b></div>
       </a>
       <div class="blog-grid">${cards
         .map(
           (article) => `<a class="blog-card reveal" href="/${article.slug}/">
-          <div class="blog-card-media"><img src="${escapeHtml(article.image)}" alt="" width="800" height="500" loading="lazy"></div>
+          <div class="blog-card-media"><img src="${escapeHtml(article.image)}" alt="Illustration for ${escapeHtml(article.title)}" width="800" height="500" loading="lazy"></div>
           <span>${escapeHtml(article.category)}</span>
           <h2>${escapeHtml(article.title)}</h2>
           <p>${escapeHtml(article.description)}</p>
@@ -935,7 +944,7 @@ function improveExisting(route, input) {
     html = html
       .replace(
         "<b>24/7 lead capture</b><small>never miss a visitor</small>",
-        "<b>Always-available enquiry path</b><small>when the approved workflow is online</small>",
+        "<b>Always-available enquiry path</b><small>route visitors at any time</small>",
       )
       .replace(
         "Everything you need to grow, in one place.",
@@ -955,7 +964,7 @@ function improveExisting(route, input) {
       )
       .replace(
         '<div><span class="dot v"></span><span><b>5.0 client rating</b><small>verified reviews</small></span></div>',
-        '<div><span class="dot v"></span><span><b>Human-reviewed delivery</b><small>approval before publishing</small></span></div>',
+        '<div><span class="dot v"></span><span><b>Human-reviewed delivery</b><small>quality checked before launch</small></span></div>',
       )
       .replace(
         '<div><span class="dot v"></span><span><b>1.5M followers</b><small>founder\'s audience</small></span></div>',
@@ -1223,12 +1232,12 @@ const seoOverrides = new Map(
     "privacy-policy": {
       title: "Media87 Privacy Policy",
       description:
-        "The working Media87 privacy policy covering contact data, service enquiries, processors, retention and user choices, pending legal review.",
+        "How Media87 handles contact enquiries, website measurement, advertising technology, processors, retention and privacy requests.",
     },
     "terms-of-services": {
       title: "Media87 Terms of Services",
       description:
-        "The working Media87 service terms covering scope, approvals, responsibilities and limitations, pending legal and commercial review.",
+        "Terms governing use of the Media87 website and the relationship between public information, accepted proposals and third-party platforms.",
     },
     blog: {
       title: "Media87 Blog",

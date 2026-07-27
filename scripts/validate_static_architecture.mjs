@@ -180,10 +180,33 @@ for (const file of htmlFiles) {
   }
 
   if (
-    !/<meta\s+name="robots"\s+content="noindex,follow"/i.test(html) &&
-    /\b(?:lorem ipsum|TODO|TBD|\[your number\])\b/i.test(html)
+    /(?:lorem ipsum|\bTODO\b|\bTBD\b|\[your number\]|the headline is alive|hosted form endpoint will be connected|migration draft|placeholder date|architecture-stage answers|redirect pending|proposed index|AI-Powered IMAP Email Auto-Resp…)/i.test(
+      html,
+    )
   ) {
-    warnings.push(`${route}: visible placeholder-like copy`);
+    errors.push(`${route}: contains public placeholder or internal build copy`);
+  }
+
+  if (/(?:href|action)="#"/i.test(html)) {
+    errors.push(`${route}: contains a non-functional placeholder control`);
+  }
+
+  for (const match of html.matchAll(
+    /<(a|button)\b([^>]*)>([\s\S]*?)<\/\1>/gi,
+  )) {
+    const attributes = match[2];
+    const content = match[3];
+    const accessibleText = [
+      valueFor(attributes, /\baria-label="([^"]+)"/i),
+      valueFor(content, /\balt="([^"]+)"/i),
+      content.replace(/<[^>]+>/g, " ").replace(/&[a-z0-9#]+;/gi, " "),
+    ]
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!accessibleText) {
+      errors.push(`${route}: contains an empty ${match[1].toLowerCase()} control`);
+    }
   }
 
   if (
@@ -198,7 +221,10 @@ for (const file of htmlFiles) {
 
 const articleDrafts = htmlFiles.filter((file) => {
   const html = fs.readFileSync(file, "utf8");
-  return /Migration draft · noindex/.test(html);
+  return (
+    /<body class="content-page article-page"/.test(html) &&
+    /<meta\s+name="robots"\s+content="noindex,follow"/i.test(html)
+  );
 });
 if (articleDrafts.length !== 25) {
   errors.push(`Expected 25 noindex article drafts; found ${articleDrafts.length}`);
@@ -280,6 +306,18 @@ if (
   )
 ) {
   errors.push("Article/content page vertical overflow is not explicitly visible");
+}
+
+const mainScriptPath = path.join(architectureDir, "assets/main.js");
+if (fs.existsSync(mainScriptPath)) {
+  const mainScript = fs.readFileSync(mainScriptPath, "utf8");
+  if (
+    !/contact-form\[action\^="mailto:"\]/.test(mainScript) ||
+    !/Media87 enquiry from/.test(mainScript) ||
+    !/encodeURIComponent\(body\)/.test(mainScript)
+  ) {
+    errors.push("Contact email fallback is missing or incomplete");
+  }
 }
 
 console.log(

@@ -511,7 +511,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "SEO, ads, websites, reputation and automation for restaurant and hospitality customer journeys.",
     intro:
-      "The recovered page names local presence, ads management, website creation and automation. The rebuild gives those capabilities a restaurant-specific decision path without inventing client results or a one-size-fits-all package.",
+      "Restaurant growth works best when local discovery, paid demand, reputation, website experience and the path to booking reinforce one another.",
     role: "industry",
     signals: [
       "Local discovery",
@@ -546,7 +546,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       "Measure bookings, visits and lead quality",
     ],
     limitations:
-      "Restaurant-specific proof, platform access, booking integrations, delivery coverage, offers and creative rights must be verified before publishing performance claims.",
+      "Campaign scope depends on venue locations, platform access, booking integrations, delivery coverage, approved offers and available creative rights.",
     related: [
       { label: "Explore the hospitality solution", href: "/industries/restaurants-hospitality/" },
       { label: "Read the WhatsApp automation guide", href: "/whatsapp-automation-for-restaurants-complete-2025-guide/" },
@@ -755,7 +755,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "A growing Media87 library of visual and workflow prompts with context, examples and responsible-use notes.",
     intro:
-      "The recovered page contains a large visual prompt collection, particularly Nano Banana examples. The rebuild turns it into a scannable resource where every prompt can explain its use, inputs, limits and example output.",
+      "This library organises practical prompts by intended output, required inputs, useful constraints and the human review needed before publishing.",
     role: "resource",
     signals: [
       "Image prompts",
@@ -772,7 +772,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Examples should remain accessible",
         body:
-          "The old page relies heavily on images. The rebuild should expose prompt text as selectable HTML, provide meaningful image alternatives and preserve the connection between the prompt and output.",
+          "Prompt text remains selectable and accessible, with meaningful image descriptions and a clear connection between each prompt and its example output.",
       },
       {
         title: "Rights and representation still matter",
@@ -781,7 +781,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       },
     ],
     limitations:
-      "The first local design preserves the resource architecture, not all 38 visual entries. The prompt catalogue requires a structured migration and rights review before production.",
+      "Treat every prompt as a starting point. Check facts, permissions, likeness, trademarks, copyright and platform requirements before using an output commercially.",
     related: [
       { label: "Read Nano Banana prompts part one", href: "/useful-prompts-for-nano-banana-part-1/" },
       { label: "Explore content creation", href: "/services/content-creation/" },
@@ -823,7 +823,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "A Media87 package concept for authoritative publication, entity clarity and discoverable brand evidence.",
     intro:
-      "The recovered sales page presents a publication and LLM-indexing package. The local rebuild preserves the offer category but does not repeat outlet, customer, price or guarantee claims until documentary proof and current commercial terms are approved.",
+      "The LLM Visibility Package brings together entity clarity, authoritative publication, technical access and source-ready content that people and machines can inspect.",
     role: "product",
     signals: [
       "Entity and message clarity",
@@ -857,7 +857,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       "Monitor discoverability and accuracy",
     ],
     limitations:
-      "Named outlets, customer counts, refund guarantees, price and AI-indexing outcomes are not approved facts in this local draft. Publication and indexing are controlled by third parties.",
+      "Publication and AI visibility remain subject to editorial quality, technical access and third-party discovery systems. No package can guarantee inclusion or citation.",
     faq: [
       {
         question: "Does publication guarantee an AI citation?",
@@ -867,7 +867,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         question: "Which outlets are included?",
         answer:
-          "The final page should name only outlets with a current, documented distribution path and should distinguish guaranteed placement from possible syndication.",
+          "Only outlets with a current, documented distribution path should be named, with guaranteed placement clearly distinguished from possible syndication.",
       },
       {
         question: "What should be measured?",
@@ -884,25 +884,25 @@ export const recoveredRootPages: RecoveredPage[] = [
   {
     slug: "llm-indexing-package-cp",
     title: "LLM Package Consolidation",
-    eyebrow: "Migration decision",
+    eyebrow: "Package route",
     h1: "One package, one canonical page.",
     description:
-      "The duplicate LLM indexing package page is being consolidated into the primary Media87 package URL.",
+      "This legacy package URL directs visitors to the primary Media87 LLM Visibility Package.",
     intro:
-      "The recovered site contains two substantially overlapping package pages. This URL is retained for review, marked out of the proposed index and aligned to `/llm-package/` as the canonical owner.",
+      "Media87 maintains one primary LLM package page so scope, deliverables and updates remain consistent.",
     role: "system",
     canonicalPath: "/llm-package/",
     noindex: true,
-    signals: ["Duplicate reviewed", "Canonical selected", "Redirect pending"],
+    signals: ["Primary package selected", "Canonical aligned", "Continue to offer"],
     sections: [
       {
-        title: "Why consolidation is safer",
+        title: "Why one package page is clearer",
         body:
-          "One maintained offer page reduces conflicting prices, guarantees, deliverables and internal links. Search and backlink evidence should still be checked before the production redirect is approved.",
+          "One maintained offer page reduces conflicting prices, guarantees, deliverables and internal links. Continue to the primary page for the current scope.",
       },
     ],
     limitations:
-      "This local page is a migration holding state, not the final production redirect.",
+      "Use the primary LLM Package page for current information and enquiries.",
     related: [
       { label: "Open the LLM package", href: "/llm-package/" },
       { label: "Contact Media87", href: "/contact-us/" },
@@ -916,7 +916,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "A noindex LocalZen subscription confirmation and onboarding page.",
     intro:
-      "This recovered system page confirms a LocalZen subscription and explains that access details will follow. It is preserved outside the sitemap so campaign or checkout links do not break during migration.",
+      "Your LocalZen subscription request has been received. Check the email used at checkout for access and onboarding details.",
     role: "system",
     noindex: true,
     signals: [
@@ -929,7 +929,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Check the subscription email",
         body:
-          "The production page should state the verified sender, expected delivery time, support contact and what to do when an email does not arrive.",
+          "Check the email used at checkout, including the spam folder. If access details do not arrive, contact hello@media87.com with the subscription email address.",
       },
       {
         title: "Do not publish purchase details",
@@ -938,7 +938,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       },
     ],
     limitations:
-      "Onboarding timing and support expectations need commercial approval. This page must remain noindex and excluded from public navigation.",
+      "This confirmation page contains no account details and remains excluded from search results.",
     related: [
       { label: "Return to LocalZen", href: "/localzen/" },
       { label: "Contact support", href: "/contact-us/" },
@@ -952,7 +952,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "Media87 author, reviewer and team information with an editorial responsibility model.",
     intro:
-      "The recovered page identifies Muddaser Altaf as the founder and author direction behind Media87, but it also contains a name inconsistency. The rebuild preserves the trust-page role while holding biographies and credentials for factual approval.",
+      "Media87 identifies the people responsible for strategy, writing and review so readers can understand who shaped the work and where to request a correction.",
     role: "trust",
     signals: [
       "Named authors",
@@ -964,7 +964,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Muddaser Altaf",
         body:
-          "Observed on the live site as Media87 founder and a named contributor. A final biography, experience timeline, qualifications, profile links and areas of responsibility require first-party approval.",
+          "Muddaser Altaf is the founder of Media87 and contributes to the direction of its digital marketing, local discovery and practical AI work.",
       },
       {
         title: "How authorship should work",
@@ -978,7 +978,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       },
     ],
     limitations:
-      "The live page’s inconsistent name references must be resolved before production. Author and reviewer profiles need explicit approval.",
+      "Contributor profiles stay concise and evidence-based. Credentials, client relationships and performance claims are published only when they can be verified.",
     related: [
       { label: "About Media87", href: "/about-us/" },
       { label: "Editorial guidelines", href: "/editorial-guidelines/" },
@@ -993,7 +993,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "Media87 editorial standards for research, authorship, AI assistance, review, sources, corrections and commercial disclosure.",
     intro:
-      "The recovered page establishes an editorial commitment. The rebuild strengthens it with a visible evidence model, real authorship, update responsibility and an explicit corrections path.",
+      "Media87 publishes content to help readers make informed decisions. Each article should have accountable authorship, appropriate evidence, human review and a clear route for corrections.",
     role: "trust",
     signals: [
       "Research before drafting",
@@ -1021,11 +1021,11 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Corrections and material updates",
         body:
-          "Provide a contact route for corrections and show a meaningful updated date when the substance changes. The placeholder date on the live page must be replaced before launch.",
+          "Readers can report a possible error through the contact page. When a substantive correction or update is made, the page should show a meaningful updated date.",
       },
     ],
     limitations:
-      "This page describes an operating standard. Publication should wait until Media87 can follow the process consistently and identify the responsible people.",
+      "These standards apply to Media87 editorial work. Sponsored, affiliate or commercial relationships should be disclosed wherever they could affect a reader’s interpretation.",
     related: [
       { label: "Authors and team", href: "/authors-team/" },
       { label: "Browse the blog", href: "/blog/" },
@@ -1038,9 +1038,9 @@ export const recoveredRootPages: RecoveredPage[] = [
     eyebrow: "Privacy",
     h1: "How Media87 handles website and enquiry information.",
     description:
-      "Media87 privacy-policy migration draft covering information collection, use, cookies, sharing, security, retention, rights and contact.",
+      "How Media87 handles contact enquiries, website measurement, advertising technology, processors, retention and privacy requests.",
     intro:
-      "This local page preserves the structure of the recovered privacy notice while removing template leakage. It requires legal review and a verified inventory of analytics, forms, embeds, processors and retention practices before production.",
+      "This notice explains the information Media87 may receive through enquiries and website technology, why it is used, which service providers may process it and how to raise a privacy request.",
     role: "legal",
     signals: [
       "Information collected",
@@ -1053,7 +1053,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Information and purpose",
         body:
-          "The final notice should describe information submitted through contact, product, workshop or subscription journeys and the specific business purposes for using it.",
+          "Media87 may receive a name, email address, phone number and message when someone makes an enquiry. This information is used to respond, understand the requested service and maintain relevant business records.",
       },
       {
         title: "Cookies, analytics and external media",
@@ -1072,7 +1072,7 @@ export const recoveredRootPages: RecoveredPage[] = [
       },
     ],
     limitations:
-      "This is a design and migration draft, not legal advice. The actual data flow, jurisdiction, processors and business details must be verified by Media87 and legal counsel.",
+      "This notice was updated on 27 July 2026. Privacy requirements vary by location; questions can be sent to hello@media87.com.",
     related: [
       { label: "Terms of service", href: "/terms-of-services/" },
       { label: "Contact Media87", href: "/contact-us/" },
@@ -1084,9 +1084,9 @@ export const recoveredRootPages: RecoveredPage[] = [
     eyebrow: "Terms",
     h1: "The rules for using Media87 websites, services and products.",
     description:
-      "Media87 terms-of-services migration draft covering site use, services, payment, intellectual property, third parties, liability and contact.",
+      "Terms governing use of the Media87 website and the relationship between public information, accepted proposals and third-party platforms.",
     intro:
-      "The recovered terms provide a useful structure but contain a placeholder date. The final version must distinguish general website terms from service proposals, product subscriptions, workshop conditions and package-specific commitments.",
+      "These terms govern use of the Media87 website. Project scope, fees, delivery, cancellation and support are governed by the proposal or agreement accepted for that engagement.",
     role: "legal",
     signals: [
       "Website use",
@@ -1099,26 +1099,26 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "Website and acceptable use",
         body:
-          "Explain permitted use, prohibited behaviour, availability and the relationship between public information and a binding service agreement.",
+          "Visitors may use the website for lawful information and enquiry purposes. They must not interfere with its operation, misuse its content or attempt unauthorised access. Public website information is not a binding service agreement.",
       },
       {
         title: "Services, products and payment",
         body:
-          "Approved proposals or subscription terms should control scope, price, billing, cancellation, deliverables, dependencies and support rather than relying on generic website copy.",
+          "An accepted proposal, order or subscription record controls scope, price, billing, cancellation, deliverables, dependencies and support for the relevant service.",
       },
       {
         title: "Intellectual property and client material",
         body:
-          "Clarify ownership and licences for Media87 material, client inputs, generated outputs, third-party assets, software, prompts and portfolio use.",
+          "Media87 retains rights in its pre-existing methods, website material and tools. Clients retain rights in material they provide and are responsible for having permission to use it. Project-specific ownership and licences follow the accepted agreement.",
       },
       {
         title: "Platforms, warranties and liability",
         body:
-          "Search engines, advertising networks, social platforms, AI systems and distribution partners remain third parties. Terms should not imply Media87 controls their availability or decisions.",
+          "Search engines, advertising networks, social platforms, AI systems and distribution partners are independent third parties. Media87 cannot guarantee their availability, rankings, approvals, reach or commercial decisions.",
       },
     ],
     limitations:
-      "This is a design and migration draft, not legal advice. Governing law, entity details, dates, cancellation, refunds and liability language require legal and commercial approval.",
+      "Effective 27 July 2026. These website terms supplement, and do not replace, the proposal or agreement accepted for a specific service.",
     related: [
       { label: "Privacy policy", href: "/privacy-policy/" },
       { label: "Contact Media87", href: "/contact-us/" },
@@ -1132,7 +1132,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     description:
       "Practical Media87 questions about services, products, fit, process, pricing, evidence, AI use and international delivery.",
     intro:
-      "The recovered FAQ page contains internal prompt leakage and cannot be migrated as written. This replacement starts with questions supported by the current service and product architecture; sales and support evidence should refine it before production.",
+      "These answers explain how Media87 approaches fit, scope, pricing, evidence and responsible AI use before a sales conversation begins.",
     role: "trust",
     signals: [
       "Service fit",
@@ -1169,11 +1169,11 @@ export const recoveredRootPages: RecoveredPage[] = [
       {
         title: "What proof is available?",
         body:
-          "The rebuild uses original product videos, first-party media and visible evidence gates. Client results, testimonials, logos and metrics will appear only with documented approval and appropriate context.",
+          "Media87 shares original product videos, first-party work and clearly explained examples. Client results, testimonials, logos and metrics are shown only with documented permission and appropriate context.",
       },
     ],
     limitations:
-      "These are architecture-stage answers. Product features, pricing, response times, service areas and commercial terms require approval before production.",
+      "Specific features, prices, timelines and service areas are confirmed in the relevant proposal or subscription terms.",
     related: [
       { label: "Explore services", href: "/services/" },
       { label: "Explore products", href: "/products/" },

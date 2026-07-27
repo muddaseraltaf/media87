@@ -790,7 +790,8 @@ footer{background:var(--ink);color:#fff;padding:76px 0 36px;border-top:1px solid
 .contact-links a{padding:17px 0;border-top:1px solid rgba(255,255,255,.12)}
 .contact-links span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
 .contact-links b{font-size:14px}
-.contact-panel .btn-ghost{border-color:rgba(255,255,255,.3);color:#fff}
+.contact-panel>.tag{color:var(--accent)}
+.contact-panel .btn-ghost{border-color:#fff;background:#fff;color:var(--ink)}
 
 /* ---------- blog and articles ---------- */
 .blog-hero{padding-bottom:90px}

@@ -53,6 +53,30 @@
       document.querySelectorAll('.nav-drop.open').forEach(d => d.classList.remove('open'));
   });
 
+  /* ---------- contact email fallback ---------- */
+  const contactForm = document.querySelector('.contact-form[action^="mailto:"]');
+  if (contactForm) {
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!contactForm.reportValidity()) return;
+      const data = new FormData(contactForm);
+      const name = String(data.get('name') || '').trim();
+      const email = String(data.get('email') || '').trim();
+      const phone = String(data.get('phone') || '').trim();
+      const message = String(data.get('message') || '').trim();
+      const subject = `Media87 enquiry from ${name}`;
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${phone || 'Not provided'}`,
+        '',
+        'What I would like to improve:',
+        message,
+      ].join('\n');
+      window.location.href = `mailto:hello@media87.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+
   /* ---------- counters ---------- */
   const counterIO = new IntersectionObserver(entries => {
     entries.forEach(entry => {
