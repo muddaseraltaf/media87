@@ -1,0 +1,19 @@
+{
+  "crawl_date": "2026-07-24",
+  "sitemap_index": "https://media87.com/wp-sitemap.xml",
+  "sitemap_files": 5,
+  "listed_urls": 40,
+  "successful_200": 40,
+  "non_200": 0,
+  "roles": {
+    "homepage": 1,
+    "trust-conversion": 2,
+    "article": 27,
+    "service": 1,
+    "author": 1,
+    "taxonomy": 1,
+    "commercial-location": 5,
+    "proof-portfolio": 1,
+    "service-hub": 1
+  }
+}

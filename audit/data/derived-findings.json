@@ -1,0 +1,169 @@
+{
+  "page_count": 40,
+  "status_counts": {
+    "200": 40
+  },
+  "role_counts": {
+    "homepage": 1,
+    "trust-conversion": 2,
+    "article": 27,
+    "service": 1,
+    "author": 1,
+    "taxonomy": 1,
+    "commercial-location": 5,
+    "proof-portfolio": 1,
+    "service-hub": 1
+  },
+  "metadata": {
+    "missing_titles": 0,
+    "missing_descriptions": 25,
+    "missing_canonicals": 2,
+    "missing_og_title": 40,
+    "missing_og_description": 40,
+    "missing_og_image": 40,
+    "multiple_h1": 1,
+    "no_h1": 0,
+    "no_json_ld": 40,
+    "duplicate_titles": [],
+    "duplicate_descriptions": [],
+    "duplicate_h1": [
+      {
+        "value": "Blog",
+        "count": 2,
+        "urls": [
+          "https://media87.com/author/muddaser321gmail-com/",
+          "https://media87.com/category/blog/"
+        ]
+      }
+    ]
+  },
+  "content": {
+    "under_100_total_words": 0,
+    "under_300_total_words": 2,
+    "under_600_total_words": 6,
+    "under_100_main_words": 34,
+    "thin_urls_under_100_total": []
+  },
+  "linking": {
+    "sitemap_urls_with_zero_inbound_links": [
+      "https://media87.com/ai-seo-dubai-smes-30-day-checklist/",
+      "https://media87.com/author/muddaser321gmail-com/",
+      "https://media87.com/create-cinematic-style-personal-portfolio/",
+      "https://media87.com/digital-marketing-agency-jlt-dubai/",
+      "https://media87.com/email-automated-replies-for-your-customer-service-or-agency/",
+      "https://media87.com/google-ads-management-cost-dubai-2026/",
+      "https://media87.com/how-to-add-a-cinematic-profile-photo-to-your-gmail-step-by-step-guide/",
+      "https://media87.com/how-to-automatically-read-classify-and-reply-to-emails-using-ai-step-by-step-n8n-guide/",
+      "https://media87.com/how-to-create-ultra-realistic-human-sound-voice-with-prompting/",
+      "https://media87.com/how-to-make-ai-ultra-realistic-ads/",
+      "https://media87.com/how-to-make-linkedin-post-assistant-with-n8n/",
+      "https://media87.com/how-to-save-token-cost-and-make-openclaw-secure-with-one-prompt/",
+      "https://media87.com/local-seo-dubai-how-to-rank-for-near-me-searches-in-2026/",
+      "https://media87.com/local-seo-guide-2025-how-to-dominate-local-search-rankings/",
+      "https://media87.com/local-seo-in-2026-practical-playbook-for-dubai-businesses/",
+      "https://media87.com/local-seo-what-it-is-how-to-do-it-complete-2026-guide/",
+      "https://media87.com/portfolio/",
+      "https://media87.com/seo-vs-google-ads-dubai-businesses/",
+      "https://media87.com/top-digital-marketers-in-pakistan/",
+      "https://media87.com/useful-prompts-for-nano-banana-part-1/",
+      "https://media87.com/water-mark-remover/",
+      "https://media87.com/whatsapp-automation-for-restaurants-complete-2025-guide/",
+      "https://media87.com/why-chatbots-are-important-for-local-businesses-in-the-uae/"
+    ],
+    "zero_inbound_count": 23,
+    "internal_discovered_not_in_sitemap": 39,
+    "top_external_domains": [
+      [
+        "facebook.com",
+        42
+      ],
+      [
+        "instagram.com",
+        41
+      ],
+      [
+        "youtube.com",
+        41
+      ],
+      [
+        "developers.google.com",
+        18
+      ],
+      [
+        "support.google.com",
+        14
+      ],
+      [
+        "chat.media87.com",
+        9
+      ],
+      [
+        "docs.n8n.io",
+        4
+      ],
+      [
+        "wa.me",
+        2
+      ],
+      [
+        "drive.google.com",
+        2
+      ],
+      [
+        "player.vimeo.com",
+        1
+      ],
+      [
+        "+971%2050%20332%201743",
+        1
+      ],
+      [
+        "clutch.co",
+        1
+      ],
+      [
+        "webfx.com",
+        1
+      ],
+      [
+        "ahrefs.com",
+        1
+      ],
+      [
+        "semrush.com",
+        1
+      ],
+      [
+        "mail.google.com",
+        1
+      ],
+      [
+        "thinkwithgoogle.com",
+        1
+      ],
+      [
+        "learn.microsoft.com",
+        1
+      ],
+      [
+        "pagespeed.web.dev",
+        1
+      ],
+      [
+        "u.ae",
+        1
+      ]
+    ]
+  },
+  "images": {
+    "total_occurrences": 260,
+    "missing_alt_attribute": 0,
+    "blank_or_weak_alt": 83,
+    "missing_width_or_height": 182
+  },
+  "templates": {
+    "script_count_median": 27,
+    "stylesheet_count_median": 26,
+    "pages_with_25_or_more_scripts": 40
+  }
+}

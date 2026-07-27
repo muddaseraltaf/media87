@@ -1,0 +1,6 @@
+sitemap_url,status,final_url,content_type,bytes,error,kind,locations
+https://media87.com/wp-sitemap.xml,200,https://media87.com/wp-sitemap.xml,application/xml; charset=UTF-8,517,,sitemapindex,4
+https://media87.com/wp-sitemap-posts-post-1.xml,200,https://media87.com/wp-sitemap-posts-post-1.xml,application/xml; charset=UTF-8,4599,,urlset,33
+https://media87.com/wp-sitemap-posts-page-1.xml,200,https://media87.com/wp-sitemap-posts-page-1.xml,application/xml; charset=UTF-8,672,,urlset,5
+https://media87.com/wp-sitemap-taxonomies-category-1.xml,200,https://media87.com/wp-sitemap-taxonomies-category-1.xml,application/xml; charset=UTF-8,243,,urlset,1
+https://media87.com/wp-sitemap-users-1.xml,200,https://media87.com/wp-sitemap-users-1.xml,application/xml; charset=UTF-8,257,,urlset,1

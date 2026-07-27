@@ -1,0 +1,40 @@
+{
+  "checked": 45,
+  "status_counts": {
+    "200": 30,
+    "404": 15
+  },
+  "indexable_200": 30,
+  "http_200_absent_from_sitemap": [
+    "https://media87.com/2025/12/02/",
+    "https://media87.com/2025/12/19/",
+    "https://media87.com/2025/12/24/",
+    "https://media87.com/2026/01/01/",
+    "https://media87.com/2026/01/03/",
+    "https://media87.com/2026/01/05/",
+    "https://media87.com/2026/01/08/",
+    "https://media87.com/2026/01/09/",
+    "https://media87.com/2026/01/12/",
+    "https://media87.com/2026/01/25/",
+    "https://media87.com/2026/01/26/",
+    "https://media87.com/2026/02/15/",
+    "https://media87.com/2026/02/22/",
+    "https://media87.com/2026/04/03/",
+    "https://media87.com/2026/05/27/",
+    "https://media87.com/2026/05/28/",
+    "https://media87.com/2026/05/31/",
+    "https://media87.com/2026/06/01/",
+    "https://media87.com/2026/06/02/",
+    "https://media87.com/2026/06/13/",
+    "https://media87.com/2026/06/14/",
+    "https://media87.com/2026/06/17/",
+    "https://media87.com/2026/06/20/",
+    "https://media87.com/2026/06/23/",
+    "https://media87.com/2026/06/26/",
+    "https://media87.com/2026/07/01/",
+    "https://media87.com/2026/07/18/",
+    "https://media87.com/2026/07/21/",
+    "https://media87.com/contact/",
+    "https://media87.com/seo-vs-google-ads-dubai-businesses-2026/"
+  ]
+}

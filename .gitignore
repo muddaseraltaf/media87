@@ -1,0 +1,14 @@
+.DS_Store
+**/.DS_Store
+**/node_modules/
+**/dist/
+**/.next/
+**/.wrangler/
+**/*.tsbuildinfo
+**/__pycache__/
+**/*.pyc
+.env
+.env.*
+!.env.example
+*.log
+

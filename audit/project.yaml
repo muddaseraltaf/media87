@@ -1,0 +1,41 @@
+project:
+  name: Media87 Website Rebuild
+  website: https://media87.com/
+  audit_date: 2026-07-24
+  state: local-architecture-built
+  lifecycle: migration
+  primary_model: professional-service-agency
+  secondary_models:
+    - software-product
+    - editorial
+  overlays:
+    - international-service
+    - verified-dubai-base
+  primary_outcomes:
+    - qualified-enquiry
+    - consultation-booking
+    - product-evaluation
+  live_changes_authorized: false
+  local_build_authorized: true
+  deployment_authorized: false
+
+scope:
+  sitemap_inventory: complete
+  rendered_review: representative-priority-pages
+  competitor_research: dubai-and-gcc
+  architecture_proposal: true
+  implementation: local-foundation-complete
+
+known_inputs:
+  search_console: unavailable
+  analytics: unavailable
+  crm: unavailable
+  backlink_export: unavailable
+  google_business_profile: unavailable
+  approved_claims_and_proof: unavailable
+
+known_sitemap_issue:
+  robots_declared: https://media87.com/sitemap_index.xml
+  robots_declared_status: 404
+  recoverable_index: https://media87.com/wp-sitemap.xml
+  recoverable_index_status: 200
