@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260726-release1";
+const assetVersion = "20260727-release2";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -152,7 +152,7 @@ ${imageDimensions}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css?v=${assetVersion}">
-<script src="/assets/consent-tags.js?v=${assetVersion}" defer></script>
+<script src="/assets/site-tags.js?v=${assetVersion}" defer></script>
 ${preservedScripts}
 ${jsonLd}
 </head>`;
@@ -246,7 +246,6 @@ function footer() {
           <li><a href="/contact-us/">Contact</a></li>
           <li><a href="/privacy-policy/">Privacy</a></li>
           <li><a href="/terms-of-services/">Terms</a></li>
-          <li><button class="cookie-settings-link" type="button" data-cookie-settings>Cookie settings</button></li>
         </ul>
       </div>
     </div>
@@ -1468,7 +1467,7 @@ function enhanceRouteSeo(route, input) {
     ...headWithoutJsonLd.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi),
   ]
     .map((match) => match[0])
-    .filter((script) => !/\/assets\/consent-tags\.js/i.test(script))
+    .filter((script) => !/\/assets\/(?:consent-tags|site-tags)\.js/i.test(script))
     .join("\n");
   const structuredData = schemaGraphFor({
     route,
@@ -1627,15 +1626,15 @@ for (const page of recoveredRootPages) {
     html = html
       .replace(
         "Analytics, Vimeo, YouTube, chatbot, social and other embeds need accurate disclosure. Click-to-load media reduces unnecessary third-party requests but does not replace disclosure.",
-        "Media87 uses a consent control before loading optional Google measurement, Meta advertising or Google AdSense technology. The current public identifiers are Google tag GT-KVFLZP7K, Meta Pixel 942291175461032 and AdSense publisher ca-pub-6396157876082473. Visitors can accept all optional technology, permit analytics only or continue with necessary site functions.",
+        "Media87 uses Google measurement, Meta advertising measurement and Google AdSense technology. These services may process website usage, browser, device, approximate-location and cookie or similar identifier data. The current public identifiers are Google tag GT-KVFLZP7K, Meta Pixel 942291175461032 and AdSense publisher ca-pub-6396157876082473.",
       )
       .replace(
         "Name relevant processor categories, safeguards and retention logic without promising absolute security. Data should be kept only for an approved purpose and period.",
-        "Optional processors may include Google for measurement, advertising and AdSense, and Meta for advertising measurement. Consent preferences are stored in the visitor’s browser. Media87 should retain submitted enquiry and measurement data only for an approved purpose and period and should not promise absolute security.",
+        "Processors may include Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 should retain submitted enquiry and measurement data only for an approved purpose and period and should not promise absolute security.",
       )
       .replace(
         "The final policy should explain applicable access, correction, deletion, objection or complaint routes and identify the responsible contact.",
-        "Visitors can reopen Cookie settings from the footer. Requests concerning access, correction, deletion, objection or consent can be sent to hello@media87.com. Applicable rights and complaint routes depend on the visitor’s location and require final legal confirmation.",
+        "Requests concerning access, correction, deletion, objection or privacy can be sent to hello@media87.com. Visitors can also use browser controls and the relevant provider settings to manage cookies or advertising preferences. Applicable rights and complaint routes depend on the visitor’s location and require final legal confirmation.",
       );
   }
   writeRoute(page.slug, html);

@@ -66,7 +66,7 @@ for (const requiredFile of [
   "_redirects",
   "_headers",
   "ads.txt",
-  "assets/consent-tags.js",
+  "assets/site-tags.js",
   "assets/og/media87-social-card.jpg",
 ]) {
   if (!fs.existsSync(path.join(architectureDir, requiredFile))) {
@@ -91,8 +91,7 @@ for (const file of htmlFiles) {
     ["Open Graph image", /<meta\s+property="og:image"\s+content="[^"]+"/i],
     ["Twitter card", /<meta\s+name="twitter:card"\s+content="summary_large_image"/i],
     ["JSON-LD", /<script\s+type="application\/ld\+json">/i],
-    ["consent-aware tag loader", /<script\s+src="\/assets\/consent-tags\.js\?v=[^"]+"\s+defer><\/script>/i],
-    ["cookie settings control", /data-cookie-settings/i],
+    ["site tag loader", /<script\s+src="\/assets\/site-tags\.js\?v=[^"]+"\s+defer><\/script>/i],
   ]) {
     if (!pattern.test(html)) errors.push(`${route}: missing ${label}`);
   }
@@ -244,23 +243,23 @@ if (
   errors.push("ads.txt does not contain the approved Media87 publisher record");
 }
 
-const consentTagsPath = path.join(
+const siteTagsPath = path.join(
   architectureDir,
-  "assets/consent-tags.js",
+  "assets/site-tags.js",
 );
-if (fs.existsSync(consentTagsPath)) {
-  const consentTags = fs.readFileSync(consentTagsPath, "utf8");
+if (fs.existsSync(siteTagsPath)) {
+  const siteTags = fs.readFileSync(siteTagsPath, "utf8");
   for (const identifier of [
     "GT-KVFLZP7K",
     "942291175461032",
     "ca-pub-6396157876082473",
   ]) {
-    if (!consentTags.includes(identifier)) {
-      errors.push(`Consent-aware tag loader is missing ${identifier}`);
+    if (!siteTags.includes(identifier)) {
+      errors.push(`Site tag loader is missing ${identifier}`);
     }
   }
-  if (!/data-consent-choice/.test(consentTags)) {
-    errors.push("Consent-aware tag loader is missing visitor choices");
+  if (/data-consent-choice|data-cookie-settings|consent-panel/.test(siteTags)) {
+    errors.push("Site tag loader still contains the removed consent popup");
   }
 }
 
