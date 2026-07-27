@@ -78,6 +78,14 @@ for (const requiredFile of [
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file, "utf8");
   const route = routeFor(file);
+  const visibleText = html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(?:nbsp|amp|quot|#39);/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
   for (const [label, pattern] of [
     ["title", /<title>[^<]+<\/title>/i],
     ["description", /<meta\s+name="description"\s+content="[^"]+"/i],
@@ -186,6 +194,21 @@ for (const file of htmlFiles) {
     )
   ) {
     errors.push(`${route}: contains public placeholder or internal build copy`);
+  }
+
+  if (
+    /\b(?:PRD|SVC|SYS|LOG|FAQ)\.[A-Z0-9_-]{2,}\b/i.test(visibleText) ||
+    /class="[^"]*\b(?:idx|q-idx)\b[^"]*"[^>]*>\s*(?:\/|Q\.)0*\d+/i.test(html)
+  ) {
+    errors.push(`${route}: contains a visible internal interface code`);
+  }
+
+  if (
+    /\.(?:eneric|ofessional|tomer|oogle)\b/i.test(
+      visibleText,
+    )
+  ) {
+    errors.push(`${route}: contains malformed public copy`);
   }
 
   if (/(?:href|action)="#"/i.test(html)) {

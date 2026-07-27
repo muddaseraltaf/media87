@@ -190,6 +190,76 @@ const sharedReplacements = new Map([
   ["This is where the magic happens.", "This is where the site is assembled."],
   ["high-converting content systems", "content processes designed to support enquiries and sales"],
   ["Effortless positive review collection", "Simple review collection"],
+  ["AI-Powered Digital Agency — Dubai, UAE", "Digital marketing and AI support — Dubai, UAE"],
+  ["CONTACT — Start with the problem", "Contact Media87"],
+  ["ERROR 404 — Page not found", "Page not found"],
+  ["MEDIA87 / SYSTEM", "Media87"],
+  ["Productised authority offer", "LLM visibility package"],
+  ["Package route", "Main package page"],
+  ["Plan My Growth System", "Discuss Your Marketing"],
+  ["Growth system", "Marketing plan"],
+  ["growth system", "marketing plan"],
+  ["All systems connected", "Services work together"],
+  ["NO BLACK BOX", "Clear process"],
+  ["Workflow map · example", "Example workflow"],
+  ["AI Avatar v2", "AI avatar example"],
+  ["\"Hi, I'm the founder's AI twin…\"", "\"Example approved avatar script\""],
+  ["Lead flow · live", "Enquiry process"],
+  ["Meta Ads · this week", "Meta campaign overview"],
+  ["GBP insights · 30 days", "Google Business Profile activity"],
+  ["Local pack · \"plumber near me\"", "Local search example"],
+  ["ChatZen · 24/7 support AI", "ChatZen customer support"],
+  ["LocalZen · live dashboard", "LocalZen dashboard"],
+  ["AI Video · rendering complete", "AI-assisted video"],
+  ["AI Voice, 2026", "AI calling guide"],
+  ["High Fit", "Good fit"],
+  ["Hybrid Fit", "May be suitable"],
+  ["Human-Led", "Best handled by people"],
+  ["Find the Blockers", "Find the problems"],
+  ["Use Both", "Use SEO and Google Ads"],
+  ["Example cluster", "Example page group"],
+  ["Content creative", "Content and creative"],
+  ["GEOTAGGED ✓", "Location metadata added"],
+  ["DIRECT CONTACT", "Contact details"],
+  ["Local First", "Start with local information"],
+  ["Auto-reply sent ✓", "Reply draft ready"],
+  ["AI Auto-Replies", "Assisted reply drafts"],
+  ["GMB Control", "Google Business Profile"],
+  ["Website Widgets", "Website review display"],
+  ["AI Voice", "AI calling"],
+  ["Watch out", "Common mistake"],
+  ["Media87 digital growth systems", "Media87 digital marketing services"],
+  [
+    "Geo-tagged images are step one.<br>Local SEO is the system.",
+    "Geo-tagging is one small step.<br>Local SEO also needs accurate profiles, pages and content.",
+  ],
+  ["Media87 was founded by Muddaser Altaf ,", "Media87 was founded by Muddaser Altaf,"],
+  ["privacy policy .", "privacy policy."],
+  ["hello@media87.com .", "hello@media87.com."],
+  ["local visibility support .", "local visibility support."],
+  ["reviews ,", "reviews,"],
+  ["Local SEO services in Dubai .", "Local SEO services in Dubai."],
+  ["secure.It", "secure. It"],
+  ["video:You", "video: You"],
+  ["size.You", "size. You"],
+  ["hackers.They", "hackers. They"],
+  ["voice.We", "voice. We"],
+  ["scripting.Because", "scripting. Because"],
+  ["unchanged.Result", "unchanged. Result"],
+  ["assistant.Classify", "assistant. Classify"],
+  ["media87.com/ can help", "Media87 can help"],
+  [
+    "<p>https://drive.google.com/file/d/1XYt_Ub0q21v6CLvx0F_IRpz_AKDzV5e8/view?usp=sharing</p>",
+    "<p><a href=\"https://drive.google.com/file/d/1XYt_Ub0q21v6CLvx0F_IRpz_AKDzV5e8/view?usp=sharing\" rel=\"noopener noreferrer\">Download the email automation workflow →</a></p>",
+  ],
+  [
+    "<p>https://drive.google.com/file/d/1GSj9Y_GwsACvjFaAWEQ4H-T4bytgiSma/view?usp=sharing</p>",
+    "<p><a href=\"https://drive.google.com/file/d/1GSj9Y_GwsACvjFaAWEQ4H-T4bytgiSma/view?usp=sharing\" rel=\"noopener noreferrer\">Download the LinkedIn workflow →</a></p>",
+  ],
+  [
+    "Your Gmail profile photo is often the first thing people see when you land in their inbox. Whether you’re setting up a new account or finally replacing that g",
+    "Learn how to prepare a clear Gmail profile picture, upload it safely and check how it appears across Google services.",
+  ],
 ]);
 
 const routeReplacements = {
@@ -714,23 +784,176 @@ function applyMap(value, replacements) {
 function simplifyLabels(html) {
   return html
     .replace(
+      />(?:SYS|SVC|PRD|LOG|FAQ)\s*\.?\s*[A-Z0-9_-]+\s+—\s+([^<]+)</gi,
+      ">$1<",
+    )
+    .replace(
       />(?:SYS\.[A-Z0-9]+|SVC\.[A-Z0-9]+|PRD\.[A-Z0-9]+|LOG\.[A-Z0-9]+|FAQ\.[A-Z0-9]+)\s+—\s+([^<]+)</g,
       ">$1<",
     )
     .replace(
       />(?:START|NEXT|SCOPE|PORTFOLIO|BLOG|GUIDE|TOOL|WHO|WHY US|ENGAGE|DEPLOY|RANK|AUDIT|INITIATE|KIOSK MODE)\s+—\s+([^<]+)</g,
       ">$1<",
+    )
+    .replace(
+      /(<span\b[^>]*class="[^"]*\b(?:idx|q-idx)\b[^"]*"[^>]*>)\/?(?:Q\.)?0*(\d+)(<\/span>)/gi,
+      "$1$2$3",
     );
 }
 
+const articleIntroByRoute = {
+  "create-cinematic-style-personal-portfolio":
+    "Learn how to plan a personal portfolio homepage with clear content, suitable visuals and restrained motion.",
+  "digital-marketing-agency-jlt-dubai":
+    "This guide explains the main digital marketing services available to businesses in JLT, Dubai, and what to check before choosing an agency.",
+  "email-automated-replies-for-your-customer-service-or-agency":
+    "Learn how to use n8n and AI to classify incoming emails, prepare draft replies and keep a person responsible for approval and exceptions.",
+  "how-to-add-a-cinematic-profile-photo-to-your-gmail-step-by-step-guide":
+    "Follow these steps to prepare a clear profile photo and add it to your Google account for Gmail and other Google services.",
+  "how-to-make-ai-ultra-realistic-ads":
+    "Learn how to plan more realistic AI advertising images using a clear brief, approved source material and careful visual review.",
+  "how-to-automatically-read-classify-and-reply-to-emails-using-ai-step-by-step-n8n-guide":
+    "Learn how an n8n automation can classify incoming emails, prepare replies for suitable messages and route uncertain cases to a person.",
+  "local-seo-in-2026-practical-playbook-for-dubai-businesses":
+    "A practical guide to improving local visibility in Dubai through Google Business Profile, service pages, customer reviews and measurement.",
+  "local-seo-what-it-is-how-to-do-it-complete-2026-guide":
+    "Local SEO helps nearby customers find accurate information about your services, locations and ways to contact your business in Google Search and Maps.",
+  portfolio:
+    "Learn what a useful digital portfolio should show, how to organise the work and how to make the next contact step clear.",
+  "useful-prompts-for-nano-banana-part-1":
+    "A practical collection of image-editing prompts for colour, lighting and atmosphere, with reminders to review the result before use.",
+  "water-mark-remover":
+    "Learn how selection, healing, cloning and AI-assisted tools can remove a watermark from an image you own or have permission to edit. The software estimates replacement pixels; it does not recover hidden original detail.",
+  "why-chatbots-are-important-for-local-businesses-in-the-uae":
+    "Learn how a chatbot can answer common questions, collect enquiry details and transfer complex requests to staff across supported customer channels.",
+};
+
+const replacementArticleBodyByRoute = {
+  "how-to-create-ultra-realistic-human-sound-voice-with-prompting": `
+          <p>Learn how pacing, pronunciation, emotion and direction can make an AI voice sound more natural.</p>
+          <h2>Start with spoken language</h2>
+          <p>A script written for a web page often sounds stiff when read aloud. Use shorter sentences, natural contractions and one clear idea at a time. Read the script yourself before generating the voice; any line that is difficult for you to say will probably sound awkward in the final recording.</p>
+          <h2>Give useful performance direction</h2>
+          <p>Add only the cues the selected voice tool supports, such as a brief pause, a calmer tone or emphasis on an important word. Keep these directions limited. Too many pauses, emotions or capitalised words can make the result sound theatrical.</p>
+          <h2>Check names and pronunciation</h2>
+          <p>Test company names, locations, abbreviations and technical terms separately. Use the pronunciation controls available in the tool, or rewrite a difficult word phonetically when the platform allows it.</p>
+          <h2>Use a simple production process</h2>
+          <p>Prepare the script, generate a short sample, listen on headphones and a phone speaker, correct the weak lines, then generate the final version. Check pace, clarity, unwanted noise, factual accuracy and whether the tone suits the audience.</p>
+          <h2>Keep people responsible for the result</h2>
+          <p>Use only voices you have permission to use. Do not imitate a real person without consent. A person should approve the script and final recording before it is published in an advertisement, customer message or public campaign.</p>
+          <p>Media87 can help plan scripts, AI-assisted voice production, editing and review for approved marketing content.</p>
+        `,
+  "how-to-make-ai-ultra-realistic-ads": `
+          <p>Learn how to plan more realistic AI advertising images using a clear brief, approved source material and careful visual review.</p>
+          <h2>Write the advertising brief first</h2>
+          <p>Define the product, audience, message, format and action you want the viewer to take. A realistic image is useful only when it supports a clear campaign idea.</p>
+          <h2>Use source material you are allowed to use</h2>
+          <p>Choose product images, logos, locations and people that your business owns or has permission to edit. Do not place a real person in a false endorsement or misleading situation.</p>
+          <h2>Describe the scene clearly</h2>
+          <p>Specify the subject, setting, camera angle, lighting, composition, mood and empty space needed for advertising copy. Keep brand colours and required product details separate from optional visual ideas.</p>
+          <h2>Generate one controlled variation at a time</h2>
+          <p>Change one factor between versions, such as the camera angle or background. This makes it easier to identify which instruction improved the result and avoids a collection of unrelated images.</p>
+          <h2>Review the image before publishing</h2>
+          <p>Check faces, hands, products, logos, labels, reflections and background details at full size. Confirm that the image does not imply a feature, result or endorsement that the business cannot support. Add any disclosure required by the platform or local rules.</p>
+          <p>Media87 can help turn an approved campaign brief into AI-assisted concepts, edited advertising assets and platform-ready versions.</p>
+        `,
+  "how-to-save-token-cost-and-make-openclaw-secure-with-one-prompt": `
+          <p>A practical guide to reducing unnecessary token use, limiting permissions and reviewing an OpenClaw setup before use.</p>
+          <h2>Do not rely on one prompt for security</h2>
+          <p>A prompt can describe rules, but it cannot replace access controls. Limit the files, credentials, tools and network destinations the agent can reach. Use separate accounts, minimum permissions and approval for important actions.</p>
+          <h2>Keep context focused</h2>
+          <p>Send only the information required for the current task. Summarise completed work, remove repeated logs and keep durable decisions separate from temporary conversation history. Review summaries before deleting information that may be needed later.</p>
+          <h2>Choose models by task</h2>
+          <p>Use a smaller or less expensive model for narrow, low-risk work when testing shows that it meets the required quality. Use a more capable model for complex reasoning or high-impact decisions. Actual savings depend on the workload, model prices and retry rate.</p>
+          <h2>Protect secrets and sensitive data</h2>
+          <p>Store API keys in a secrets manager or protected environment setting, not in prompts, memory files or logs. Redact personal and confidential information before sending context to a model whenever possible.</p>
+          <h2>Plan for failure and recovery</h2>
+          <p>Keep versioned configuration, backups and tested recovery instructions. Record important actions and stop repeated failures automatically. Review logs for unusual access, permission changes and unexpected tool use.</p>
+          <h2>Test before granting more access</h2>
+          <p>Begin with a narrow task and read-only permissions. Test expected work, incorrect instructions and failure cases. Add new tools or write access only when the benefit is clear and a person remains responsible for the outcome.</p>
+        `,
+};
+
+function trimArticleAfterIntro(html, marker, insertion = "") {
+  const bodyStart = html.indexOf('<div class="article-body">');
+  if (bodyStart < 0) return html;
+  const introEnd = html.indexOf("</p>", bodyStart);
+  if (introEnd < 0) return html;
+  const contentStart = introEnd + 4;
+  const markerStart = html.indexOf(marker, contentStart);
+  if (markerStart < 0) return html;
+  if (html.slice(contentStart, markerStart) === insertion) return html;
+  return html.slice(0, contentStart) + insertion + html.slice(markerStart);
+}
+
 function applyRouteTransforms(html, route) {
+  if (articleIntroByRoute[route]) {
+    html = html.replace(
+      /(<div class="article-body">\s*)<p>[\s\S]*?<\/p>/,
+      `$1<p>${articleIntroByRoute[route]}</p>`,
+    );
+  }
+  if (replacementArticleBodyByRoute[route]) {
+    const bodyStartTag = '<div class="article-body">';
+    const bodyStart = html.indexOf(bodyStartTag);
+    const contentStart = bodyStart + bodyStartTag.length;
+    const trustBoxStart = html.indexOf(
+      '<aside class="article-trust-box">',
+      contentStart,
+    );
+    const replacement =
+      replacementArticleBodyByRoute[route].trimEnd() + "\n          ";
+    if (
+      bodyStart >= 0 &&
+      trustBoxStart > contentStart &&
+      html.slice(contentStart, trustBoxStart) !== replacement
+    ) {
+      html =
+        html.slice(0, contentStart) +
+        replacement +
+        html.slice(trustBoxStart);
+    }
+  }
+  if (route === "email-automated-replies-for-your-customer-service-or-agency") {
+    html = trimArticleAfterIntro(
+      html,
+      "<h2>This n8n workflow turns your inbox into a smart assistant:</h2>",
+    );
+  }
+  if (
+    route ===
+    "how-to-add-a-cinematic-profile-photo-to-your-gmail-step-by-step-guide"
+  ) {
+    html = trimArticleAfterIntro(
+      html,
+      "<p>The word “cinematic” should describe",
+    );
+  }
+  if (route === "how-to-make-linkedin-post-assistant-with-n8n") {
+    html = trimArticleAfterIntro(
+      html,
+      "<p>A LinkedIn post assistant is more useful",
+      '<p><a href="https://drive.google.com/file/d/1GSj9Y_GwsACvjFaAWEQ4H-T4bytgiSma/view?usp=sharing" rel="noopener noreferrer">Download the LinkedIn workflow →</a></p>',
+    );
+  }
+  if (
+    route ===
+    "how-to-automatically-read-classify-and-reply-to-emails-using-ai-step-by-step-n8n-guide"
+  ) {
+    html = trimArticleAfterIntro(
+      html,
+      "<p>Before connecting an AI email workflow to a live inbox",
+    );
+  }
   if (route === "whatsapp-automation-for-restaurants-complete-2025-guide") {
-    return html.replace(
+    html = html.replace(
       /<p>Learn how restaurants can use WhatsApp automation for common questions, booking requests, order updates and transfer to staff when needed\.[\s\S]*?(?=<p>For restaurants, the biggest automation wins usually happen before and after the dining experience\.)/,
       "<p>WhatsApp automation can answer common questions, collect booking requests, send order updates and transfer unusual or sensitive cases to staff.</p>",
     );
   }
-  return html;
+  return html
+    .replace(/<\/a>\s+\./g, "</a>.")
+    .replace(/Altaf\s*<\/a>\s*,/g, "Altaf</a>,");
 }
 
 function listHtmlFiles(directory) {
