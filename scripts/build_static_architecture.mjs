@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260727-release4";
+const assetVersion = "20260727-release5";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -550,18 +550,24 @@ ${header()}
       <p class="lead reveal d2">Share the outcome, the current situation and the handoff causing the most friction. Media87 can then recommend the smallest useful next step.</p>
     </div>
     <div class="wrap contact-grid">
-      <form class="contact-form reveal" action="mailto:hello@media87.com" method="post" enctype="text/plain">
+      <form class="contact-form reveal" id="contact-form" action="/api/contact" method="post">
         <div class="form-heading">
           <span>PROJECT BRIEF</span><strong>A few useful details</strong>
-          <p>Complete the brief below and your email app will open a ready-to-send enquiry addressed to Media87.</p>
+          <p>Send the brief directly to Media87. Required fields are checked before delivery.</p>
         </div>
+        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
+        <input name="page" type="hidden" value="/contact-us/">
+        <input name="form_started_at" type="hidden" value="">
         <div class="field-row">
           <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
           <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
         </div>
         <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
-        <label><span>What would you like to improve?</span><textarea name="message" rows="6" required></textarea></label>
-        <button class="btn btn-accent" type="submit">Open email to send →</button>
+        <label><span>What would you like to improve?</span><textarea name="message" rows="6" minlength="20" maxlength="4000" required></textarea></label>
+        <p class="form-privacy">Your details are used only to respond to this enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+        <button class="btn btn-accent" type="submit">Send enquiry →</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <noscript><p class="form-noscript">JavaScript is off. The form will still submit securely, or you can email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
       </form>
       <aside class="contact-panel reveal d2 hud">
         <span class="tag">DIRECT CONTACT</span>
@@ -1569,6 +1575,18 @@ Sitemap: ${siteUrl}/sitemap.xml
 `,
   );
   fs.writeFileSync(
+    path.join(architectureDir, "_routes.json"),
+    `${JSON.stringify(
+      {
+        version: 1,
+        include: ["/api/contact"],
+        exclude: [],
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  fs.writeFileSync(
     path.join(architectureDir, "ads.txt"),
     `google.com, pub-6396157876082473, DIRECT, f08c47fec0942fa0200
 `,
@@ -1639,7 +1657,7 @@ for (const page of recoveredRootPages) {
       )
       .replace(
         "Name relevant processor categories, safeguards and retention logic without promising absolute security. Data should be kept only for an approved purpose and period.",
-        "Processors may include Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 should retain submitted enquiry and measurement data only for an approved purpose and period and should not promise absolute security.",
+        "Processors may include Cloudflare for website hosting, form delivery and email routing, Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 retains enquiry and measurement data only for a relevant business, legal or security purpose and does not promise absolute security.",
       )
       .replace(
         "The final policy should explain applicable access, correction, deletion, objection or complaint routes and identify the responsible contact.",

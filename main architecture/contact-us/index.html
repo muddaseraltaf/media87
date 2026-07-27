@@ -27,8 +27,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260727-release4">
-<script src="/assets/site-tags.js?v=20260727-release4" defer></script>
+<link rel="stylesheet" href="/assets/style.css?v=20260727-release5">
+<script src="/assets/site-tags.js?v=20260727-release5" defer></script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ContactPage","@id":"https://media87.com/contact-us/#webpage","url":"https://media87.com/contact-us/","name":"Contact Media87","description":"Contact Media87 about local SEO, paid media, content, AI conversations, reputation workflows or a connected digital project.","inLanguage":"en","isPartOf":{"@id":"https://media87.com/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://media87.com/assets/og/media87-social-card.jpg"}}]}</script>
 </head>
@@ -67,18 +67,24 @@
       <p class="lead reveal d2">Share the outcome, the current situation and the handoff causing the most friction. Media87 can then recommend the smallest useful next step.</p>
     </div>
     <div class="wrap contact-grid">
-      <form class="contact-form reveal" action="mailto:hello@media87.com" method="post" enctype="text/plain">
+      <form class="contact-form reveal" id="contact-form" action="/api/contact" method="post">
         <div class="form-heading">
           <span>PROJECT BRIEF</span><strong>A few useful details</strong>
-          <p>Complete the brief below and your email app will open a ready-to-send enquiry addressed to Media87.</p>
+          <p>Send the brief directly to Media87. Required fields are checked before delivery.</p>
         </div>
+        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
+        <input name="page" type="hidden" value="/contact-us/">
+        <input name="form_started_at" type="hidden" value="">
         <div class="field-row">
           <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
           <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
         </div>
         <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
-        <label><span>What would you like to improve?</span><textarea name="message" rows="6" required></textarea></label>
-        <button class="btn btn-accent" type="submit">Open email to send →</button>
+        <label><span>What would you like to improve?</span><textarea name="message" rows="6" minlength="20" maxlength="4000" required></textarea></label>
+        <p class="form-privacy">Your details are used only to respond to this enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+        <button class="btn btn-accent" type="submit">Send enquiry →</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <noscript><p class="form-noscript">JavaScript is off. The form will still submit securely, or you can email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
       </form>
       <aside class="contact-panel reveal d2 hud">
         <span class="tag">DIRECT CONTACT</span>
@@ -156,6 +162,6 @@
     </div>
   </div>
 </footer>
-<script src="/assets/main.js?v=20260727-release4"></script>
+<script src="/assets/main.js?v=20260727-release5"></script>
 </body>
 </html>

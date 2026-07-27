@@ -64,6 +64,7 @@ for (const requiredFile of [
   "robots.txt",
   "sitemap.xml",
   "_redirects",
+  "_routes.json",
   "_headers",
   "ads.txt",
   "assets/site-tags.js",
@@ -312,11 +313,61 @@ const mainScriptPath = path.join(architectureDir, "assets/main.js");
 if (fs.existsSync(mainScriptPath)) {
   const mainScript = fs.readFileSync(mainScriptPath, "utf8");
   if (
-    !/contact-form\[action\^="mailto:"\]/.test(mainScript) ||
-    !/Media87 enquiry from/.test(mainScript) ||
-    !/encodeURIComponent\(body\)/.test(mainScript)
+    !/contact-form\[action="\/api\/contact"\]/.test(mainScript) ||
+    !/fetch\(contactForm\.action/.test(mainScript) ||
+    !/contact_form_submit_success/.test(mainScript)
   ) {
-    errors.push("Contact email fallback is missing or incomplete");
+    errors.push("Contact form submission flow is missing or incomplete");
+  }
+}
+
+const contactPath = path.join(architectureDir, "contact-us/index.html");
+if (fs.existsSync(contactPath)) {
+  const contactHtml = fs.readFileSync(contactPath, "utf8");
+  for (const [label, pattern] of [
+    ["API form action", /<form[^>]+action="\/api\/contact"[^>]+method="post"/i],
+    ["honeypot", /\bname="company"/i],
+    ["status announcement", /\brole="status"[^>]+\baria-live="polite"/i],
+    ["privacy link", /href="\/privacy-policy\/"/i],
+    ["email fallback", /href="mailto:hello@media87\.com"/i],
+  ]) {
+    if (!pattern.test(contactHtml)) errors.push(`/contact-us/: missing ${label}`);
+  }
+}
+
+const routesPath = path.join(architectureDir, "_routes.json");
+if (fs.existsSync(routesPath)) {
+  try {
+    const routes = JSON.parse(fs.readFileSync(routesPath, "utf8"));
+    if (
+      JSON.stringify(routes.include) !== JSON.stringify(["/api/contact"]) ||
+      !Array.isArray(routes.exclude)
+    ) {
+      errors.push("_routes.json does not isolate the contact API route");
+    }
+  } catch {
+    errors.push("_routes.json is not valid JSON");
+  }
+}
+
+const contactFunctionPath = path.resolve(
+  architectureDir,
+  "../functions/api/contact.js",
+);
+if (!fs.existsSync(contactFunctionPath)) {
+  errors.push("Cloudflare contact function is missing");
+} else {
+  const contactFunction = fs.readFileSync(contactFunctionPath, "utf8");
+  for (const [label, pattern] of [
+    ["server-side validation", /validateFields/],
+    ["email binding", /env\.EMAIL\.send/],
+    ["verified recipient setting", /env\.CONTACT_RECIPIENT/],
+    ["honeypot handling", /payload\.company/],
+    ["optional Turnstile verification", /env\.TURNSTILE_SECRET/],
+  ]) {
+    if (!pattern.test(contactFunction)) {
+      errors.push(`Cloudflare contact function is missing ${label}`);
+    }
   }
 }
 

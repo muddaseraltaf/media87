@@ -53,27 +53,74 @@
       document.querySelectorAll('.nav-drop.open').forEach(d => d.classList.remove('open'));
   });
 
-  /* ---------- contact email fallback ---------- */
-  const contactForm = document.querySelector('.contact-form[action^="mailto:"]');
+  /* ---------- contact form ---------- */
+  const contactForm = document.querySelector('.contact-form[action="/api/contact"]');
   if (contactForm) {
-    contactForm.addEventListener('submit', e => {
+    const submitButton = contactForm.querySelector('[type="submit"]');
+    const status = contactForm.querySelector('.form-status');
+    const startedAt = contactForm.querySelector('[name="form_started_at"]');
+    const pageField = contactForm.querySelector('[name="page"]');
+
+    const setStatus = (message, state, showEmail = false) => {
+      status.replaceChildren();
+      status.dataset.state = state;
+      status.append(document.createTextNode(message));
+      if (showEmail) {
+        status.append(document.createTextNode(' '));
+        const emailLink = document.createElement('a');
+        emailLink.href = 'mailto:hello@media87.com';
+        emailLink.textContent = 'Email Media87 instead.';
+        status.append(emailLink);
+      }
+    };
+
+    startedAt.value = String(Date.now());
+    pageField.value = location.href;
+
+    if (new URLSearchParams(location.search).get('sent') === '1') {
+      setStatus('Thank you. Your enquiry has been sent to Media87.', 'success');
+    }
+
+    contactForm.addEventListener('submit', async e => {
       e.preventDefault();
       if (!contactForm.reportValidity()) return;
-      const data = new FormData(contactForm);
-      const name = String(data.get('name') || '').trim();
-      const email = String(data.get('email') || '').trim();
-      const phone = String(data.get('phone') || '').trim();
-      const message = String(data.get('message') || '').trim();
-      const subject = `Media87 enquiry from ${name}`;
-      const body = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Phone: ${phone || 'Not provided'}`,
-        '',
-        'What I would like to improve:',
-        message,
-      ].join('\n');
-      window.location.href = `mailto:hello@media87.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      submitButton.textContent = 'Sending…';
+      setStatus('Sending your enquiry securely…', 'sending');
+
+      try {
+        pageField.value = location.href;
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { Accept: 'application/json' },
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) {
+          throw new Error(
+            result.message ||
+            'We could not send the enquiry right now. Please try again or use email.',
+          );
+        }
+        contactForm.reset();
+        startedAt.value = String(Date.now());
+        pageField.value = location.href;
+        setStatus(result.message, 'success');
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'contact_form_submit_success' });
+      } catch (error) {
+        setStatus(
+          error.message ||
+          'We could not send the enquiry right now. Please try again or use email.',
+          'error',
+          true,
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+        submitButton.textContent = 'Send enquiry →';
+      }
     });
   }
 

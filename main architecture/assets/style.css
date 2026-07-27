@@ -784,6 +784,13 @@ footer{background:var(--ink);color:#fff;padding:76px 0 36px;border-top:1px solid
 .contact-form textarea{resize:vertical}
 .contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--accent);border-color:transparent}
 .contact-panel{background:var(--ink);color:#fff}
+.form-privacy,.form-noscript{margin:0 0 16px;color:var(--muted);font-size:12px;line-height:1.55}
+.form-privacy a,.form-noscript a,.form-status a{color:var(--accent-ink);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.form-status{min-height:22px;margin-top:14px;font-size:13px;font-weight:650;line-height:1.55}
+.form-status[data-state="sending"]{color:var(--muted)}
+.form-status[data-state="success"]{color:#315314}
+.form-status[data-state="error"]{color:#9f2f1f}
+.contact-form button[disabled]{cursor:wait;opacity:.68}
 .contact-panel h2{font-family:var(--display);font-size:32px;line-height:1.05;margin:24px 0}
 .contact-panel>p{color:rgba(255,255,255,.58);font-size:13.5px;line-height:1.65;margin:26px 0}
 .contact-links{display:grid}

@@ -19,6 +19,7 @@ for (const requiredFile of [
   "404.html",
   "_headers",
   "_redirects",
+  "_routes.json",
   "robots.txt",
   "sitemap.xml",
   "ads.txt",
@@ -48,4 +49,3 @@ function countFiles(dir) {
   }
   return count;
 }
-
