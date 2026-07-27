@@ -64,8 +64,12 @@ export async function onRequestPost(context) {
     }
   }
 
-  if (!env.EMAIL?.send || !env.CONTACT_RECIPIENT) {
-    console.error("Media87 contact form is missing EMAIL or CONTACT_RECIPIENT configuration");
+  if (
+    !env.CLOUDFLARE_ACCOUNT_ID ||
+    !env.CLOUDFLARE_EMAIL_API_TOKEN ||
+    !env.CONTACT_RECIPIENT
+  ) {
+    console.error("Media87 contact form is missing Cloudflare email configuration");
     return respond(
       {
         ok: false,
@@ -102,14 +106,29 @@ export async function onRequestPost(context) {
   `;
 
   try {
-    await env.EMAIL.send({
-      to: recipient,
-      from: { email: sender, name: "Media87 Website" },
-      replyTo: { email, name },
-      subject,
-      text,
-      html,
-    });
+    const emailResponse = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID)}/email/sending/send`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${env.CLOUDFLARE_EMAIL_API_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: recipient,
+          from: { address: sender, name: "Media87 Website" },
+          reply_to: { address: email, name },
+          subject,
+          text,
+          html,
+        }),
+      },
+    );
+    const emailResult = await emailResponse.json().catch(() => ({}));
+    if (!emailResponse.ok || !emailResult.success) {
+      const code = emailResult.errors?.[0]?.code || emailResponse.status;
+      throw new Error(`Cloudflare Email Service error ${code}`);
+    }
   } catch (error) {
     console.error("Media87 contact email delivery failed", error?.code || error?.name || "unknown");
     return respond(

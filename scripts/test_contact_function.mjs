@@ -1,15 +1,28 @@
 import { onRequestGet, onRequestPost } from "../functions/api/contact.js";
 
-const sent = [];
+const emailRequests = [];
+const originalFetch = globalThis.fetch;
 const env = {
+  CLOUDFLARE_ACCOUNT_ID: "test-account",
+  CLOUDFLARE_EMAIL_API_TOKEN: "test-token",
   CONTACT_RECIPIENT: "verified@example.com",
   CONTACT_FROM: "website@media87.com",
-  EMAIL: {
-    async send(message) {
-      sent.push(message);
-      return { messageId: "test-message" };
-    },
-  },
+};
+
+globalThis.fetch = async (url, options = {}) => {
+  if (String(url).includes("/email/sending/send")) {
+    emailRequests.push({
+      url: String(url),
+      headers: options.headers,
+      body: JSON.parse(options.body),
+    });
+    return Response.json({
+      success: true,
+      errors: [],
+      result: { delivered: ["verified@example.com"] },
+    });
+  }
+  return originalFetch(url, options);
 };
 
 const invalid = await submit({
@@ -18,7 +31,7 @@ const invalid = await submit({
   message: "Too short",
 });
 assert(invalid.status === 422, "Invalid fields must be rejected");
-assert(sent.length === 0, "Invalid fields must not send email");
+assert(emailRequests.length === 0, "Invalid fields must not send email");
 
 const honeypot = await submit({
   name: "Automated Sender",
@@ -27,7 +40,7 @@ const honeypot = await submit({
   company: "Spam Company",
 });
 assert(honeypot.status === 200, "Honeypot submission should receive a quiet success");
-assert(sent.length === 0, "Honeypot submission must not send email");
+assert(emailRequests.length === 0, "Honeypot submission must not send email");
 
 const valid = await submit({
   name: "Media87 Test",
@@ -39,9 +52,23 @@ const valid = await submit({
 });
 const validPayload = await valid.json();
 assert(valid.status === 200 && validPayload.ok, "Valid submission must succeed");
-assert(sent.length === 1, "Valid submission must send exactly one email");
-assert(sent[0].to === "verified@example.com", "Email must use the configured recipient");
-assert(sent[0].replyTo.email === "visitor@example.com", "Reply-To must use the visitor email");
+assert(emailRequests.length === 1, "Valid submission must send exactly one email");
+assert(
+  emailRequests[0].url.includes("/accounts/test-account/email/sending/send"),
+  "Email request must use the configured Cloudflare account",
+);
+assert(
+  emailRequests[0].headers.Authorization === "Bearer test-token",
+  "Email request must use the configured API token",
+);
+assert(
+  emailRequests[0].body.to === "verified@example.com",
+  "Email must use the configured recipient",
+);
+assert(
+  emailRequests[0].body.reply_to.address === "visitor@example.com",
+  "Reply-To must use the visitor email",
+);
 assert(!JSON.stringify(validPayload).includes("visitor@example.com"), "Response must not expose personal data");
 
 const wrongOrigin = await submit(
@@ -62,12 +89,14 @@ console.log(
     {
       status: "passed",
       tests: 5,
-      emailsSent: sent.length,
+      emailsSent: emailRequests.length,
     },
     null,
     2,
   ),
 );
+
+globalThis.fetch = originalFetch;
 
 async function submit(fields, origin = "https://media87.com") {
   const data = new FormData();

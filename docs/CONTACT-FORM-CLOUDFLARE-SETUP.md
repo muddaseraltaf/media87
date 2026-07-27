@@ -24,8 +24,8 @@ email to verified destination addresses free of charge. The form also includes:
 ## One-time Cloudflare configuration
 
 The code can be deployed before these settings are added, but the endpoint will
-return a friendly “temporarily unavailable” message until both the email binding
-and recipient variable exist.
+return a friendly “temporarily unavailable” message until the Email Service API
+settings and recipient variable exist.
 
 ### 1. Verify the receiving inbox
 
@@ -47,24 +47,34 @@ Use the actual destination mailbox here. It can be different from the public
 The form sends from `website@media87.com` by default and uses the visitor’s
 address only as `Reply-To`.
 
-### 3. Add the Pages email binding
+### 3. Create a restricted Email Sending API token
 
-1. Open **Workers & Pages → media87 → Settings → Bindings**.
-2. Add an **Email sending** binding.
-3. Set the variable name to `EMAIL`.
-4. Restrict the destination to the verified mailbox from step 1.
-5. Save it for **Production**.
+1. Open your Cloudflare profile and choose **API Tokens**.
+2. Select **Create Custom Token**.
+3. Add the permission **Account → Email Sending → Edit**.
+4. Restrict the account resource to the Cloudflare account that owns `media87.com`.
+5. Create the token and copy it immediately. Cloudflare only displays it once.
 
-### 4. Add the production variables
+Do not place this token in the repository or in browser-side JavaScript. The
+Pages Function reads it only on Cloudflare's server.
+
+### 4. Add the production variables and secret
 
 In **Workers & Pages → media87 → Settings → Variables and secrets**, add:
 
+- `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID that owns `media87.com`.
+- `CLOUDFLARE_EMAIL_API_TOKEN`: the token from step 3. Save this one as an
+  encrypted secret.
 - `CONTACT_RECIPIENT`: the verified destination mailbox from step 1.
 - `CONTACT_FROM`: `website@media87.com`.
 
-Neither value is a password. The email binding itself controls delivery.
+The Pages Function calls Cloudflare Email Service directly. None of these values
+are sent to the visitor's browser.
 
-### 5. Optional stronger bot protection
+### 5. Redeploy and optionally add stronger bot protection
+
+Trigger a new production deployment after saving the settings so the Function
+receives them.
 
 The endpoint already supports a `TURNSTILE_SECRET` secret. Do not add it until
 a matching Turnstile widget and public site key have been added to the contact
@@ -73,7 +83,7 @@ exists.
 
 ## Verification
 
-After the binding and variables are saved:
+After the variables are saved and the project is redeployed:
 
 1. Submit one enquiry from the deployed contact page.
 2. Confirm the page shows the success message.
@@ -97,7 +107,7 @@ for the account.
 
 - https://developers.cloudflare.com/pages/functions/
 - https://developers.cloudflare.com/pages/functions/pricing/
-- https://developers.cloudflare.com/email-service/api/send-emails/workers-api/
-- https://developers.cloudflare.com/email-service/configuration/send-bindings/
+- https://developers.cloudflare.com/email-service/get-started/send-emails/
+- https://developers.cloudflare.com/api/resources/email_sending/methods/send/
 - https://developers.cloudflare.com/email-service/configuration/email-routing-addresses/
 - https://developers.cloudflare.com/turnstile/get-started/server-side-validation/

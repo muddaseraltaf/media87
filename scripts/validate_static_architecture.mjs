@@ -360,7 +360,9 @@ if (!fs.existsSync(contactFunctionPath)) {
   const contactFunction = fs.readFileSync(contactFunctionPath, "utf8");
   for (const [label, pattern] of [
     ["server-side validation", /validateFields/],
-    ["email binding", /env\.EMAIL\.send/],
+    ["Cloudflare Email Service REST endpoint", /api\.cloudflare\.com\/client\/v4\/accounts/],
+    ["Cloudflare account setting", /env\.CLOUDFLARE_ACCOUNT_ID/],
+    ["Cloudflare email API token", /env\.CLOUDFLARE_EMAIL_API_TOKEN/],
     ["verified recipient setting", /env\.CONTACT_RECIPIENT/],
     ["honeypot handling", /payload\.company/],
     ["optional Turnstile verification", /env\.TURNSTILE_SECRET/],
