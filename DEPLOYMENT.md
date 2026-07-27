@@ -12,11 +12,13 @@ Use the Git integration with these settings:
 
 - Framework preset: None
 - Production branch: `main`
-- Root directory: `main architecture`
-- Build command: `exit 0`
-- Build output directory: `.`
+- Root directory: leave blank
+- Build command: `npm run build`
+- Build output directory: `dist`
 
-The root directory already contains the deployable static HTML, assets, redirects, headers, robots file, XML sitemap, `ads.txt`, and custom 404 page.
+The build validates `main architecture` and copies the approved static HTML,
+assets, redirects, headers, robots file, XML sitemap, `ads.txt`, and custom 404
+page into a clean top-level `dist` directory.
 
 ## Production checks
 
@@ -36,4 +38,3 @@ After the first Pages deployment:
 - Verify the Search Console Domain property through Cloudflare DNS.
 - Confirm the Google tag destination and Meta Pixel access in their respective accounts.
 - Replace the current email-client contact form with an approved server-side form endpoint when available.
-
