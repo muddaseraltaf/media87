@@ -977,10 +977,6 @@ function improveExisting(route, input) {
         '<div><span class="dot v"></span><span><b>Founder-led direction</b><small>hands-on strategy</small></span></div>',
       )
       .replace(
-        /<!-- ============ CLIENTS ============ -->[\s\S]*?<!-- ============ SERVICES ============ -->/,
-        `<!-- ============ SERVICES ============ -->`,
-      )
-      .replace(
         /<!-- ============ STATS ============ -->[\s\S]*?<!-- ============ WHY US ============ -->/,
         `${evidenceSafeStats("A practical growth system", [
           ["01", "Discovery and scope"],
