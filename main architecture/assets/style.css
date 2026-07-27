@@ -50,6 +50,7 @@ section{position:relative;padding:112px 0;scroll-margin-top:96px}
   margin-bottom:22px;
 }
 .tag::before{content:"";width:8px;height:8px;background:var(--accent-ink)}
+.tag.tag-plain::before{display:none}
 .tag.violet{color:var(--violet)}
 .tag.violet::before{background:var(--violet)}
 .tag.on-dark{color:var(--accent)}
