@@ -799,12 +799,16 @@ function articlePage(post) {
     .slice(0, 3);
   const words = stripHtml(post.content?.rendered).split(/\s+/).filter(Boolean).length;
   const readingTime = Math.max(3, Math.ceil(words / 220));
-  return `${head({
+  const articleHead = head({
     title,
     description,
     slug: post.slug,
     noindex: !approvedIndexableArticleSlugs.has(post.slug),
-  })}
+  }).replace(
+    "</head>",
+    '<link rel="stylesheet" href="/assets/article-layout.css?v=20260728-article1">\n</head>',
+  );
+  return `${articleHead}
 <body class="content-page article-page">
 <div id="progress"></div>
 ${header()}

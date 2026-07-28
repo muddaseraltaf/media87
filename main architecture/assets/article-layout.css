@@ -1,0 +1,86 @@
+/* Article-only layout: keep guidance visible without sacrificing reading width. */
+.article-page .article-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  width: min(100%, 1080px);
+  margin-inline: auto;
+}
+
+.article-page .article-rail {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(170px, 220px) minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 34px;
+  row-gap: 3px;
+  width: min(100%, 940px);
+  margin-inline: auto;
+  padding: 22px 26px;
+  align-items: center;
+  box-shadow: 0 10px 32px rgba(10, 12, 9, .045);
+}
+
+.article-page .article-rail > span {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.article-page .article-rail > strong {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 6px 0 0;
+}
+
+.article-page .article-rail > p {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  margin: 0;
+  max-width: 610px;
+}
+
+.article-page .article-rail > a {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.article-page .article-body {
+  width: min(100%, 840px);
+  margin-inline: auto;
+}
+
+.article-page .article-toc {
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  .article-page .article-layout {
+    gap: 28px;
+  }
+
+  .article-page .article-rail {
+    display: block;
+    width: 100%;
+    padding: 21px;
+  }
+
+  .article-page .article-rail > strong {
+    margin: 9px 0;
+  }
+
+  .article-page .article-rail > p {
+    margin: 0;
+  }
+
+  .article-page .article-rail > a {
+    display: inline-block;
+    margin-top: 12px;
+    white-space: normal;
+  }
+
+  .article-page .article-toc h2 {
+    font-size: 26px;
+  }
+}
