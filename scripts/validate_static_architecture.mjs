@@ -237,6 +237,7 @@ for (const file of htmlFiles) {
 
   if (
     !/<meta\s+name="robots"\s+content="noindex,follow"/i.test(html) &&
+    route !== "/localzen/" &&
     /(?:5\.0 client|1\.5M followers|combined following of 1\.5 million|ROAS 4\.8|270% conversion|100\+ campaigns|100\+ local businesses|100\+ successful|position 1|4\.9★|trusted by thousands|join thousands|\$49|\$249|Sarah M\.|Ahmed K\.)/i.test(
       html,
     )
@@ -379,6 +380,12 @@ if (fs.existsSync(mainScriptPath)) {
   ) {
     errors.push("Contact form submission flow is missing or incomplete");
   }
+  if (
+    !/stripe-buy-button/.test(mainScript) ||
+    !/https:\/\/js\.stripe\.com\/v3\/buy-button\.js/.test(mainScript)
+  ) {
+    errors.push("LocalZen Stripe checkout loader is missing");
+  }
 }
 
 const contactPath = path.join(architectureDir, "contact-us/index.html");
@@ -400,11 +407,15 @@ if (fs.existsSync(localzenPath)) {
   const localzenHtml = fs.readFileSync(localzenPath, "utf8");
   for (const [label, pattern] of [
     ["page-specific stylesheet", /href="\/assets\/localzen\.css\?v=[^"]+"/i],
+    ["LocalZen interaction bundle", /src="\/assets\/main\.js\?v=20260728-localzen2"/i],
     ["product tour", /player\.vimeo\.com\/video\/1135612271/i],
     ["demo form", /<form[^>]+action="\/api\/contact"[^>]+method="post"/i],
     ["demo form status", /\brole="status"[^>]+\baria-live="polite"/i],
     ["honest-feedback safeguard", /not review gating/i],
     ["AI visibility limitation", /does not guarantee a position/i],
+    ["Stripe purchase component", /buy-button-id="buy_btn_1T4aZbAMjPY69v29hGKZOOZK"/i],
+    ["verified monthly prices", /\$49[\s\S]*?\$249/i],
+    ["post-purchase access guidance", /login and onboarding details are sent to the email used at checkout/i],
     ["LocalZen software schema", /"@type":\s*"SoftwareApplication"[\s\S]*?"name":\s*"LocalZen"/i],
   ]) {
     if (!pattern.test(localzenHtml)) errors.push(`/localzen/: missing ${label}`);

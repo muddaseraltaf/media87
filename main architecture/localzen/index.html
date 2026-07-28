@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" href="/assets/logo.png">
 <link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css?v=20260728-performance2">
-<link rel="stylesheet" href="/assets/localzen.css?v=20260728-localzen1">
+<link rel="stylesheet" href="/assets/localzen.css?v=20260728-localzen2">
 <script src="/assets/site-tags.js?v=20260728-performance2" defer></script>
 <script type="application/ld+json">
 {
@@ -58,6 +58,24 @@
       "url": "https://media87.com/localzen/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "LocalZen AI Plan",
+          "price": "49",
+          "priceCurrency": "USD",
+          "url": "https://media87.com/localzen/#plans",
+          "description": "Monthly self-managed LocalZen subscription for one location."
+        },
+        {
+          "@type": "Offer",
+          "name": "LocalZen Managed Plan",
+          "price": "249",
+          "priceCurrency": "USD",
+          "url": "https://media87.com/localzen/#plans",
+          "description": "Monthly LocalZen subscription with Media87 management support."
+        }
+      ],
       "publisher": {"@id": "https://media87.com/#organization"},
       "mainEntityOfPage": {"@id": "https://media87.com/localzen/#webpage"}
     },
@@ -98,7 +116,12 @@
         {
           "@type": "Question",
           "name": "How much does LocalZen cost?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Pricing depends on the number of locations, messaging channels, request volume, integrations and whether you want a self-managed or managed service. Media87 confirms the relevant plan after the demo."}
+          "acceptedAnswer": {"@type": "Answer", "text": "The self-managed LocalZen AI Plan is $49 per month for one location. The Managed Plan is $249 per month and includes Media87 management support. Additional locations, messaging usage and custom integrations may require a different scope."}
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after I subscribe through Stripe?",
+          "acceptedAnswer": {"@type": "Answer", "text": "After a successful AI Plan payment, the existing onboarding automation sends login and setup details to the email address used at Stripe checkout."}
         }
       ]
     }
@@ -374,27 +397,50 @@
   <section class="lz-options" id="plans">
     <div class="wrap">
       <div class="center lz-section-heading">
-        <span class="tag violet reveal">Choose the level of support</span>
-        <h2 class="h2" data-split>Use LocalZen yourself or let Media87 help manage it.</h2>
-        <p class="lead reveal d2">The right plan depends on your locations, request channels, integrations and how much day-to-day support you want.</p>
+        <span class="tag violet reveal">LocalZen pricing</span>
+        <h2 class="h2" data-split>Choose self-managed software or hands-on support.</h2>
+        <p class="lead reveal d2">Start the AI Plan securely through Stripe, or choose the Managed Plan when you want Media87 to help run and improve the workflow.</p>
       </div>
       <div class="lz-option-grid">
         <article class="lz-option reveal">
-          <span class="tag tag-plain">Self-managed</span>
-          <h3>Your team runs the platform.</h3>
-          <p>Suitable when you have someone available to manage requests, approve replies and review reports.</p>
-          <ul class="lz-checks"><li>Platform access</li><li>Configured review workflows</li><li>AI-assisted tools</li><li>Reporting and widgets</li></ul>
-          <a class="btn btn-ghost" href="#localzen-demo-form">Discuss self-managed setup</a>
+          <span class="tag tag-plain">AI Plan · Self-managed</span>
+          <div class="lz-price"><b>$49</b><span>USD / month</span></div>
+          <p>For one location with a team member available to manage requests, approve replies and review reports.</p>
+          <ul class="lz-checks">
+            <li>50 SMS review requests per month</li>
+            <li>100 email review requests per month</li>
+            <li>Review collection and management</li>
+            <li>Google Business Profile tools</li>
+            <li>AI-assisted workflows and automations</li>
+            <li>Website review widgets</li>
+            <li>One business location</li>
+          </ul>
+          <div class="lz-stripe-wrap" aria-label="Subscribe to the LocalZen AI Plan through Stripe">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1T4aZbAMjPY69v29hGKZOOZK"
+              publishable-key="pk_live_51LLTmtAMjPY69v29fMQ54iPKP7FJdpbRN2xziCtXNSsEFkOcrs6lIG0GEOZmyRPsWiPDnxabzl51RkjpdnDZaQni00y27aWJ9m">
+            </stripe-buy-button>
+            <noscript><a class="btn btn-ghost" href="#localzen-demo-form">Contact Media87 to subscribe</a></noscript>
+          </div>
+          <p class="lz-checkout-note">Secure checkout by Stripe. After successful payment, login and onboarding details are sent to the email used at checkout.</p>
         </article>
         <article class="lz-option lz-option-featured reveal d1">
-          <span class="tag on-dark tag-plain">Managed with Media87</span>
-          <h3>We help run the workflow with you.</h3>
-          <p>Suitable when you want practical support with setup, monitoring, content and ongoing improvements.</p>
-          <ul class="lz-checks"><li>Everything in the selected platform plan</li><li>Agreed monitoring and response support</li><li>Content and visibility guidance</li><li>Regular review of priorities</li></ul>
-          <a class="btn btn-accent" href="#localzen-demo-form">Discuss managed LocalZen</a>
+          <span class="tag on-dark tag-plain">Managed Plan</span>
+          <div class="lz-price"><b>$249</b><span>USD / month</span></div>
+          <p>For businesses that want Media87 to help manage the account, workflows and Google Business Profile activity.</p>
+          <ul class="lz-checks">
+            <li>Everything in the AI Plan</li>
+            <li>LocalZen account management</li>
+            <li>Workflow monitoring and updates</li>
+            <li>Account optimisation</li>
+            <li>Google Business Profile optimisation</li>
+            <li>Regular review of priorities</li>
+          </ul>
+          <a class="btn btn-accent" href="#localzen-demo-form">Start with a managed-plan call</a>
+          <p class="lz-checkout-note">We confirm responsibilities, access and any additional location or messaging costs before the managed subscription begins.</p>
         </article>
       </div>
-      <p class="lz-plan-note">Plan details and costs are confirmed after the demo—before any paid work begins.</p>
+      <p class="lz-plan-note">Subscriptions renew monthly. Additional locations, messaging usage and custom integrations are scoped separately when required.</p>
     </div>
   </section>
 
@@ -435,7 +481,11 @@
         </div>
         <div class="faq-item reveal">
           <button class="faq-q" type="button"><span class="q-idx">8</span><span>How much does LocalZen cost?</span><span aria-hidden="true">+</span></button>
-          <div class="faq-a"><p>Pricing depends on locations, messaging channels, request volume, integrations and whether you want a self-managed or managed service. We confirm the relevant plan after the demo.</p></div>
+          <div class="faq-a"><p>The self-managed LocalZen AI Plan is $49 per month for one location. The Managed Plan is $249 per month and includes Media87 management support. Additional locations, messaging usage and custom integrations may require a different scope.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button"><span class="q-idx">9</span><span>What happens after I subscribe through Stripe?</span><span aria-hidden="true">+</span></button>
+          <div class="faq-a"><p>After a successful AI Plan payment, the existing onboarding automation sends login and setup details to the email address used at Stripe checkout. If the email does not arrive, check the spam folder or contact <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></div>
         </div>
       </div>
     </div>
@@ -545,6 +595,6 @@
 </footer>
 
 <a class="lz-mobile-cta" href="#localzen-demo-form">Book a LocalZen Demo <span aria-hidden="true">→</span></a>
-<script src="/assets/main.js?v=20260728-performance2"></script>
+<script src="/assets/main.js?v=20260728-localzen2"></script>
 </body>
 </html>

@@ -1393,7 +1393,7 @@ function schemaGraphFor({
       mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
     });
   } else if (softwareRoutes.has(route)) {
-    graph.push({
+    const software = {
       "@type": "SoftwareApplication",
       "@id": `${pageUrl}#software`,
       name: route === "localzen" ? "LocalZen" : pageName,
@@ -1403,7 +1403,30 @@ function schemaGraphFor({
       operatingSystem: "Web",
       publisher: { "@id": organizationId },
       mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
-    });
+    };
+    if (route === "localzen") {
+      software.offers = [
+        {
+          "@type": "Offer",
+          name: "LocalZen AI Plan",
+          price: "49",
+          priceCurrency: "USD",
+          url: `${pageUrl}#plans`,
+          description:
+            "Monthly self-managed LocalZen subscription for one location.",
+        },
+        {
+          "@type": "Offer",
+          name: "LocalZen Managed Plan",
+          price: "249",
+          priceCurrency: "USD",
+          url: `${pageUrl}#plans`,
+          description:
+            "Monthly LocalZen subscription with Media87 management support.",
+        },
+      ];
+    }
+    graph.push(software);
   } else if (route === "geo-tagging-images-for-seo") {
     graph.push({
       "@type": "WebApplication",

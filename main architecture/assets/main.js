@@ -124,6 +124,26 @@
     });
   }
 
+  /* ---------- LocalZen Stripe checkout (load near pricing only) ---------- */
+  const stripeButtons = document.querySelectorAll('stripe-buy-button');
+  if (stripeButtons.length) {
+    let stripeLoaded = false;
+    const loadStripeButton = () => {
+      if (stripeLoaded || document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) return;
+      stripeLoaded = true;
+      const script = document.createElement('script');
+      script.src = 'https://js.stripe.com/v3/buy-button.js';
+      script.async = true;
+      document.head.appendChild(script);
+    };
+    const stripeIO = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      loadStripeButton();
+      stripeIO.disconnect();
+    }, { rootMargin: '900px 0px' });
+    stripeButtons.forEach(button => stripeIO.observe(button));
+  }
+
   /* ---------- counters ---------- */
   const counterIO = new IntersectionObserver(entries => {
     entries.forEach(entry => {

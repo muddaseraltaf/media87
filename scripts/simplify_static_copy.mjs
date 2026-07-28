@@ -1044,6 +1044,12 @@ for (const file of listHtmlFiles(architectureDir)) {
   revised = applyRouteTransforms(revised, route);
   revised = simplifyLabels(revised);
   revised = applyPerformanceAndAccessibilityMarkup(revised);
+  if (route === "localzen") {
+    revised = revised.replace(
+      `/assets/main.js?v=${performanceAssetVersion}`,
+      "/assets/main.js?v=20260728-localzen2",
+    );
+  }
   if (revised !== original) {
     fs.writeFileSync(file, revised);
     changedRoutes.push(route || "home");
