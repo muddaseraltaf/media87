@@ -1,5 +1,6 @@
 const MAX_BODY_BYTES = 20_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CONTACT_FUNCTION_VERSION = "hostinger-smtp-1";
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -194,7 +195,10 @@ export async function onRequestPost(context) {
 export function onRequestGet() {
   return new Response("Method not allowed", {
     status: 405,
-    headers: { Allow: "POST" },
+    headers: {
+      Allow: "POST",
+      "X-Media87-Contact-Version": CONTACT_FUNCTION_VERSION,
+    },
   });
 }
 
