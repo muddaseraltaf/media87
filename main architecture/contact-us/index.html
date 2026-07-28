@@ -25,8 +25,8 @@
 <meta name="theme-color" content="#f5f6ef">
 <link rel="icon" type="image/png" href="/assets/logo.png">
 <link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/style.css?v=20260728-performance3">
-<script src="/assets/site-tags.js?v=20260728-performance3" defer></script>
+<link rel="stylesheet" href="/assets/style.css?v=20260728-performance4">
+<script src="/assets/site-tags.js?v=20260728-performance4" defer></script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ContactPage","@id":"https://media87.com/contact-us/#webpage","url":"https://media87.com/contact-us/","name":"Contact Media87","description":"Contact Media87 about local SEO, paid media, content, AI conversations, reputation workflows or a connected digital project.","inLanguage":"en","isPartOf":{"@id":"https://media87.com/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://media87.com/assets/og/media87-social-card.jpg"}}]}</script>
 </head>
@@ -65,25 +65,28 @@
       <p class="lead reveal d2">Tell us about your business, what you need help with and the result you want. Media87 will review the enquiry and recommend a practical next step.</p>
     </div>
     <div class="wrap contact-grid">
-      <form class="contact-form reveal" id="contact-form" action="/api/contact" method="post">
+      <div class="contact-form tally-form-card reveal" id="contact-form">
         <div class="form-heading">
           <span>PROJECT BRIEF</span><strong>A few useful details</strong>
-          <p>Send the brief directly to Media87. Required fields are checked before delivery.</p>
+          <p>Share your contact details and what you would like to improve. Media87 will review the enquiry and recommend a practical next step.</p>
         </div>
-        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
-        <input name="page" type="hidden" value="/contact-us/">
-        <input name="form_started_at" type="hidden" value="">
-        <div class="field-row">
-          <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
-          <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+        <div class="tally-embed-wrap">
+          <iframe
+            class="tally-embed"
+            data-tally-src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            loading="eager"
+            width="100%"
+            height="620"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Contact Media87"
+          ></iframe>
         </div>
-        <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
-        <label><span>What would you like to improve?</span><textarea name="message" rows="6" minlength="20" maxlength="4000" required></textarea></label>
-        <p class="form-privacy">Your details are used only to respond to this enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
-        <button class="btn btn-accent" type="submit">Send enquiry →</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-        <noscript><p class="form-noscript">JavaScript is off. The form will still submit securely, or you can email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
-      </form>
+        <p class="form-privacy tally-privacy">This form is provided by Tally. Your details are used to respond to your enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+        <noscript><p class="form-noscript">Open the <a href="https://tally.so/r/aQXBzB">Media87 contact form</a>, or email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
+      </div>
       <aside class="contact-panel reveal d2 hud">
         <span class="tag">Contact details</span>
         <h2>Choose how you would like to contact us.</h2>
@@ -160,6 +163,7 @@
     </div>
   </div>
 </footer>
-<script src="/assets/main.js?v=20260728-performance3"></script>
+<script src="https://tally.so/widgets/embed.js" async></script>
+<script src="/assets/main.js?v=20260728-performance4"></script>
 </body>
 </html>

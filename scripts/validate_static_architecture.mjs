@@ -398,9 +398,11 @@ const contactPath = path.join(architectureDir, "contact-us/index.html");
 if (fs.existsSync(contactPath)) {
   const contactHtml = fs.readFileSync(contactPath, "utf8");
   for (const [label, pattern] of [
-    ["API form action", /<form[^>]+action="\/api\/contact"[^>]+method="post"/i],
-    ["honeypot", /\bname="company"/i],
-    ["status announcement", /\brole="status"[^>]+\baria-live="polite"/i],
+    ["Tally form", /tally\.so\/embed\/aQXBzB/i],
+    ["dynamic form height", /dynamicHeight=1/i],
+    ["transparent form background", /transparentBackground=1/i],
+    ["descriptive iframe title", /<iframe[\s\S]*?title="Contact Media87"/i],
+    ["Tally embed loader", /tally\.so\/widgets\/embed\.js/i],
     ["privacy link", /href="\/privacy-policy\/"/i],
     ["email fallback", /href="mailto:hello@media87\.com"/i],
   ]) {

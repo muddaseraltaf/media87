@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260728-performance3";
+const assetVersion = "20260728-performance4";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -548,25 +548,28 @@ ${header()}
       <p class="lead reveal d2">Share the outcome, the current situation and the handoff causing the most friction. Media87 can then recommend the smallest useful next step.</p>
     </div>
     <div class="wrap contact-grid">
-      <form class="contact-form reveal" id="contact-form" action="/api/contact" method="post">
+      <div class="contact-form tally-form-card reveal" id="contact-form">
         <div class="form-heading">
           <span>PROJECT BRIEF</span><strong>A few useful details</strong>
-          <p>Send the brief directly to Media87. Required fields are checked before delivery.</p>
+          <p>Share your contact details and what you would like to improve. Media87 will review the enquiry and recommend a practical next step.</p>
         </div>
-        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
-        <input name="page" type="hidden" value="/contact-us/">
-        <input name="form_started_at" type="hidden" value="">
-        <div class="field-row">
-          <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
-          <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+        <div class="tally-embed-wrap">
+          <iframe
+            class="tally-embed"
+            data-tally-src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            loading="eager"
+            width="100%"
+            height="620"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Contact Media87"
+          ></iframe>
         </div>
-        <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
-        <label><span>What would you like to improve?</span><textarea name="message" rows="6" minlength="20" maxlength="4000" required></textarea></label>
-        <p class="form-privacy">Your details are used only to respond to this enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
-        <button class="btn btn-accent" type="submit">Send enquiry →</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-        <noscript><p class="form-noscript">JavaScript is off. The form will still submit securely, or you can email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
-      </form>
+        <p class="form-privacy tally-privacy">This form is provided by Tally. Your details are used to respond to your enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+        <noscript><p class="form-noscript">Open the <a href="https://tally.so/r/aQXBzB">Media87 contact form</a>, or email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
+      </div>
       <aside class="contact-panel reveal d2 hud">
         <span class="tag">DIRECT CONTACT</span>
         <h2>Choose the easiest route.</h2>
@@ -582,6 +585,7 @@ ${header()}
   </section>
 </main>
 ${footer()}
+<script src="https://tally.so/widgets/embed.js" async></script>
 <script src="/assets/main.js"></script>
 </body>
 </html>`;
@@ -1675,7 +1679,7 @@ for (const page of recoveredRootPages) {
       )
       .replace(
         "Name relevant processor categories, safeguards and retention logic without promising absolute security. Data should be kept only for an approved purpose and period.",
-        "Processors may include Cloudflare for website hosting, form delivery and email routing, Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 retains enquiry and measurement data only for a relevant business, legal or security purpose and does not promise absolute security.",
+        "Processors may include Cloudflare for website hosting, Tally for contact-form delivery and submission handling, Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 retains enquiry and measurement data only for a relevant business, legal or security purpose and does not promise absolute security.",
       )
       .replace(
         "The final policy should explain applicable access, correction, deletion, objection or complaint routes and identify the responsible contact.",
