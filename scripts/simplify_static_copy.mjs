@@ -966,7 +966,7 @@ function listHtmlFiles(directory) {
   return files;
 }
 
-const performanceAssetVersion = "20260728-performance4";
+const performanceAssetVersion = "20260728-performance5";
 
 function applyPerformanceAndAccessibilityMarkup(html) {
   html = html
@@ -1047,7 +1047,7 @@ for (const file of listHtmlFiles(architectureDir)) {
   if (route === "localzen") {
     revised = revised.replace(
       `/assets/main.js?v=${performanceAssetVersion}`,
-      "/assets/main.js?v=20260728-localzen2",
+      "/assets/main.js?v=20260728-localzen3",
     );
   }
   if (revised !== original) {

@@ -2177,6 +2177,44 @@ h3 {
   cursor: pointer;
 }
 
+.tally-form-card {
+  overflow: hidden;
+}
+
+.tally-embed-wrap {
+  min-height: 620px;
+  margin: -8px -8px 0;
+}
+
+.tally-embed {
+  display: block;
+  width: 100%;
+  min-height: 620px;
+  border: 0;
+  background: transparent;
+}
+
+.tally-privacy,
+.form-noscript {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.tally-privacy {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.tally-privacy a,
+.form-noscript a {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .contact-aside {
   position: relative;
   min-height: 650px;
@@ -4554,6 +4592,11 @@ html.motion-ready [data-reveal].motion-visible {
 
   .contact-aside {
     min-height: 580px;
+  }
+
+  .tally-embed-wrap,
+  .tally-embed {
+    min-height: 740px;
   }
 
   .layer-grid article {

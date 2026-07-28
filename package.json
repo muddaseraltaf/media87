@@ -8,7 +8,6 @@
   },
   "scripts": {
     "simplify:copy": "node scripts/simplify_static_copy.mjs",
-    "build": "node scripts/simplify_static_copy.mjs && node scripts/validate_static_architecture.mjs && node scripts/build_cloudflare_pages.mjs",
-    "test:contact": "node scripts/test_contact_function.mjs"
+    "build": "node scripts/simplify_static_copy.mjs && node scripts/validate_static_architecture.mjs && node scripts/build_cloudflare_pages.mjs"
   }
 }

@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260728-performance4";
+const assetVersion = "20260728-performance5";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -1595,18 +1595,6 @@ Sitemap: ${siteUrl}/sitemap.xml
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Frame-Options: SAMEORIGIN
 `,
-  );
-  fs.writeFileSync(
-    path.join(architectureDir, "_routes.json"),
-    `${JSON.stringify(
-      {
-        version: 1,
-        include: ["/api/contact"],
-        exclude: [],
-      },
-      null,
-      2,
-    )}\n`,
   );
   fs.writeFileSync(
     path.join(architectureDir, "ads.txt"),

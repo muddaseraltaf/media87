@@ -25,9 +25,9 @@
 <meta name="theme-color" content="#f5f6ef">
 <link rel="icon" type="image/png" href="/assets/logo.png">
 <link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/style.css?v=20260728-performance4">
+<link rel="stylesheet" href="/assets/style.css?v=20260728-performance5">
 <link rel="stylesheet" href="/assets/localzen.css?v=20260728-localzen3">
-<script src="/assets/site-tags.js?v=20260728-performance4" defer></script>
+<script src="/assets/site-tags.js?v=20260728-performance5" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -504,29 +504,29 @@
           <li>No obligation to continue</li>
         </ul>
       </div>
-      <form class="contact-form lz-demo-form reveal d2" action="/api/contact" method="post">
+      <div class="contact-form tally-form-card lz-demo-form reveal d2" id="localzen-tally-form">
         <div class="form-heading">
           <span>LOCALZEN DEMO</span>
           <strong>Tell us about your business</strong>
-          <p>Media87 will review your details and contact you about a suitable demo time.</p>
+          <p>Share what you want LocalZen to improve. Media87 will review your details and contact you about a suitable demo time.</p>
         </div>
-        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
-        <input name="page" type="hidden" value="/localzen/">
-        <input name="form_started_at" type="hidden" value="">
-        <div class="field-row">
-          <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
-          <label><span>Work email</span><input name="email" type="email" autocomplete="email" required></label>
+        <div class="tally-embed-wrap">
+          <iframe
+            class="tally-embed"
+            data-tally-src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            src="https://tally.so/embed/aQXBzB?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="620"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Book a LocalZen demo"
+          ></iframe>
         </div>
-        <div class="field-row">
-          <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
-          <label><span>Business name</span><input name="business_name" type="text" autocomplete="organization"></label>
-        </div>
-        <label><span>What would you like LocalZen to improve?</span><textarea name="message" rows="5" minlength="20" maxlength="4000" placeholder="For example: collect more customer feedback, respond faster, manage several locations or improve local visibility." required></textarea></label>
-        <p class="form-privacy">Your details are used only to respond to this enquiry. See the <a href="/privacy-policy/">privacy policy</a>.</p>
-        <button class="btn btn-accent" type="submit">Send enquiry →</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-        <noscript><p class="form-noscript">JavaScript is off. The form will still submit securely, or you can email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
-      </form>
+        <p class="form-privacy tally-privacy">This form is provided by Tally. Your details are used to arrange your LocalZen demo. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+        <noscript><p class="form-noscript">Open the <a href="https://tally.so/r/aQXBzB">Media87 enquiry form</a>, or email <a href="mailto:hello@media87.com">hello@media87.com</a>.</p></noscript>
+      </div>
     </div>
   </section>
 </main>
@@ -595,6 +595,7 @@
 </footer>
 
 <a class="lz-mobile-cta" href="#localzen-demo-form">Book a LocalZen Demo <span aria-hidden="true">→</span></a>
-<script src="/assets/main.js?v=20260728-localzen2"></script>
+<script src="https://tally.so/widgets/embed.js" async></script>
+<script src="/assets/main.js?v=20260728-localzen3"></script>
 </body>
 </html>

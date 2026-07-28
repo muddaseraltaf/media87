@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { consultationUrl } from "../lib/site-data";
 
 export const metadata: Metadata = {
@@ -42,47 +43,48 @@ export default function ContactPage() {
         </div>
 
         <div className="shell contact-grid">
-          <form
-            className="contact-form"
-            action="mailto:hello@media87.com"
-            method="post"
-            encType="text/plain"
-          >
+          <div className="contact-form tally-form-card">
             <div className="form-heading">
               <span>Project brief</span>
               <strong>A few useful details</strong>
               <p>
-                Submitting opens your email application with the brief addressed
-                to Media87. A hosted form endpoint will replace this before
-                production launch.
+                Share your contact details and what you would like to improve.
+                Media87 will review the enquiry and recommend a practical next
+                step.
               </p>
             </div>
 
-            <div className="field-row">
-              <label>
-                <span>Name</span>
-                <input name="name" type="text" autoComplete="name" required />
-              </label>
-              <label>
-                <span>Email</span>
-                <input name="email" type="email" autoComplete="email" required />
-              </label>
+            <div className="tally-embed-wrap">
+              <iframe
+                className="tally-embed"
+                data-tally-src="https://tally.so/embed/aQXBzB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                src="https://tally.so/embed/aQXBzB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="eager"
+                width="100%"
+                height="620"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+                title="Contact Media87"
+              />
             </div>
 
-            <label>
-              <span>Phone</span>
-              <input name="phone" type="tel" autoComplete="tel" />
-            </label>
-
-            <label>
-              <span>What would you like to improve?</span>
-              <textarea name="message" rows={6} required />
-            </label>
-
-            <button className="button button-lime" type="submit">
-              Prepare the email <span aria-hidden="true">→</span>
-            </button>
-          </form>
+            <p className="form-privacy tally-privacy">
+              This form is provided by Tally. Your details are used to respond
+              to your enquiry. See the{" "}
+              <Link href="/privacy-policy/">privacy policy</Link>.
+            </p>
+            <noscript>
+              <p className="form-noscript">
+                Open the{" "}
+                <a href="https://tally.so/r/aQXBzB">
+                  Media87 contact form
+                </a>
+                , or email{" "}
+                <a href="mailto:hello@media87.com">hello@media87.com</a>.
+              </p>
+            </noscript>
+          </div>
 
           <aside className="contact-aside">
             <span className="contact-orbit" aria-hidden="true">
@@ -116,6 +118,7 @@ export default function ContactPage() {
           </aside>
         </div>
       </section>
+      <Script src="https://tally.so/widgets/embed.js" strategy="afterInteractive" />
     </>
   );
 }

@@ -64,7 +64,6 @@ for (const requiredFile of [
   "robots.txt",
   "sitemap.xml",
   "_redirects",
-  "_routes.json",
   "_headers",
   "ads.txt",
   "assets/site-tags.js",
@@ -380,13 +379,6 @@ const mainScriptPath = path.join(architectureDir, "assets/main.js");
 if (fs.existsSync(mainScriptPath)) {
   const mainScript = fs.readFileSync(mainScriptPath, "utf8");
   if (
-    !/contact-form\[action="\/api\/contact"\]/.test(mainScript) ||
-    !/fetch\(contactForm\.action/.test(mainScript) ||
-    !/contact_form_submit_success/.test(mainScript)
-  ) {
-    errors.push("Contact form submission flow is missing or incomplete");
-  }
-  if (
     !/stripe-buy-button/.test(mainScript) ||
     !/https:\/\/js\.stripe\.com\/v3\/buy-button\.js/.test(mainScript)
   ) {
@@ -415,10 +407,12 @@ if (fs.existsSync(localzenPath)) {
   const localzenHtml = fs.readFileSync(localzenPath, "utf8");
   for (const [label, pattern] of [
     ["page-specific stylesheet", /href="\/assets\/localzen\.css\?v=[^"]+"/i],
-    ["LocalZen interaction bundle", /src="\/assets\/main\.js\?v=20260728-localzen2"/i],
+    ["LocalZen interaction bundle", /src="\/assets\/main\.js\?v=20260728-localzen3"/i],
     ["product tour", /player\.vimeo\.com\/video\/1135612271/i],
-    ["demo form", /<form[^>]+action="\/api\/contact"[^>]+method="post"/i],
-    ["demo form status", /\brole="status"[^>]+\baria-live="polite"/i],
+    ["Tally demo form", /tally\.so\/embed\/aQXBzB/i],
+    ["Tally demo title", /<iframe[\s\S]*?title="Book a LocalZen demo"/i],
+    ["Tally embed loader", /tally\.so\/widgets\/embed\.js/i],
+    ["demo privacy link", /href="\/privacy-policy\/"/i],
     ["honest-feedback safeguard", /not review gating/i],
     ["AI visibility limitation", /does not guarantee a position/i],
     ["Stripe purchase component", /buy-button-id="buy_btn_1T4aZbAMjPY69v29hGKZOOZK"/i],
@@ -427,72 +421,6 @@ if (fs.existsSync(localzenPath)) {
     ["LocalZen software schema", /"@type":\s*"SoftwareApplication"[\s\S]*?"name":\s*"LocalZen"/i],
   ]) {
     if (!pattern.test(localzenHtml)) errors.push(`/localzen/: missing ${label}`);
-  }
-}
-
-const routesPath = path.join(architectureDir, "_routes.json");
-if (fs.existsSync(routesPath)) {
-  try {
-    const routes = JSON.parse(fs.readFileSync(routesPath, "utf8"));
-    if (
-      JSON.stringify(routes.include) !== JSON.stringify(["/api/contact"]) ||
-      !Array.isArray(routes.exclude)
-    ) {
-      errors.push("_routes.json does not isolate the contact API route");
-    }
-  } catch {
-    errors.push("_routes.json is not valid JSON");
-  }
-}
-
-const contactFunctionPath = path.resolve(
-  architectureDir,
-  "../functions/api/contact.js",
-);
-if (!fs.existsSync(contactFunctionPath)) {
-  errors.push("Cloudflare contact function is missing");
-} else {
-  const contactFunction = fs.readFileSync(contactFunctionPath, "utf8");
-  for (const [label, pattern] of [
-    ["server-side validation", /validateFields/],
-    ["Hostinger SMTP user secret", /env\.HOSTINGER_SMTP_USER/],
-    ["Hostinger SMTP password secret", /env\.HOSTINGER_SMTP_PASSWORD/],
-    ["Hostinger SMTP delivery module", /sendHostingerEmail/],
-    ["Cloudflare Email Service REST endpoint", /api\.cloudflare\.com\/client\/v4\/accounts/],
-    ["Cloudflare account setting", /env\.CLOUDFLARE_ACCOUNT_ID/],
-    ["Cloudflare email API token", /env\.CLOUDFLARE_EMAIL_API_TOKEN/],
-    ["verified recipient setting", /env\.CONTACT_RECIPIENT/],
-    ["honeypot handling", /payload\.company/],
-    ["optional Turnstile verification", /env\.TURNSTILE_SECRET/],
-  ]) {
-    if (!pattern.test(contactFunction)) {
-      errors.push(`Cloudflare contact function is missing ${label}`);
-    }
-  }
-}
-
-const smtpClientPath = path.resolve(
-  architectureDir,
-  "../functions/lib/smtp-client.js",
-);
-const hostingerSmtpPath = path.resolve(
-  architectureDir,
-  "../functions/lib/hostinger-smtp.js",
-);
-if (!fs.existsSync(smtpClientPath) || !fs.existsSync(hostingerSmtpPath)) {
-  errors.push("Hostinger SMTP delivery modules are missing");
-} else {
-  const smtpClient = fs.readFileSync(smtpClientPath, "utf8");
-  const hostingerSmtp = fs.readFileSync(hostingerSmtpPath, "utf8");
-  if (
-    !/secureTransport\s*=\s*"on"/.test(smtpClient) ||
-    !/smtp\.hostinger\.com/.test(hostingerSmtp) ||
-    !/port:\s*options\.port\s*\|\|\s*587/.test(hostingerSmtp) ||
-    !/secureTransport:\s*options\.secureTransport\s*\|\|\s*"starttls"/.test(
-      hostingerSmtp,
-    )
-  ) {
-    errors.push("Hostinger SMTP delivery is not configured for STARTTLS on port 587");
   }
 }
 
