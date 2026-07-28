@@ -14,20 +14,29 @@ export async function sendSmtpEmail({
   subject,
   text,
   html,
+  secureTransport = "on",
   timeoutMs = DEFAULT_TIMEOUT_MS,
 }) {
   if (typeof connect !== "function") throw new Error("SMTP transport is unavailable");
 
-  const socket = connect(
+  let socket = connect(
     { hostname, port: Number(port) },
-    { secureTransport: "on", allowHalfOpen: true },
+    { secureTransport, allowHalfOpen: true },
   );
-  const session = createSession(socket, timeoutMs);
+  let session = createSession(socket, timeoutMs);
 
   try {
     await withTimeout(socket.opened, timeoutMs, "SMTP connection");
     await session.expect([220]);
     await session.command(`EHLO ${hostname}`, [250]);
+    if (secureTransport === "starttls") {
+      await session.command("STARTTLS", [220]);
+      session.release();
+      socket = socket.startTls();
+      session = createSession(socket, timeoutMs);
+      await withTimeout(socket.opened, timeoutMs, "SMTP TLS connection");
+      await session.command(`EHLO ${hostname}`, [250]);
+    }
     await session.command("AUTH LOGIN", [334]);
     await session.command(toBase64(username), [334]);
     await session.command(toBase64(password), [235]);
@@ -109,6 +118,14 @@ function createSession(socket, timeoutMs) {
       } catch {}
       try {
         await socket.close();
+      } catch {}
+    },
+    release() {
+      try {
+        reader.releaseLock();
+      } catch {}
+      try {
+        writer.releaseLock();
       } catch {}
     },
   };

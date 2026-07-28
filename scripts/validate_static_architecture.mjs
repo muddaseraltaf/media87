@@ -483,11 +483,14 @@ if (!fs.existsSync(smtpClientPath) || !fs.existsSync(hostingerSmtpPath)) {
   const smtpClient = fs.readFileSync(smtpClientPath, "utf8");
   const hostingerSmtp = fs.readFileSync(hostingerSmtpPath, "utf8");
   if (
-    !/secureTransport:\s*"on"/.test(smtpClient) ||
+    !/secureTransport\s*=\s*"on"/.test(smtpClient) ||
     !/smtp\.hostinger\.com/.test(hostingerSmtp) ||
-    !/port:\s*options\.port\s*\|\|\s*465/.test(hostingerSmtp)
+    !/port:\s*options\.port\s*\|\|\s*587/.test(hostingerSmtp) ||
+    !/secureTransport:\s*options\.secureTransport\s*\|\|\s*"starttls"/.test(
+      hostingerSmtp,
+    )
   ) {
-    errors.push("Hostinger SMTP delivery is not configured for TLS on port 465");
+    errors.push("Hostinger SMTP delivery is not configured for STARTTLS on port 587");
   }
 }
 

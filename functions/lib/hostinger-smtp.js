@@ -6,6 +6,7 @@ export function sendHostingerEmail(options) {
     ...options,
     connect,
     hostname: options.hostname || "smtp.hostinger.com",
-    port: options.port || 465,
+    port: options.port || 587,
+    secureTransport: options.secureTransport || "starttls",
   });
 }

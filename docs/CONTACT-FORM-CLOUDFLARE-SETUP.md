@@ -71,15 +71,16 @@ After the variables are saved and the project is redeployed:
 ## Delivery details
 
 - SMTP host: `smtp.hostinger.com`
-- SMTP port: `465`
-- Transport: TLS from connection start
+- SMTP port: `587`
+- Transport: STARTTLS
 - Authenticated sender: `contact@media87.com`
 - Reply-To: the validated visitor email
 - Recipient: `CONTACT_RECIPIENT` or `contact@media87.com`
 
 Cloudflare blocks outbound SMTP on port 25, but its Workers TCP sockets support
-TLS connections on other ports. Hostinger documents port 465 with SSL as its
-primary outgoing configuration.
+TLS connections on other ports. Hostinger documents port 587 with STARTTLS as
+the fallback when the primary port 465 connection has encryption or connection
+problems. Production testing from Cloudflare showed that fallback was required.
 
 ## Existing fallback
 

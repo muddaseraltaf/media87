@@ -1,6 +1,6 @@
 const MAX_BODY_BYTES = 20_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const CONTACT_FUNCTION_VERSION = "hostinger-smtp-2";
+const CONTACT_FUNCTION_VERSION = "hostinger-smtp-3";
 
 export async function onRequestPost(context) {
   const { request, env } = context;

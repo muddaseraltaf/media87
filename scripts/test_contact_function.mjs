@@ -76,7 +76,8 @@ const smtpWrites = [];
 await sendSmtpEmail({
   connect: createMockSmtpConnect(smtpWrites),
   hostname: "smtp.hostinger.com",
-  port: 465,
+  port: 587,
+  secureTransport: "starttls",
   username: "contact@media87.com",
   password: "test-password",
   from: "contact@media87.com",
@@ -111,7 +112,7 @@ assert(wrongOrigin.status === 403, "Cross-site submissions must be rejected");
 const getResponse = onRequestGet();
 assert(getResponse.status === 405, "GET must not submit the form");
 assert(
-  getResponse.headers.get("X-Media87-Contact-Version") === "hostinger-smtp-2",
+  getResponse.headers.get("X-Media87-Contact-Version") === "hostinger-smtp-3",
   "Contact endpoint must expose a safe deployment version",
 );
 
@@ -149,8 +150,12 @@ function assert(condition, message) {
 }
 
 function createMockSmtpConnect(writes) {
-  const responses = [
+  const initialResponses = [
     "220 smtp.hostinger.com ESMTP ready\r\n",
+    "250-smtp.hostinger.com\r\n250 STARTTLS\r\n",
+    "220 2.0.0 Ready to start TLS\r\n",
+  ].join("");
+  const secureResponses = [
     "250-smtp.hostinger.com\r\n250 AUTH LOGIN\r\n",
     "334 VXNlcm5hbWU6\r\n",
     "334 UGFzc3dvcmQ6\r\n",
@@ -161,17 +166,18 @@ function createMockSmtpConnect(writes) {
     "250 2.0.0 Message accepted\r\n",
     "221 2.0.0 Bye\r\n",
   ].join("");
-  const encodedResponses = new TextEncoder().encode(responses);
+  const encodedInitialResponses = new TextEncoder().encode(initialResponses);
+  const encodedSecureResponses = new TextEncoder().encode(secureResponses);
 
   return (address, options) => {
     assert(address.hostname === "smtp.hostinger.com", "SMTP must use Hostinger");
-    assert(address.port === 465, "SMTP must use Hostinger SSL port 465");
-    assert(options.secureTransport === "on", "SMTP must use TLS");
-    return {
+    assert(address.port === 587, "SMTP must use Hostinger STARTTLS port 587");
+    assert(options.secureTransport === "starttls", "SMTP must permit STARTTLS");
+    const secureSocket = {
       opened: Promise.resolve({ remoteAddress: "203.0.113.10" }),
       readable: new ReadableStream({
         start(controller) {
-          controller.enqueue(encodedResponses);
+          controller.enqueue(encodedSecureResponses);
         },
       }),
       writable: new WritableStream({
@@ -179,6 +185,23 @@ function createMockSmtpConnect(writes) {
           writes.push(new TextDecoder().decode(chunk));
         },
       }),
+      async close() {},
+    };
+    return {
+      opened: Promise.resolve({ remoteAddress: "203.0.113.10" }),
+      readable: new ReadableStream({
+        start(controller) {
+          controller.enqueue(encodedInitialResponses);
+        },
+      }),
+      writable: new WritableStream({
+        write(chunk) {
+          writes.push(new TextDecoder().decode(chunk));
+        },
+      }),
+      startTls() {
+        return secureSocket;
+      },
       async close() {},
     };
   };
