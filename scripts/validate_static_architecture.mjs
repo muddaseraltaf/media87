@@ -68,6 +68,7 @@ for (const requiredFile of [
   "_headers",
   "ads.txt",
   "assets/site-tags.js",
+  "assets/localzen.css",
   "assets/og/media87-social-card.jpg",
 ]) {
   if (!fs.existsSync(path.join(architectureDir, requiredFile))) {
@@ -391,6 +392,22 @@ if (fs.existsSync(contactPath)) {
     ["email fallback", /href="mailto:hello@media87\.com"/i],
   ]) {
     if (!pattern.test(contactHtml)) errors.push(`/contact-us/: missing ${label}`);
+  }
+}
+
+const localzenPath = path.join(architectureDir, "localzen/index.html");
+if (fs.existsSync(localzenPath)) {
+  const localzenHtml = fs.readFileSync(localzenPath, "utf8");
+  for (const [label, pattern] of [
+    ["page-specific stylesheet", /href="\/assets\/localzen\.css\?v=[^"]+"/i],
+    ["product tour", /player\.vimeo\.com\/video\/1135612271/i],
+    ["demo form", /<form[^>]+action="\/api\/contact"[^>]+method="post"/i],
+    ["demo form status", /\brole="status"[^>]+\baria-live="polite"/i],
+    ["honest-feedback safeguard", /not review gating/i],
+    ["AI visibility limitation", /does not guarantee a position/i],
+    ["LocalZen software schema", /"@type":\s*"SoftwareApplication"[\s\S]*?"name":\s*"LocalZen"/i],
+  ]) {
+    if (!pattern.test(localzenHtml)) errors.push(`/localzen/: missing ${label}`);
   }
 }
 

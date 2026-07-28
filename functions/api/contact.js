@@ -31,6 +31,7 @@ export async function onRequestPost(context) {
   const name = clean(payload.name, 120);
   const email = clean(payload.email, 254).toLowerCase();
   const phone = clean(payload.phone, 80);
+  const businessName = clean(payload.business_name, 160);
   const message = clean(payload.message, 4_000);
   const page = clean(payload.page, 500);
 
@@ -90,6 +91,7 @@ export async function onRequestPost(context) {
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || "Not provided"}`,
+    `Business: ${businessName || "Not provided"}`,
     `Page: ${page || requestUrl.origin + "/contact-us/"}`,
     "",
     "What they would like to improve:",
@@ -100,6 +102,7 @@ export async function onRequestPost(context) {
     <p><strong>Name:</strong> ${escapeHtml(name)}</p>
     <p><strong>Email:</strong> ${escapeHtml(email)}</p>
     <p><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}</p>
+    <p><strong>Business:</strong> ${escapeHtml(businessName || "Not provided")}</p>
     <p><strong>Page:</strong> ${escapeHtml(page || requestUrl.origin + "/contact-us/")}</p>
     <h2>What they would like to improve</h2>
     <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>

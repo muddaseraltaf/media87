@@ -1155,9 +1155,9 @@ const seoOverrides = new Map(
         "Explore ChatZen as a Media87 conversation workflow for answering questions, capturing lead context and supporting a clear human handoff.",
     },
     localzen: {
-      title: "LocalZen Reputation Management Workflow",
+      title: "LocalZen Review Management & Local Visibility Platform",
       description:
-        "Explore LocalZen for requesting feedback, monitoring reviews, responding consistently and presenting approved customer feedback.",
+        "Collect honest reviews, prepare consistent replies, publish local content, display customer proof and monitor visibility with LocalZen. Book a guided demo.",
     },
     "local-seo-services": {
       title: "Local SEO Services for Business Discovery",
@@ -1396,10 +1396,11 @@ function schemaGraphFor({
     graph.push({
       "@type": "SoftwareApplication",
       "@id": `${pageUrl}#software`,
-      name: pageName,
+      name: route === "localzen" ? "LocalZen" : pageName,
       description,
       url: pageUrl,
       applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
       publisher: { "@id": organizationId },
       mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
     });
