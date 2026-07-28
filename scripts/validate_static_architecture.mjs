@@ -254,8 +254,8 @@ const articleDrafts = htmlFiles.filter((file) => {
     /<meta\s+name="robots"\s+content="noindex,follow"/i.test(html)
   );
 });
-if (articleDrafts.length !== 25) {
-  errors.push(`Expected 25 noindex article drafts; found ${articleDrafts.length}`);
+if (articleDrafts.length !== 19) {
+  errors.push(`Expected 19 noindex article drafts; found ${articleDrafts.length}`);
 }
 
 const sitemapPath = path.join(architectureDir, "sitemap.xml");

@@ -19,11 +19,45 @@ const { liveArticles } = await import(
     path.join(sourceSiteDir, "app/lib/live-content.generated.ts"),
   ).href
 );
+const { restoredArticles } = await import(
+  pathToFileURL(
+    path.join(sourceSiteDir, "app/lib/restored-content.ts"),
+  ).href
+);
 
 const livePosts = JSON.parse(fs.readFileSync(postsSnapshot, "utf8"));
-const cleanArticleMap = new Map(
-  liveArticles.map((article) => [article.slug, article]),
+const restoredArticleMap = new Map(
+  restoredArticles.map((article) => [article.slug, article]),
 );
+const cleanArticleMap = new Map(
+  liveArticles.map((article) => [
+    article.slug,
+    {
+      ...article,
+      ...(restoredArticleMap.get(article.slug) || {}),
+    },
+  ]),
+);
+const approvedIndexableArticleSlugs = new Set(
+  restoredArticles.map((article) => article.slug),
+);
+const archivedPostBySlug = new Map(
+  liveArticles.map((article) => [
+    article.slug,
+    {
+      slug: article.slug,
+      title: { rendered: article.title },
+      content: { rendered: article.paragraphs.join(" ") },
+      date: "2026-07-28T00:00:00",
+      modified: "2026-07-28T00:00:00",
+    },
+  ]),
+);
+for (const restored of restoredArticles) {
+  if (!livePosts.some((post) => post.slug === restored.slug)) {
+    livePosts.push(archivedPostBySlug.get(restored.slug));
+  }
+}
 
 fs.cpSync(
   path.join(sourceSiteDir, "public/images"),
@@ -616,9 +650,18 @@ function videoPortfolio() {
 </section>`;
 }
 
+function headingId(value = "") {
+  return decodeHtml(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 72);
+}
+
 function articleBlocks(post, clean) {
   if (clean) {
     const headings = new Set(clean.headings.map((heading) => heading.trim()));
+    const headingCounts = new Map();
     return clean.paragraphs
       .map((paragraph) =>
         paragraph
@@ -633,9 +676,12 @@ function articleBlocks(post, clean) {
           (paragraph.length < 72 &&
             !/[.!?]$/.test(paragraph) &&
             !paragraph.startsWith("http"));
-        return heading
-          ? `<h2>${escapeHtml(paragraph)}</h2>`
-          : `<p>${escapeHtml(paragraph)}</p>`;
+        if (!heading) return `<p>${escapeHtml(paragraph)}</p>`;
+        const baseId = headingId(paragraph) || "section";
+        const count = (headingCounts.get(baseId) || 0) + 1;
+        headingCounts.set(baseId, count);
+        const id = count === 1 ? baseId : `${baseId}-${count}`;
+        return `<h2 id="${escapeHtml(id)}">${escapeHtml(paragraph)}</h2>`;
       })
       .join("");
   }
@@ -654,6 +700,39 @@ function articleBlocks(post, clean) {
     );
   }
   return blocks.join("");
+}
+
+function articleToc(clean) {
+  if (!clean?.headings?.length) return "";
+  const seen = new Map();
+  const links = clean.headings
+    .map((heading) => {
+      const baseId = headingId(heading) || "section";
+      const count = (seen.get(baseId) || 0) + 1;
+      seen.set(baseId, count);
+      const id = count === 1 ? baseId : `${baseId}-${count}`;
+      return `<a href="#${escapeHtml(id)}">${escapeHtml(heading)}</a>`;
+    })
+    .join("");
+  return `<nav class="article-trust-box article-toc" aria-label="On this page">
+    <span>ON THIS PAGE</span>
+    <h2>Use the sections that match your decision.</h2>
+    <div>${links}</div>
+  </nav>`;
+}
+
+function articleSources(clean) {
+  if (!clean?.sources?.length) return "";
+  return `<section class="article-related" aria-labelledby="article-sources">
+    <span>REVIEWED SOURCES</span>
+    <h2 id="article-sources">Sources and further checks</h2>
+    <div>${clean.sources
+      .map(
+        (source) =>
+          `<a href="${escapeHtml(source.url)}"${source.url.startsWith("http") ? ' target="_blank" rel="noreferrer"' : ""}>${escapeHtml(source.label)} <i aria-hidden="true">↗</i></a>`,
+      )
+      .join("")}</div>
+  </section>`;
 }
 
 function categoryForPost(post, clean = cleanArticleMap.get(post.slug)) {
@@ -704,7 +783,7 @@ function articleCommercialLink(category) {
 
 function articlePage(post) {
   const clean = cleanArticleMap.get(post.slug);
-  const title = stripHtml(post.title?.rendered) || clean?.title || post.slug;
+  const title = clean?.title || stripHtml(post.title?.rendered) || post.slug;
   const description =
     clean?.description ||
     `A practical Media87 guide to ${title.toLowerCase()}.`;
@@ -720,7 +799,12 @@ function articlePage(post) {
     .slice(0, 3);
   const words = stripHtml(post.content?.rendered).split(/\s+/).filter(Boolean).length;
   const readingTime = Math.max(3, Math.ceil(words / 220));
-  return `${head({ title, description, slug: post.slug, noindex: true })}
+  return `${head({
+    title,
+    description,
+    slug: post.slug,
+    noindex: !approvedIndexableArticleSlugs.has(post.slug),
+  })}
 <body class="content-page article-page">
 <div id="progress"></div>
 ${header()}
@@ -745,7 +829,9 @@ ${header()}
           <a href="/editorial-guidelines/">Editorial guidelines →</a>
         </aside>
         <div class="article-body">
+          ${approvedIndexableArticleSlugs.has(post.slug) ? articleToc(clean) : ""}
           ${articleBlocks(post, clean)}
+          ${approvedIndexableArticleSlugs.has(post.slug) ? articleSources(clean) : ""}
           <aside class="article-trust-box">
             <span>USEFUL NEXT STEP</span>
             <h2>Apply the guidance to your actual situation.</h2>
@@ -784,11 +870,12 @@ ${footer()}
 
 function blogPage() {
   const cards = livePosts
+    .filter((post) => approvedIndexableArticleSlugs.has(post.slug))
     .map((post) => {
       const clean = cleanArticleMap.get(post.slug);
       return {
         slug: post.slug,
-        title: stripHtml(post.title?.rendered) || clean?.title,
+        title: clean?.title || stripHtml(post.title?.rendered),
         description:
           clean?.description ||
           `A practical Media87 guide to ${(stripHtml(post.title?.rendered) || clean?.title).toLowerCase()}.`,
@@ -1587,6 +1674,15 @@ Sitemap: ${siteUrl}/sitemap.xml
     `/ads-managment /ads-management/ 301
 /ads-managment/ /ads-management/ 301
 /prompt-database/ /prompts/ 301
+/author/m87oc/ /authors-team/ 301
+/author/muddaser321gmail-com/ /authors-team/ 301
+/category/blog/ /blog/ 301
+/salesbot/ /chatzen/ 301
+/digital-marketing-agency-jlt-dubai/ /digital-marketing-services-in-dubai/ 301
+/local-seo-in-2026-practical-playbook-for-dubai-businesses/ /seo-for-dubai-businesses/ 301
+/local-seo-guide-2025-how-to-dominate-local-search-rankings/ /seo-for-dubai-businesses/ 301
+/local-seo-dubai-how-to-rank-for-near-me-searches-in-2026/ /seo-for-dubai-businesses/ 301
+/local-seo-what-it-is-how-to-do-it-complete-2026-guide/ /seo-for-dubai-businesses/ 301
 `,
   );
   fs.writeFileSync(

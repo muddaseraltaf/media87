@@ -149,8 +149,8 @@ const sharedReplacements = new Map([
   ["unlock the full potential of", "get more value from"],
   ["Unlock the full potential of", "Get more value from"],
   ["Local SEO Guide 2025: How to Dominate Local Search Rankings", "Local SEO Guide: How to Improve Local Search Visibility"],
-  ["How to create ultra realistic human sound voice with prompting", "How to Make an AI Voice Sound More Natural"],
-  ["How to make Ai ultra realistic ads", "How to Create More Realistic AI Ads"],
+  ["How to create ultra realistic human sound voice with prompting", "How to Make AI Voiceovers Sound More Natural"],
+  ["How to make Ai ultra realistic ads", "How to Create Realistic AI Ads Without Losing Brand Control"],
   ["How to make linkedin Post assistant with n8n", "How to Build a LinkedIn Post Assistant with n8n"],
   ["Email Automated replies for your customer service or agency", "How to Automate Customer-Service Email Replies"],
   ["Useful prompts for nano banana part 1", "Useful Image Prompts for Nano Banana"],
@@ -226,7 +226,6 @@ const sharedReplacements = new Map([
   ["AI Auto-Replies", "Assisted reply drafts"],
   ["GMB Control", "Google Business Profile"],
   ["Website Widgets", "Website review display"],
-  ["AI Voice", "AI calling"],
   ["Watch out", "Common mistake"],
   ["Media87 digital growth systems", "Media87 digital marketing services"],
   [
@@ -701,7 +700,7 @@ const routeReplacements = {
     ],
   ]),
   "whatsapp-automation-for-restaurants-complete-2025-guide": new Map([
-    ["WhatsApp Automation for Restaurants: Complete 2025 Guide", "WhatsApp Automation for Restaurants: Practical Guide"],
+    ["WhatsApp Automation for Restaurants: Complete 2025 Guide", "WhatsApp Automation for Restaurants: Practical 2026 Guide"],
     [
       "Every year, restaurants across the world lose over $100,000 in potential revenue. Not because of bad food. Not because of poor location. But because they miss",
       "Learn how restaurants can use WhatsApp automation for common questions, booking requests, order updates and transfer to staff when needed.",
