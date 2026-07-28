@@ -7,9 +7,9 @@
 .lz-hero .crumbs{display:flex;align-items:center;gap:10px;margin-bottom:24px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .lz-hero .crumbs a{color:var(--accent-ink);font-weight:700}
 .lz-hero .crumbs span::before{content:"/";margin-right:10px;color:var(--line-strong)}
-.lz-hero-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(540px,1.14fr);gap:58px;align-items:center}
+.lz-hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(500px,.96fr);gap:36px;align-items:center}
 .lz-hero-copy{position:relative;z-index:2}
-.lz-hero h1{font-size:clamp(48px,6.1vw,80px);line-height:.98;letter-spacing:-.055em;margin:18px 0 26px;max-width:720px}
+.lz-hero h1{font-size:clamp(48px,5.2vw,66px);line-height:.95;letter-spacing:-.055em;margin:18px 0 26px;max-width:650px}
 .lz-hero .lead{font-size:18px;max-width:650px}
 .lz-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
 .lz-reassurance{margin-top:16px;color:var(--muted);font-size:13px}
@@ -158,6 +158,7 @@
   .lz-hero{padding:132px 0 62px}
   .lz-hero .crumbs{flex-wrap:wrap;line-height:1.5}
   .lz-hero h1{font-size:clamp(42px,12vw,62px)}
+  .lz-desktop-break{display:none}
   .lz-hero .lead{font-size:16px}
   .lz-hero-product{padding:34px 4px 46px}
   .lz-dashboard-shell{padding:32px 7px 7px;border-radius:18px}
