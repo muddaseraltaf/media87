@@ -324,12 +324,25 @@ if (
 }
 
 const stylePath = path.join(architectureDir, "assets/style.css");
-if (
-  !/\.content-page main\{overflow:visible\}/.test(
-    fs.readFileSync(stylePath, "utf8"),
-  )
-) {
-  errors.push("Article/content page vertical overflow is not explicitly visible");
+if (fs.existsSync(stylePath)) {
+  const styles = fs.readFileSync(stylePath, "utf8");
+  if (!/\.content-page main\{overflow:visible\}/.test(styles)) {
+    errors.push("Article/content page vertical overflow is not explicitly visible");
+  }
+  if (
+    !/@media\(max-width:640px\)\{[\s\S]*?\.foot-grid\{grid-template-columns:1fr;/.test(
+      styles,
+    )
+  ) {
+    errors.push("Footer does not collapse to one column on mobile");
+  }
+  if (
+    !/\.faq-q\{[\s\S]*?grid-template-columns:32px minmax\(0,1fr\) 32px;/.test(
+      styles,
+    )
+  ) {
+    errors.push("FAQ questions do not use a centered responsive layout");
+  }
 }
 
 const mainScriptPath = path.join(architectureDir, "assets/main.js");
