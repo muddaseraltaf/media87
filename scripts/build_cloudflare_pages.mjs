@@ -21,6 +21,8 @@ for (const requiredFile of [
   "_redirects",
   "robots.txt",
   "sitemap.xml",
+  "llms.txt",
+  "llms-full.txt",
   "ads.txt",
 ]) {
   if (!fs.existsSync(path.join(outputDir, requiredFile))) {

@@ -92,9 +92,9 @@ DISCOVERED_DECISIONS = {
         "Duplicate 200 article already canonicalized to the shorter URL.",
     ),
     "/ads-managment/": (
-        "301-when-target-live",
-        "/services/google-ads/",
-        "Misspelled broken historical service URL.",
+        "301",
+        "/ads-management/",
+        "Correct the misspelled public service URL with a one-to-one permanent redirect.",
     ),
     "/digital-marketing-services-dubai/": (
         "301-when-target-live",

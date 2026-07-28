@@ -135,7 +135,7 @@ export const recoveredRootPages: RecoveredPage[] = [
     ],
   },
   {
-    slug: "ads-managment",
+    slug: "ads-management",
     title: "Ads Management",
     eyebrow: "Paid acquisition",
     h1: "Make paid media accountable to a real business outcome.",

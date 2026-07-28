@@ -43,7 +43,7 @@ export function SiteFooter() {
           <ul>
             <li><Link href="/local-seo-services/">Local SEO</Link></li>
             <li><Link href="/ai-powered-conversations/">AI Conversations</Link></li>
-            <li><Link href="/ads-managment/">Ads Management</Link></li>
+            <li><Link href="/ads-management/">Ads Management</Link></li>
             <li><Link href="/services/ai-automation/">AI Automation</Link></li>
           </ul>
         </div>

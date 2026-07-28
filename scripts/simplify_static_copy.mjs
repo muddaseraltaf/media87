@@ -339,7 +339,7 @@ const routeReplacements = {
     ["Specialists across SEO, AI, chatbots and ads handle every project — no generalists guessing.", "Media87 brings together SEO, advertising, content and automation support when the project requires it."],
     ["Campaigns that are visually engaging and technically optimized to maximize conversions.", "Creative work and technical setup are reviewed together before launch."],
   ]),
-  "ads-managment": new Map([
+  "ads-management": new Map([
     ["SVC.02 — Ads Management", "Paid advertising"],
     ["Maximize ROI with expert ads management.", "Paid advertising managed around your goals."],
     [

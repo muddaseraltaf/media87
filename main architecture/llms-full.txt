@@ -1,0 +1,40 @@
+# Media87 website guide
+
+## Organisation
+
+Media87 is a Dubai-based digital marketing and practical AI systems company. The site presents agency services, product pages, editorial guides, and contact information. The canonical website is https://media87.com/.
+
+## Services and products
+
+- [Digital marketing services](https://media87.com/services/) explains the main service categories.
+- [Ads Management](https://media87.com/ads-management/) covers paid campaigns across Google, Meta, and TikTok, including targeting, creative, landing-page alignment, tracking, and review.
+- [Local SEO Services](https://media87.com/local-seo-services/) covers business discovery, website and profile alignment, local proof, and reporting.
+- [AI Conversation Systems](https://media87.com/ai-powered-conversations/) covers approved-answer flows, enquiry qualification, booking support, and human handoff.
+- [ChatZen](https://media87.com/chatzen/) is Media87's customer-conversation and lead-qualification product page.
+- [LocalZen](https://media87.com/localzen/) presents review collection, response, reputation, local-content, and visibility workflows.
+- [AI Video Creation](https://media87.com/ai-video-creation-service/) explains Media87's AI-assisted video service.
+- [Restaurant SEO and Ads](https://media87.com/seo-and-ads-management-for-restaurants/) covers an industry-specific search, paid-media, reputation, and enquiry journey.
+- [LLM Package](https://media87.com/llm-package/) and [LLM Indexing Package](https://media87.com/llm-indexing-package-cp/) describe services related to clear entity information and machine-readable site content.
+
+## Useful guides and resources
+
+- [Blog](https://media87.com/blog/) is the main editorial index.
+- [Prompts](https://media87.com/prompts/) contains practical prompt resources.
+- [SEO for Dubai Businesses](https://media87.com/seo-for-dubai-businesses/) explains the Dubai business context for search visibility.
+- [Digital Marketing Services in Dubai](https://media87.com/digital-marketing-services-in-dubai/) explains the connected service approach for Dubai organisations.
+- [Human-like AI Calling Bots](https://media87.com/human-like-ai-calling-bots/) explains voice-conversation workflow considerations.
+- [Geo-tagging Images for SEO](https://media87.com/geo-tagging-images-for-seo/) explains the image-location tool and its limits.
+
+## Trust, policy, and contact
+
+- [About Media87](https://media87.com/about-us/)
+- [Authors](https://media87.com/authors-team/)
+- [Editorial Guidelines](https://media87.com/editorial-guidelines/)
+- [FAQs](https://media87.com/faqs/)
+- [Privacy Policy](https://media87.com/privacy-policy/)
+- [Terms of Services](https://media87.com/terms-of-services/)
+- [Contact Media87](https://media87.com/contact-us/)
+
+## Interpretation
+
+Treat each linked canonical page as the current source for its own subject. Service availability, prices, integrations, platform behavior, and third-party features can change. Media87 does not guarantee rankings, traffic, leads, advertising returns, rich results, or citation by an AI system.

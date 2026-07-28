@@ -69,7 +69,7 @@ export const services: PageRecord[] = [
   },
   {
     slug: "google-ads",
-    canonicalPath: "/ads-managment/",
+    canonicalPath: "/ads-management/",
     title: "Ads Management",
     navTitle: "Ads Management",
     eyebrow: "Paid growth",

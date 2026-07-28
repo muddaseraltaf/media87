@@ -225,7 +225,7 @@ test("serves a canonical-only XML sitemap and preview robots policy", async () =
 
 test("keeps the recovered root-page inventory renderable", async () => {
   const recoveredRoutes = [
-    "/ads-managment/",
+    "/ads-management/",
     "/ai-powered-conversations/",
     "/authors-team/",
     "/digital-marketing-services-in-dubai/",

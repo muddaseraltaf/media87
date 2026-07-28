@@ -175,7 +175,7 @@ function header() {
         <button type="button" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button>
         <div class="drop-menu">
           <a href="/local-seo-services/"><span><b>Local SEO</b><small>Maps, discovery and local trust</small></span></a>
-          <a href="/ads-managment/"><span><b>Ads Management</b><small>Google, Meta and TikTok campaigns</small></span></a>
+          <a href="/ads-management/"><span><b>Ads Management</b><small>Google, Meta and TikTok campaigns</small></span></a>
           <a href="/ai-powered-conversations/"><span><b>AI Conversations</b><small>Qualification, booking and handoff</small></span></a>
           <a href="/ai-video-creation-service/"><span><b>AI Video</b><small>Concept, production and adaptation</small></span></a>
           <a href="/services/"><span><b>All Services</b><small>The connected Media87 system</small></span></a>
@@ -210,7 +210,7 @@ function footer() {
         <h2>Services</h2>
         <ul>
           <li><a href="/local-seo-services/">Local SEO</a></li>
-          <li><a href="/ads-managment/">Ads Management</a></li>
+          <li><a href="/ads-management/">Ads Management</a></li>
           <li><a href="/ai-powered-conversations/">AI Conversations</a></li>
           <li><a href="/ai-video-creation-service/">AI Video Creation</a></li>
           <li><a href="/digital-marketing-services-in-dubai/">Digital Marketing in Dubai</a></li>
@@ -677,7 +677,7 @@ function imageForPost(post, clean = cleanArticleMap.get(post.slug)) {
 function articleCommercialLink(category) {
   if (/paid media/i.test(category)) {
     return {
-      href: "/ads-managment/",
+      href: "/ads-management/",
       label: "Review Media87 ads management",
     };
   }
@@ -1034,7 +1034,7 @@ function improveExisting(route, input) {
       .replace("Get Started Free", "Discuss the workflow");
   }
 
-  if (route === "ads-managment") {
+  if (route === "ads-management") {
     html = html
       .replace(
         "ROAS 4.8× · cost per lead down 37% after the creative refresh.",
@@ -1143,7 +1143,7 @@ const seoOverrides = new Map(
       description:
         "Explore Media87 services for local SEO, paid media, AI conversations, content, reputation workflows and connected digital delivery.",
     },
-    "ads-managment": {
+    "ads-management": {
       title: "Google, Meta & TikTok Ads Management",
       description:
         "Media87 plans and manages paid campaigns across Google, Meta and TikTok with clear scope, tracking, creative review and human oversight.",
@@ -1253,7 +1253,7 @@ const seoOverrides = new Map(
 
 const serviceRoutes = new Set([
   "services",
-  "ads-managment",
+  "ads-management",
   "ai-powered-conversations",
   "local-seo-services",
   "digital-marketing-services-in-dubai",
@@ -1564,7 +1564,7 @@ ${entries
   .map(
     (url) => `  <url>
     <loc>${escapeHtml(url)}</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>${url.endsWith("/ads-management/") ? "2026-07-28" : "2026-07-26"}</lastmod>
   </url>`,
   )
   .join("\n")}
@@ -1584,7 +1584,81 @@ Sitemap: ${siteUrl}/sitemap.xml
   );
   fs.writeFileSync(
     path.join(architectureDir, "_redirects"),
-    `/prompt-database/ /prompts/ 301
+    `/ads-managment /ads-management/ 301
+/ads-managment/ /ads-management/ 301
+/prompt-database/ /prompts/ 301
+`,
+  );
+  fs.writeFileSync(
+    path.join(architectureDir, "llms.txt"),
+    `# Media87
+
+> Media87 is a Dubai-based digital marketing and practical AI systems company. Its website covers SEO, paid media, AI-assisted customer conversations, reputation management, content, and related services and products.
+
+## Primary pages
+
+- [Home](${siteUrl}/)
+- [Services](${siteUrl}/services/)
+- [Ads Management](${siteUrl}/ads-management/)
+- [Local SEO Services](${siteUrl}/local-seo-services/)
+- [ChatZen](${siteUrl}/chatzen/)
+- [LocalZen](${siteUrl}/localzen/)
+- [AI Conversation Systems](${siteUrl}/ai-powered-conversations/)
+- [AI Video Creation](${siteUrl}/ai-video-creation-service/)
+
+## Editorial and trust
+
+- [Blog](${siteUrl}/blog/)
+- [About Media87](${siteUrl}/about-us/)
+- [Authors](${siteUrl}/authors-team/)
+- [Editorial Guidelines](${siteUrl}/editorial-guidelines/)
+- [Contact](${siteUrl}/contact-us/)
+
+Use the canonical page linked above for current service scope, availability, pricing logic, and claims. Rankings, traffic, leads, or AI citations are not guaranteed.
+`,
+  );
+  fs.writeFileSync(
+    path.join(architectureDir, "llms-full.txt"),
+    `# Media87 website guide
+
+## Organisation
+
+Media87 is a Dubai-based digital marketing and practical AI systems company. The site presents agency services, product pages, editorial guides, and contact information. The canonical website is ${siteUrl}/.
+
+## Services and products
+
+- [Digital marketing services](${siteUrl}/services/) explains the main service categories.
+- [Ads Management](${siteUrl}/ads-management/) covers paid campaigns across Google, Meta, and TikTok, including targeting, creative, landing-page alignment, tracking, and review.
+- [Local SEO Services](${siteUrl}/local-seo-services/) covers business discovery, website and profile alignment, local proof, and reporting.
+- [AI Conversation Systems](${siteUrl}/ai-powered-conversations/) covers approved-answer flows, enquiry qualification, booking support, and human handoff.
+- [ChatZen](${siteUrl}/chatzen/) is Media87's customer-conversation and lead-qualification product page.
+- [LocalZen](${siteUrl}/localzen/) presents review collection, response, reputation, local-content, and visibility workflows.
+- [AI Video Creation](${siteUrl}/ai-video-creation-service/) explains Media87's AI-assisted video service.
+- [Restaurant SEO and Ads](${siteUrl}/seo-and-ads-management-for-restaurants/) covers an industry-specific search, paid-media, reputation, and enquiry journey.
+- [LLM Package](${siteUrl}/llm-package/) and [LLM Indexing Package](${siteUrl}/llm-indexing-package-cp/) describe services related to clear entity information and machine-readable site content.
+
+## Useful guides and resources
+
+- [Blog](${siteUrl}/blog/) is the main editorial index.
+- [Prompts](${siteUrl}/prompts/) contains practical prompt resources.
+- [SEO for Dubai Businesses](${siteUrl}/seo-for-dubai-businesses/) explains the Dubai business context for search visibility.
+- [Digital Marketing Services in Dubai](${siteUrl}/digital-marketing-services-in-dubai/) explains the connected service approach for Dubai organisations.
+- [Human-like AI Calling Bots](${siteUrl}/human-like-ai-calling-bots/) explains voice-conversation workflow considerations.
+- [Geo-tagging Images for SEO](${siteUrl}/geo-tagging-images-for-seo/) explains the image-location tool and its limits.
+
+## Trust, policy, and contact
+
+- [About Media87](${siteUrl}/about-us/)
+- [Authors](${siteUrl}/authors-team/)
+- [Editorial Guidelines](${siteUrl}/editorial-guidelines/)
+- [FAQs](${siteUrl}/faqs/)
+- [Privacy Policy](${siteUrl}/privacy-policy/)
+- [Terms of Services](${siteUrl}/terms-of-services/)
+- [Contact Media87](${siteUrl}/contact-us/)
+
+## Interpretation
+
+Treat each linked canonical page as the current source for its own subject. Service availability, prices, integrations, platform behavior, and third-party features can change. Media87 does not guarantee rankings, traffic, leads, advertising returns, rich results, or citation by an AI system.
 `,
   );
   fs.writeFileSync(
@@ -1692,7 +1766,7 @@ for (const post of livePosts) {
 const existingRoutes = [
   "",
   "services",
-  "ads-managment",
+  "ads-management",
   "ai-powered-conversations",
   "chatzen",
   "localzen",

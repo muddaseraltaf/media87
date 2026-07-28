@@ -8,7 +8,7 @@ const architectureDir = path.resolve(scriptDir, "../main architecture");
 const requiredRoutes = [
   "",
   "services",
-  "ads-managment",
+  "ads-management",
   "ai-powered-conversations",
   "chatzen",
   "localzen",
@@ -63,6 +63,8 @@ for (const requiredFile of [
   "404.html",
   "robots.txt",
   "sitemap.xml",
+  "llms.txt",
+  "llms-full.txt",
   "_redirects",
   "_headers",
   "ads.txt",
@@ -282,6 +284,29 @@ if (fs.existsSync(robotsPath)) {
   }
   if (!/Sitemap:\s*https:\/\/media87\.com\/sitemap\.xml/i.test(robots)) {
     errors.push("robots.txt does not declare the canonical sitemap");
+  }
+}
+
+for (const llmsFile of ["llms.txt", "llms-full.txt"]) {
+  const llmsPath = path.join(architectureDir, llmsFile);
+  if (!fs.existsSync(llmsPath)) continue;
+  const llms = fs.readFileSync(llmsPath, "utf8");
+  if (!/^#\s+Media87/im.test(llms)) {
+    errors.push(`${llmsFile} does not identify Media87`);
+  }
+  if (!llms.includes("https://media87.com/")) {
+    errors.push(`${llmsFile} does not link to the canonical site`);
+  }
+  if (llms.includes("/ads-managment/")) {
+    errors.push(`${llmsFile} contains the retired ads URL`);
+  }
+}
+
+const redirectsPath = path.join(architectureDir, "_redirects");
+if (fs.existsSync(redirectsPath)) {
+  const redirects = fs.readFileSync(redirectsPath, "utf8");
+  if (!/^\/ads-managment\/?\s+\/ads-management\/\s+301$/m.test(redirects)) {
+    errors.push("_redirects does not permanently redirect the retired ads URL");
   }
 }
 
