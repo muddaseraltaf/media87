@@ -966,7 +966,7 @@ function listHtmlFiles(directory) {
   return files;
 }
 
-const performanceAssetVersion = "20260728-performance2";
+const performanceAssetVersion = "20260728-performance3";
 
 function applyPerformanceAndAccessibilityMarkup(html) {
   html = html

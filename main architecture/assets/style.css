@@ -155,13 +155,13 @@ body.has-cursor,body.has-cursor a,body.has-cursor button{cursor:none}
 .btn-sm{padding:12px 22px;font-size:14px}
 
 /* ---------- header ---------- */
-header{
+#header{
   position:fixed;inset:0 0 auto;z-index:200;
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   background:rgba(245,246,239,.78);border-bottom:1px solid transparent;
   transition:border-color .3s,box-shadow .3s;
 }
-header.scrolled{border-bottom-color:var(--line);box-shadow:0 6px 30px rgba(10,12,9,.05)}
+#header.scrolled{border-bottom-color:var(--line);box-shadow:0 6px 30px rgba(10,12,9,.05)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
 .logo{display:flex;align-items:center}
 .logo-img{height:46px;width:auto;display:block}
@@ -910,14 +910,14 @@ footer{background:var(--ink);color:#fff;padding:76px 0 36px;border-top:1px solid
   .foot-grid{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
   .burger{display:block}
-  header.menu-open .nav-links{
+  #header.menu-open .nav-links{
     display:flex;position:absolute;top:78px;left:0;right:0;flex-direction:column;
     background:rgba(245,246,239,.98);padding:20px 24px 28px;gap:6px;border-bottom:1px solid var(--line);
     align-items:stretch;
   }
-  header.menu-open .nav-links>a,header.menu-open .nav-drop>button{padding:13px 10px;font-size:16px}
-  header.menu-open .drop-menu{position:static;transform:none;opacity:1;pointer-events:auto;box-shadow:none;border:0;background:transparent;padding:4px 0 8px 14px;min-width:0}
-  header.menu-open .nav-drop:not(.open) .drop-menu{display:none}
+  #header.menu-open .nav-links>a,#header.menu-open .nav-drop>button{padding:13px 10px;font-size:16px}
+  #header.menu-open .drop-menu{position:static;transform:none;opacity:1;pointer-events:auto;box-shadow:none;border:0;background:transparent;padding:4px 0 8px 14px;min-width:0}
+  #header.menu-open .nav-drop:not(.open) .drop-menu{display:none}
   .hero-meta>div{min-width:50%;border-bottom:1px solid var(--line)}
   .hero-meta>div:nth-child(2n){border-right:0}
   .hero-meta>div:nth-child(3),.hero-meta>div:nth-child(4){border-bottom:0}

@@ -356,6 +356,12 @@ if (fs.existsSync(stylePath)) {
   ) {
     errors.push("FAQ questions do not use a centered responsive layout");
   }
+  if (
+    !/#header\{[\s\S]*?position:fixed/.test(styles) ||
+    /(?:^|\})\s*header\{[\s\S]*?position:fixed/m.test(styles)
+  ) {
+    errors.push("Fixed navigation styles are not scoped to the site header ID");
+  }
 }
 
 const headersPath = path.join(architectureDir, "_headers");

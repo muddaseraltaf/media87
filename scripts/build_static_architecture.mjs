@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260728-performance2";
+const assetVersion = "20260728-performance3";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
