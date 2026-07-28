@@ -522,7 +522,6 @@ void main(){
   const marquees = [...document.querySelectorAll('[data-marquee]')];
   const stackZone = document.getElementById('stackZone');
   const stackCards = stackZone ? [...stackZone.querySelectorAll('.stack-card')] : [];
-  stackCards.forEach((card, i) => card.style.top = (110 + i * 16) + 'px');
 
   let docH = document.documentElement.scrollHeight - innerHeight;
   const measure = () => {
@@ -532,6 +531,7 @@ void main(){
   addEventListener('resize', measure);
   addEventListener('load', measure);
   measure();
+  stackCards.forEach((card, i) => card.style.top = (110 + i * 16) + 'px');
 
   const pxActive = new Set();
   const pxIO = new IntersectionObserver(entries => {

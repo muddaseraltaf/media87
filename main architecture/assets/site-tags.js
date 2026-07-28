@@ -72,9 +72,29 @@
     loadAdSense();
   }
 
+  function scheduleInitialise() {
+    let started = false;
+    const interactionEvents = ["pointerdown", "keydown", "touchstart", "scroll"];
+    const start = () => {
+      if (started) return;
+      started = true;
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, start);
+      });
+      initialise();
+    };
+
+    interactionEvents.forEach((eventName) => {
+      window.addEventListener(eventName, start, { once: true, passive: true });
+    });
+    window.setTimeout(start, 8000);
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initialise, { once: true });
+    document.addEventListener("DOMContentLoaded", scheduleInitialise, {
+      once: true,
+    });
   } else {
-    initialise();
+    scheduleInitialise();
   }
 })();

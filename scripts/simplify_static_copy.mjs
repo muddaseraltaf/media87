@@ -966,6 +966,65 @@ function listHtmlFiles(directory) {
   return files;
 }
 
+const performanceAssetVersion = "20260728-performance1";
+
+function applyPerformanceAndAccessibilityMarkup(html) {
+  html = html
+    .replace(
+      /<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com">\s*/g,
+      "",
+    )
+    .replace(
+      /<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com" crossorigin>\s*/g,
+      "",
+    )
+    .replace(
+      /<link href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]+" rel="stylesheet">\s*/g,
+      '<link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>\n',
+    )
+    .replace(
+      /\/assets\/style\.css(?:\?[^"]*)?/g,
+      `/assets/style.css?v=${performanceAssetVersion}`,
+    )
+    .replace(
+      /\/assets\/site-tags\.js(?:\?[^"]*)?/g,
+      `/assets/site-tags.js?v=${performanceAssetVersion}`,
+    )
+    .replace(
+      /\/+assets\/main\.js(?:\?[^"]*)?|assets\/main\.js(?:\?[^"]*)?/g,
+      `/assets/main.js?v=${performanceAssetVersion}`,
+    )
+    .replaceAll("/assets/logo-color.png", "/assets/logo-color-405.png")
+    .replaceAll("/assets/logo-white.png", "/assets/logo-white-405.png")
+    .replace(
+      /<img class="logo-img" src="\/assets\/logo-color-405\.png" alt="Media87"(?![^>]*\bwidth=)>/g,
+      '<img class="logo-img" src="/assets/logo-color-405.png" alt="Media87" width="405" height="80">',
+    )
+    .replace(
+      /<img class="logo-img" src="\/assets\/logo-white-405\.png" alt="Media87"(?![^>]*\bwidth=)>/g,
+      '<img class="logo-img" src="/assets/logo-white-405.png" alt="Media87" width="405" height="80">',
+    )
+    .replace(
+      /<img src="assets\/img\/cz-support\.jpg" alt="([^"]+)" loading="lazy">/g,
+      '<img src="assets/img/cz-support.jpg" alt="$1" width="1024" height="1024" loading="lazy">',
+    )
+    .replace(
+      /<img src="assets\/img\/lz-dashboard\.png" alt="([^"]+)" loading="lazy">/g,
+      '<img src="assets/img/lz-dashboard.png" alt="$1" width="1024" height="576" loading="lazy">',
+    );
+
+  html = html.replace(/<footer>[\s\S]*?<\/footer>/g, (footer) =>
+    footer.replaceAll("<h4>", "<h2>").replaceAll("</h4>", "</h2>"),
+  );
+
+  if (!/<main(?:\s|>)/i.test(html)) {
+    html = html
+      .replace(/<\/header>/i, "</header>\n<main>")
+      .replace(/<footer>/i, "</main>\n\n<footer>");
+  }
+  return html;
+}
+
 const changedRoutes = [];
 for (const file of listHtmlFiles(architectureDir)) {
   const relative = path.relative(architectureDir, file);
@@ -982,6 +1041,7 @@ for (const file of listHtmlFiles(architectureDir)) {
   }
   revised = applyRouteTransforms(revised, route);
   revised = simplifyLabels(revised);
+  revised = applyPerformanceAndAccessibilityMarkup(revised);
   if (revised !== original) {
     fs.writeFileSync(file, revised);
     changedRoutes.push(route || "home");

@@ -92,6 +92,7 @@ for (const file of htmlFiles) {
     ["canonical", /<link\s+rel="canonical"\s+href="[^"]+"/i],
     ["robots", /<meta\s+name="robots"\s+content="[^"]+"/i],
     ["H1", /<h1\b/i],
+    ["main landmark", /<main(?:\s|>)/i],
     ["header", /<header\s+id="header"/i],
     ["footer", /<footer>/i],
     ["Open Graph title", /<meta\s+property="og:title"\s+content="[^"]+"/i],
@@ -326,6 +327,16 @@ if (
 const stylePath = path.join(architectureDir, "assets/style.css");
 if (fs.existsSync(stylePath)) {
   const styles = fs.readFileSync(stylePath, "utf8");
+  for (const fontFile of [
+    "inter-latin.woff2",
+    "sora-latin.woff2",
+    "space-mono-regular-latin.woff2",
+    "space-mono-bold-latin.woff2",
+  ]) {
+    if (!styles.includes(`/assets/fonts/${fontFile}`)) {
+      errors.push(`Self-hosted font is missing from the stylesheet: ${fontFile}`);
+    }
+  }
   if (!/\.content-page main\{overflow:visible\}/.test(styles)) {
     errors.push("Article/content page vertical overflow is not explicitly visible");
   }
@@ -342,6 +353,18 @@ if (fs.existsSync(stylePath)) {
     )
   ) {
     errors.push("FAQ questions do not use a centered responsive layout");
+  }
+}
+
+const headersPath = path.join(architectureDir, "_headers");
+if (fs.existsSync(headersPath)) {
+  const headers = fs.readFileSync(headersPath, "utf8");
+  if (
+    !/\/assets\/\*[\s\S]*?Cache-Control:\s*public,\s*max-age=31536000,\s*immutable/i.test(
+      headers,
+    )
+  ) {
+    errors.push("Static assets do not have a long-lived immutable cache policy");
   }
 }
 

@@ -24,11 +24,9 @@
 <meta name="twitter:image" content="https://media87.com/assets/og/media87-social-card.jpg">
 <meta name="theme-color" content="#f5f6ef">
 <link rel="icon" type="image/png" href="/assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260727-release6">
-<script src="/assets/site-tags.js?v=20260727-release5" defer></script>
+<link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css?v=20260728-performance1">
+<script src="/assets/site-tags.js?v=20260728-performance1" defer></script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://media87.com/#organization","name":"Media87","url":"https://media87.com/","logo":{"@type":"ImageObject","url":"https://media87.com/assets/logo.png"},"email":"hello@media87.com","telephone":"+971503321743","sameAs":["https://facebook.com/media87hq","https://www.instagram.com/media87hq/","https://www.youtube.com/@media87hq"]},{"@type":"WebSite","@id":"https://media87.com/#website","url":"https://media87.com/","name":"Media87","inLanguage":"en","publisher":{"@id":"https://media87.com/#organization"}},{"@type":"WebPage","@id":"https://media87.com/#webpage","url":"https://media87.com/","name":"Media87 | SEO, Advertising, Content & AI Automation","description":"Media87 provides SEO, paid advertising, content creation and practical AI automation to help businesses reach customers and manage enquiries.","inLanguage":"en","isPartOf":{"@id":"https://media87.com/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://media87.com/assets/og/media87-social-card.jpg"}}]}</script>
 </head>
@@ -39,7 +37,7 @@
 <!-- ============ NAV ============ -->
 <header id="header">
   <div class="wrap nav">
-    <a href="/" class="logo" aria-label="Media87 home"><img class="logo-img" src="/assets/logo-color.png" alt="Media87"></a>
+    <a href="/" class="logo" aria-label="Media87 home"><img class="logo-img" src="/assets/logo-color-405.png" alt="Media87" width="405" height="80"></a>
     <nav class="nav-links" aria-label="Main navigation">
       <div class="nav-drop">
         <button type="button" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button>
@@ -62,6 +60,7 @@
     </button>
   </div>
 </header>
+<main>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -205,7 +204,7 @@
       <div class="product-visual reveal d1 hud">
         <div class="visual-shot" data-speed="0.05">
           <div class="shot">
-            <img src="assets/img/cz-support.jpg" alt="ChatZen AI chatbot delivering 24/7 instant customer support" loading="lazy">
+            <img src="assets/img/cz-support.jpg" alt="ChatZen AI chatbot delivering 24/7 instant customer support" width="1024" height="1024" loading="lazy">
             <span class="shot-caption">ChatZen customer support</span>
           </div>
           <div class="mock-float-wrap">
@@ -236,7 +235,7 @@
       <div class="product-visual violet reveal d1 hud">
         <div class="visual-shot" data-speed="0.05">
           <div class="shot">
-            <img src="assets/img/lz-dashboard.png" alt="LocalZen dashboard showing Google rating, review funnel and recent reviews" loading="lazy">
+            <img src="assets/img/lz-dashboard.png" alt="LocalZen dashboard showing Google rating, review funnel and recent reviews" width="1024" height="576" loading="lazy">
             <span class="shot-caption">LocalZen dashboard</span>
           </div>
           <div class="mock-float-wrap">
@@ -351,11 +350,13 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
+</main>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="/" class="logo"><img class="logo-img" src="/assets/logo-white.png" alt="Media87"></a>
+        <a href="/" class="logo"><img class="logo-img" src="/assets/logo-white-405.png" alt="Media87" width="405" height="80"></a>
         <p>Dubai-based digital marketing agency providing SEO, paid advertising, content creation and practical AI automation.</p>
         <div class="foot-contact">
           <a href="mailto:hello@media87.com">hello@media87.com</a>
@@ -363,7 +364,7 @@
         </div>
       </div>
       <div>
-        <h4>Services</h4>
+        <h2>Services</h2>
         <ul>
           <li><a href="/local-seo-services/">Local SEO</a></li>
           <li><a href="/ads-managment/">Ads Management</a></li>
@@ -376,7 +377,7 @@
         </ul>
       </div>
       <div>
-        <h4>Products</h4>
+        <h2>Products</h2>
         <ul>
           <li><a href="/chatzen/">ChatZen</a></li>
           <li><a href="/localzen/">LocalZen</a></li>
@@ -385,7 +386,7 @@
         </ul>
       </div>
       <div>
-        <h4>Company</h4>
+        <h2>Company</h2>
         <ul>
           <li><a href="/about-us/">About</a></li>
           <li><a href="/blog/">Blog</a></li>
@@ -395,7 +396,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact & legal</h4>
+        <h2>Contact & legal</h2>
         <ul>
           <li><a href="/contact-us/">Contact</a></li>
           <li><a href="/privacy-policy/">Privacy</a></li>
@@ -422,6 +423,6 @@ window.MESH_CONFIG = {
   ]
 };
 </script>
-<script src="assets/main.js"></script>
+<script src="/assets/main.js?v=20260728-performance1"></script>
 </body>
 </html>
