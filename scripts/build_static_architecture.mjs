@@ -37,7 +37,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260728-performance1";
+const assetVersion = "20260728-performance2";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -169,7 +169,7 @@ ${renderSeoHead({ title, description, canonicalUrl, noindex })}`;
 function header() {
   return `<header id="header">
   <div class="wrap nav">
-    <a href="/" class="logo" aria-label="Media87 home"><img class="logo-img" src="/assets/logo-color-405.png" alt="Media87" width="405" height="80"></a>
+    <a href="/" class="logo" aria-label="Media87 home"><img class="logo-img" src="/assets/logo-color-405.webp" alt="Media87" width="405" height="80"></a>
     <nav class="nav-links" aria-label="Main navigation">
       <div class="nav-drop">
         <button type="button" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button>
@@ -199,7 +199,7 @@ function footer() {
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="/" class="logo"><img class="logo-img" src="/assets/logo-white-405.png" alt="Media87" width="405" height="80"></a>
+        <a href="/" class="logo"><img class="logo-img" src="/assets/logo-white-405.webp" alt="Media87" width="405" height="80"></a>
         <p>Dubai-based digital marketing, local discovery and practical AI systems designed around clearer customer journeys.</p>
         <div class="foot-contact">
           <a href="mailto:hello@media87.com">hello@media87.com</a>

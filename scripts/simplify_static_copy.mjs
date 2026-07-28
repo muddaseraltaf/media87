@@ -966,7 +966,7 @@ function listHtmlFiles(directory) {
   return files;
 }
 
-const performanceAssetVersion = "20260728-performance1";
+const performanceAssetVersion = "20260728-performance2";
 
 function applyPerformanceAndAccessibilityMarkup(html) {
   html = html
@@ -996,13 +996,15 @@ function applyPerformanceAndAccessibilityMarkup(html) {
     )
     .replaceAll("/assets/logo-color.png", "/assets/logo-color-405.png")
     .replaceAll("/assets/logo-white.png", "/assets/logo-white-405.png")
+    .replaceAll("/assets/logo-color-405.png", "/assets/logo-color-405.webp")
+    .replaceAll("/assets/logo-white-405.png", "/assets/logo-white-405.webp")
     .replace(
-      /<img class="logo-img" src="\/assets\/logo-color-405\.png" alt="Media87"(?![^>]*\bwidth=)>/g,
-      '<img class="logo-img" src="/assets/logo-color-405.png" alt="Media87" width="405" height="80">',
+      /<img class="logo-img" src="\/assets\/logo-color-405\.webp" alt="Media87"(?![^>]*\bwidth=)>/g,
+      '<img class="logo-img" src="/assets/logo-color-405.webp" alt="Media87" width="405" height="80">',
     )
     .replace(
-      /<img class="logo-img" src="\/assets\/logo-white-405\.png" alt="Media87"(?![^>]*\bwidth=)>/g,
-      '<img class="logo-img" src="/assets/logo-white-405.png" alt="Media87" width="405" height="80">',
+      /<img class="logo-img" src="\/assets\/logo-white-405\.webp" alt="Media87"(?![^>]*\bwidth=)>/g,
+      '<img class="logo-img" src="/assets/logo-white-405.webp" alt="Media87" width="405" height="80">',
     )
     .replace(
       /<img src="assets\/img\/cz-support\.jpg" alt="([^"]+)" loading="lazy">/g,
