@@ -111,7 +111,7 @@ assert(wrongOrigin.status === 403, "Cross-site submissions must be rejected");
 const getResponse = onRequestGet();
 assert(getResponse.status === 405, "GET must not submit the form");
 assert(
-  getResponse.headers.get("X-Media87-Contact-Version") === "hostinger-smtp-1",
+  getResponse.headers.get("X-Media87-Contact-Version") === "hostinger-smtp-2",
   "Contact endpoint must expose a safe deployment version",
 );
 

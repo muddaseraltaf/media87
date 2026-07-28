@@ -1,6 +1,6 @@
 const MAX_BODY_BYTES = 20_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const CONTACT_FUNCTION_VERSION = "hostinger-smtp-1";
+const CONTACT_FUNCTION_VERSION = "hostinger-smtp-2";
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -172,11 +172,13 @@ export async function onRequestPost(context) {
       }
     }
   } catch (error) {
-    console.error("Media87 contact email delivery failed", error?.code || error?.name || "unknown");
+    const deliveryCode = classifyDeliveryError(error);
+    console.error("Media87 contact email delivery failed", deliveryCode);
     return respond(
       {
         ok: false,
         message: "We could not send the enquiry. Please email hello@media87.com.",
+        deliveryCode,
       },
       502,
       wantsJson,
@@ -257,6 +259,16 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function classifyDeliveryError(error) {
+  const message = String(error?.message || "").toLowerCase();
+  const smtpCode = /smtp server returned (\d{3})/.exec(message)?.[1];
+  if (smtpCode) return `SMTP_RESPONSE_${smtpCode}`;
+  if (/auth|credential|password/.test(message)) return "SMTP_AUTH";
+  if (/timed out|timeout/.test(message)) return "SMTP_TIMEOUT";
+  if (/connect|socket|network|tls/.test(message)) return "SMTP_CONNECT";
+  return "SMTP_RUNTIME";
 }
 
 function respond(payload, status, wantsJson, requestUrl) {
