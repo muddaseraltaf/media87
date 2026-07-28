@@ -453,6 +453,9 @@ if (!fs.existsSync(contactFunctionPath)) {
   const contactFunction = fs.readFileSync(contactFunctionPath, "utf8");
   for (const [label, pattern] of [
     ["server-side validation", /validateFields/],
+    ["Hostinger SMTP user secret", /env\.HOSTINGER_SMTP_USER/],
+    ["Hostinger SMTP password secret", /env\.HOSTINGER_SMTP_PASSWORD/],
+    ["Hostinger SMTP delivery module", /sendHostingerEmail/],
     ["Cloudflare Email Service REST endpoint", /api\.cloudflare\.com\/client\/v4\/accounts/],
     ["Cloudflare account setting", /env\.CLOUDFLARE_ACCOUNT_ID/],
     ["Cloudflare email API token", /env\.CLOUDFLARE_EMAIL_API_TOKEN/],
@@ -463,6 +466,28 @@ if (!fs.existsSync(contactFunctionPath)) {
     if (!pattern.test(contactFunction)) {
       errors.push(`Cloudflare contact function is missing ${label}`);
     }
+  }
+}
+
+const smtpClientPath = path.resolve(
+  architectureDir,
+  "../functions/lib/smtp-client.js",
+);
+const hostingerSmtpPath = path.resolve(
+  architectureDir,
+  "../functions/lib/hostinger-smtp.js",
+);
+if (!fs.existsSync(smtpClientPath) || !fs.existsSync(hostingerSmtpPath)) {
+  errors.push("Hostinger SMTP delivery modules are missing");
+} else {
+  const smtpClient = fs.readFileSync(smtpClientPath, "utf8");
+  const hostingerSmtp = fs.readFileSync(hostingerSmtpPath, "utf8");
+  if (
+    !/secureTransport:\s*"on"/.test(smtpClient) ||
+    !/smtp\.hostinger\.com/.test(hostingerSmtp) ||
+    !/port:\s*options\.port\s*\|\|\s*465/.test(hostingerSmtp)
+  ) {
+    errors.push("Hostinger SMTP delivery is not configured for TLS on port 465");
   }
 }
 

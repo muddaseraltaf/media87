@@ -65,12 +65,15 @@ export async function onRequestPost(context) {
     }
   }
 
-  if (
-    !env.CLOUDFLARE_ACCOUNT_ID ||
-    !env.CLOUDFLARE_EMAIL_API_TOKEN ||
-    !env.CONTACT_RECIPIENT
-  ) {
-    console.error("Media87 contact form is missing Cloudflare email configuration");
+  const hasHostingerSmtp =
+    Boolean(env.HOSTINGER_SMTP_USER) &&
+    Boolean(env.HOSTINGER_SMTP_PASSWORD);
+  const hasCloudflareEmail =
+    Boolean(env.CLOUDFLARE_ACCOUNT_ID) &&
+    Boolean(env.CLOUDFLARE_EMAIL_API_TOKEN);
+
+  if (!hasHostingerSmtp && !hasCloudflareEmail) {
+    console.error("Media87 contact form is missing email delivery configuration");
     return respond(
       {
         ok: false,
@@ -82,8 +85,28 @@ export async function onRequestPost(context) {
     );
   }
 
-  const recipient = clean(env.CONTACT_RECIPIENT, 254);
-  const sender = clean(env.CONTACT_FROM || "website@media87.com", 254);
+  const recipient = clean(
+    env.CONTACT_RECIPIENT || env.HOSTINGER_SMTP_USER,
+    254,
+  );
+  const sender = clean(
+    hasHostingerSmtp
+      ? env.HOSTINGER_SMTP_USER
+      : env.CONTACT_FROM || "website@media87.com",
+    254,
+  );
+  if (!EMAIL_PATTERN.test(recipient) || !EMAIL_PATTERN.test(sender)) {
+    console.error("Media87 contact form has invalid sender or recipient configuration");
+    return respond(
+      {
+        ok: false,
+        message: "Email delivery is temporarily unavailable. Please email hello@media87.com.",
+      },
+      503,
+      wantsJson,
+      requestUrl,
+    );
+  }
   const subject = `Media87 website enquiry — ${name}`;
   const text = [
     "New Media87 website enquiry",
@@ -109,28 +132,43 @@ export async function onRequestPost(context) {
   `;
 
   try {
-    const emailResponse = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID)}/email/sending/send`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${env.CLOUDFLARE_EMAIL_API_TOKEN}`,
-          "Content-Type": "application/json",
+    if (hasHostingerSmtp) {
+      const { sendHostingerEmail } = await import("../lib/hostinger-smtp.js");
+      await sendHostingerEmail({
+        username: env.HOSTINGER_SMTP_USER,
+        password: env.HOSTINGER_SMTP_PASSWORD,
+        from: sender,
+        to: recipient,
+        replyTo: email,
+        replyToName: name,
+        subject,
+        text,
+        html,
+      });
+    } else {
+      const emailResponse = await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID)}/email/sending/send`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${env.CLOUDFLARE_EMAIL_API_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: recipient,
+            from: { address: sender, name: "Media87 Website" },
+            reply_to: { address: email, name },
+            subject,
+            text,
+            html,
+          }),
         },
-        body: JSON.stringify({
-          to: recipient,
-          from: { address: sender, name: "Media87 Website" },
-          reply_to: { address: email, name },
-          subject,
-          text,
-          html,
-        }),
-      },
-    );
-    const emailResult = await emailResponse.json().catch(() => ({}));
-    if (!emailResponse.ok || !emailResult.success) {
-      const code = emailResult.errors?.[0]?.code || emailResponse.status;
-      throw new Error(`Cloudflare Email Service error ${code}`);
+      );
+      const emailResult = await emailResponse.json().catch(() => ({}));
+      if (!emailResponse.ok || !emailResult.success) {
+        const code = emailResult.errors?.[0]?.code || emailResponse.status;
+        throw new Error(`Cloudflare Email Service error ${code}`);
+      }
     }
   } catch (error) {
     console.error("Media87 contact email delivery failed", error?.code || error?.name || "unknown");

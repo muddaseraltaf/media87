@@ -1,4 +1,5 @@
 import { onRequestGet, onRequestPost } from "../functions/api/contact.js";
+import { sendSmtpEmail } from "../functions/lib/smtp-client.js";
 
 const emailRequests = [];
 const originalFetch = globalThis.fetch;
@@ -71,6 +72,32 @@ assert(
 );
 assert(!JSON.stringify(validPayload).includes("visitor@example.com"), "Response must not expose personal data");
 
+const smtpWrites = [];
+await sendSmtpEmail({
+  connect: createMockSmtpConnect(smtpWrites),
+  hostname: "smtp.hostinger.com",
+  port: 465,
+  username: "contact@media87.com",
+  password: "test-password",
+  from: "contact@media87.com",
+  to: "contact@media87.com",
+  replyTo: "visitor@example.com",
+  replyToName: "Media87 Test",
+  subject: "Media87 website enquiry",
+  text: "A plain-text website enquiry.",
+  html: "<p>A website enquiry.</p>",
+});
+const smtpTranscript = smtpWrites.join("");
+assert(smtpTranscript.includes("AUTH LOGIN\r\n"), "SMTP delivery must authenticate");
+assert(
+  smtpTranscript.includes("Reply-To: \"Media87 Test\" <visitor@example.com>"),
+  "SMTP delivery must set the visitor as Reply-To",
+);
+assert(
+  smtpTranscript.includes("From: \"Media87 Website\" <contact@media87.com>"),
+  "SMTP delivery must use the Hostinger mailbox as sender",
+);
+
 const wrongOrigin = await submit(
   {
     name: "Media87 Test",
@@ -88,8 +115,9 @@ console.log(
   JSON.stringify(
     {
       status: "passed",
-      tests: 5,
+      tests: 6,
       emailsSent: emailRequests.length,
+      smtpSimulations: 1,
     },
     null,
     2,
@@ -114,4 +142,40 @@ async function submit(fields, origin = "https://media87.com") {
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+function createMockSmtpConnect(writes) {
+  const responses = [
+    "220 smtp.hostinger.com ESMTP ready\r\n",
+    "250-smtp.hostinger.com\r\n250 AUTH LOGIN\r\n",
+    "334 VXNlcm5hbWU6\r\n",
+    "334 UGFzc3dvcmQ6\r\n",
+    "235 2.7.0 Authentication successful\r\n",
+    "250 2.1.0 Sender accepted\r\n",
+    "250 2.1.5 Recipient accepted\r\n",
+    "354 End data with <CR><LF>.<CR><LF>\r\n",
+    "250 2.0.0 Message accepted\r\n",
+    "221 2.0.0 Bye\r\n",
+  ].join("");
+  const encodedResponses = new TextEncoder().encode(responses);
+
+  return (address, options) => {
+    assert(address.hostname === "smtp.hostinger.com", "SMTP must use Hostinger");
+    assert(address.port === 465, "SMTP must use Hostinger SSL port 465");
+    assert(options.secureTransport === "on", "SMTP must use TLS");
+    return {
+      opened: Promise.resolve({ remoteAddress: "203.0.113.10" }),
+      readable: new ReadableStream({
+        start(controller) {
+          controller.enqueue(encodedResponses);
+        },
+      }),
+      writable: new WritableStream({
+        write(chunk) {
+          writes.push(new TextDecoder().decode(chunk));
+        },
+      }),
+      async close() {},
+    };
+  };
 }
