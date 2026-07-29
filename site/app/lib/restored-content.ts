@@ -4,6 +4,25 @@ export type RestoredArticle = {
   description: string;
   category: string;
   image?: string;
+  media?: {
+    afterHeading?: string;
+    afterTextStartsWith?: string;
+    layout: "wide" | "profiles";
+    src?: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+    caption?: string;
+    items?: {
+      src: string;
+      alt: string;
+      label: string;
+      detail?: string;
+      width: number;
+      height: number;
+      fit?: "cover" | "contain";
+    }[];
+  }[];
   headings?: string[];
   paragraphs?: string[];
   sources?: { label: string; url: string }[];
@@ -130,6 +149,19 @@ export const restoredArticles: RestoredArticle[] = [
     description:
       "Build an n8n workflow that reads email, classifies intent, prepares a grounded draft and sends uncertain or sensitive messages to human review.",
     category: "AI automation",
+    media: [
+      {
+        afterTextStartsWith:
+          "Before connecting an AI email workflow to a live inbox",
+        layout: "wide",
+        src: "/images/articles/email-ai/n8n-email-classification-workflow.webp",
+        alt: "n8n workflow connecting Gmail, email classification, a knowledge base and rule-based email actions",
+        width: 1024,
+        height: 490,
+        caption:
+          "The workflow shown in the earlier Media87 guide. Treat it as an architecture example and confirm current n8n node settings before implementation.",
+      },
+    ],
     sources: [
       {
         label: "n8n Gmail node documentation",
@@ -143,6 +175,18 @@ export const restoredArticles: RestoredArticle[] = [
     description:
       "A practical n8n workflow for turning approved ideas into LinkedIn drafts while protecting facts, brand voice and human approval.",
     category: "AI automation",
+    media: [
+      {
+        afterTextStartsWith: "A LinkedIn post assistant is more useful",
+        layout: "wide",
+        src: "/images/articles/linkedin-n8n/n8n-linkedin-post-workflow.webp",
+        alt: "n8n workflow connecting Telegram triggers, content generation, image generation and a LinkedIn post action",
+        width: 1024,
+        height: 534,
+        caption:
+          "The workflow screenshot from the original Media87 article. The rebuilt guide adds approval, fact-checking and duplicate-protection safeguards around this basic flow.",
+      },
+    ],
     sources: [
       {
         label: "LinkedIn — automated activity policy",
@@ -170,6 +214,97 @@ export const restoredArticles: RestoredArticle[] = [
       "A transparent 2026 shortlist of notable Pakistan-connected digital marketers, organised by specialism with selection criteria and a practical hiring checklist.",
     category: "Digital marketing",
     image: "/images/services/digital-marketing.jpg",
+    media: [
+      {
+        afterHeading: "Pakistan-connected marketers to consider",
+        layout: "profiles",
+        caption:
+          "Portraits restored from the earlier Media87 version of this article. The order below is editorial, not a performance ranking.",
+        items: [
+          {
+            src: "/images/articles/top-digital-marketers/muddaser-altaf.webp",
+            alt: "Portrait of Muddaser Altaf",
+            label: "Muddaser Altaf",
+            detail: "AI-assisted marketing and automation",
+            width: 225,
+            height: 225,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/badar-khushnood.webp",
+            alt: "Portrait of Badar Khushnood",
+            label: "Badar Khushnood",
+            detail: "Digital transformation and ecommerce",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/salman-baig.webp",
+            alt: "Portrait of Salman Baig",
+            label: "Salman Baig",
+            detail: "Technical and enterprise SEO",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/tanveer-nandla.webp",
+            alt: "Portrait of Tanveer Nandla",
+            label: "Tanveer Nandla",
+            detail: "SEO education and digital entrepreneurship",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/hisham-sarwar.webp",
+            alt: "Portrait of Hisham Sarwar",
+            label: "Hisham Sarwar",
+            detail: "Freelancing, personal brand and digital education",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/mehboob-shar.webp",
+            alt: "Portrait of Mehboob Shar",
+            label: "Mehboob Shar",
+            detail: "SEO consulting and agency delivery",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/shahzeena-khan.webp",
+            alt: "Portrait of Shahzeena Khan",
+            label: "Shahzeena Khan",
+            detail: "SEO consulting and training",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/abdul-wahab-ahmad.webp",
+            alt: "Portrait of Abdul Wahab Ahmad",
+            label: "Abdul Wahab Ahmad",
+            detail: "Performance marketing and training",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/m-rameez-ul-haq.webp",
+            alt: "Portrait of M. Rameez Ul Haq",
+            label: "M. Rameez Ul Haq",
+            detail: "SEO consulting and education",
+            width: 300,
+            height: 300,
+          },
+          {
+            src: "/images/articles/top-digital-marketers/shan-mehar.webp",
+            alt: "Portrait of Shan Mehar",
+            label: "Shan Mehar",
+            detail: "Creator monetisation and social video",
+            width: 541,
+            height: 461,
+            fit: "contain",
+          },
+        ],
+      },
+    ],
     headings: [
       "Direct answer",
       "How this shortlist was prepared",

@@ -658,10 +658,66 @@ function headingId(value = "") {
     .slice(0, 72);
 }
 
+function renderArticleMedia(block) {
+  if (block.layout === "profiles" && block.items?.length) {
+    const profiles = block.items
+      .map(
+        (item) => `<figure class="article-profile">
+          <div class="article-profile-image${item.fit === "contain" ? " article-profile-image--contain" : ""}">
+            <img src="${escapeHtml(localImage(item.src))}" alt="${escapeHtml(item.alt)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async">
+          </div>
+          <figcaption>
+            <strong>${escapeHtml(item.label)}</strong>
+            ${item.detail ? `<span>${escapeHtml(item.detail)}</span>` : ""}
+          </figcaption>
+        </figure>`,
+      )
+      .join("");
+    return `<section class="article-profile-gallery" aria-label="People featured in this guide">
+      <div>${profiles}</div>
+      ${block.caption ? `<p class="article-media-note">${escapeHtml(block.caption)}</p>` : ""}
+    </section>`;
+  }
+
+  if (block.layout === "wide" && block.src && block.alt) {
+    return `<figure class="article-inline-media">
+      <img src="${escapeHtml(localImage(block.src))}" alt="${escapeHtml(block.alt)}" width="${block.width || 1200}" height="${block.height || 675}" loading="lazy" decoding="async">
+      ${block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""}
+    </figure>`;
+  }
+
+  return "";
+}
+
 function articleBlocks(post, clean) {
   if (clean) {
     const headings = new Set(clean.headings.map((heading) => heading.trim()));
     const headingCounts = new Map();
+    const mediaByHeading = new Map();
+    const renderedMediaHeadings = new Set();
+    const renderedMediaBlocks = new Set();
+    for (const block of clean.media || []) {
+      if (!block.afterHeading) continue;
+      const heading = block.afterHeading.trim();
+      mediaByHeading.set(heading, [
+        ...(mediaByHeading.get(heading) || []),
+        block,
+      ]);
+    }
+    const renderTextMedia = (paragraph) =>
+      (clean.media || [])
+        .filter(
+          (block) =>
+            block.afterTextStartsWith &&
+            paragraph.startsWith(block.afterTextStartsWith) &&
+            !renderedMediaBlocks.has(block),
+        )
+        .map((block) => {
+          renderedMediaBlocks.add(block);
+          return renderArticleMedia(block);
+        })
+        .filter(Boolean)
+        .join("");
     return clean.paragraphs
       .map((paragraph) =>
         paragraph
@@ -676,12 +732,26 @@ function articleBlocks(post, clean) {
           (paragraph.length < 72 &&
             !/[.!?]$/.test(paragraph) &&
             !paragraph.startsWith("http"));
-        if (!heading) return `<p>${escapeHtml(paragraph)}</p>`;
+        if (!heading) {
+          return `<p>${escapeHtml(paragraph)}</p>${renderTextMedia(paragraph)}`;
+        }
         const baseId = headingId(paragraph) || "section";
         const count = (headingCounts.get(baseId) || 0) + 1;
         headingCounts.set(baseId, count);
         const id = count === 1 ? baseId : `${baseId}-${count}`;
-        return `<h2 id="${escapeHtml(id)}">${escapeHtml(paragraph)}</h2>`;
+        const media =
+          !renderedMediaHeadings.has(paragraph) && mediaByHeading.has(paragraph)
+            ? mediaByHeading
+                .get(paragraph)
+                .map((block) => {
+                  renderedMediaBlocks.add(block);
+                  return renderArticleMedia(block);
+                })
+                .filter(Boolean)
+                .join("")
+            : "";
+        renderedMediaHeadings.add(paragraph);
+        return `<h2 id="${escapeHtml(id)}">${escapeHtml(paragraph)}</h2>${media}`;
       })
       .join("");
   }
@@ -806,7 +876,7 @@ function articlePage(post) {
     noindex: !approvedIndexableArticleSlugs.has(post.slug),
   }).replace(
     "</head>",
-    '<link rel="stylesheet" href="/assets/article-layout.css?v=20260728-article1">\n</head>',
+    '<link rel="stylesheet" href="/assets/article-layout.css?v=20260729-article2">\n</head>',
   );
   return `${articleHead}
 <body class="content-page article-page">
@@ -1591,11 +1661,19 @@ function enhanceRouteSeo(route, input) {
     /<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi,
     "",
   );
-  const preservedScripts = [
-    ...headWithoutJsonLd.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi),
+  const preservedStyles = [
+    ...headWithoutJsonLd.matchAll(
+      /<link\b[^>]*rel="stylesheet"[^>]*>/gi,
+    ),
   ]
     .map((match) => match[0])
-    .filter((script) => !/\/assets\/(?:consent-tags|site-tags)\.js/i.test(script))
+    .filter((link) => !/\/assets\/style\.css/i.test(link));
+  const preservedScripts = [
+    ...preservedStyles,
+    ...headWithoutJsonLd.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi),
+  ]
+    .map((match) => (typeof match === "string" ? match : match[0]))
+    .filter((item) => !/\/assets\/(?:consent-tags|site-tags)\.js/i.test(item))
     .join("\n");
   const structuredData = schemaGraphFor({
     route,
