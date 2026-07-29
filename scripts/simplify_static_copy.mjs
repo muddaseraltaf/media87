@@ -966,6 +966,7 @@ function listHtmlFiles(directory) {
 }
 
 const performanceAssetVersion = "20260728-performance5";
+const chatbotAssetVersion = "20260729-chatbot1";
 
 function applyPerformanceAndAccessibilityMarkup(html) {
   html = html
@@ -1013,6 +1014,18 @@ function applyPerformanceAndAccessibilityMarkup(html) {
       /<img src="assets\/img\/lz-dashboard\.png" alt="([^"]+)" loading="lazy">/g,
       '<img src="assets/img/lz-dashboard.png" alt="$1" width="1024" height="576" loading="lazy">',
     );
+
+  if (!/\/assets\/chatbot-loader\.js(?:\?[^"]*)?/i.test(html)) {
+    html = html.replace(
+      /<\/head>/i,
+      `<script src="/assets/chatbot-loader.js?v=${chatbotAssetVersion}" defer></script>\n</head>`,
+    );
+  } else {
+    html = html.replace(
+      /\/assets\/chatbot-loader\.js(?:\?[^"]*)?/gi,
+      `/assets/chatbot-loader.js?v=${chatbotAssetVersion}`,
+    );
+  }
 
   html = html.replace(/<footer>[\s\S]*?<\/footer>/g, (footer) =>
     footer.replaceAll("<h4>", "<h2>").replaceAll("</h4>", "</h2>"),

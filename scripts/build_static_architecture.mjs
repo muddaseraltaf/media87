@@ -72,6 +72,7 @@ const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
 const assetVersion = "20260728-performance5";
+const chatbotAssetVersion = "20260729-chatbot1";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
 const entities = {
@@ -185,6 +186,7 @@ ${imageDimensions}
 <link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css?v=${assetVersion}">
 <script src="/assets/site-tags.js?v=${assetVersion}" defer></script>
+<script src="/assets/chatbot-loader.js?v=${chatbotAssetVersion}" defer></script>
 ${preservedScripts}
 ${jsonLd}
 </head>`;
@@ -1673,7 +1675,10 @@ function enhanceRouteSeo(route, input) {
     ...headWithoutJsonLd.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi),
   ]
     .map((match) => (typeof match === "string" ? match : match[0]))
-    .filter((item) => !/\/assets\/(?:consent-tags|site-tags)\.js/i.test(item))
+    .filter(
+      (item) =>
+        !/\/assets\/(?:chatbot-loader|consent-tags|site-tags)\.js/i.test(item),
+    )
     .join("\n");
   const structuredData = schemaGraphFor({
     route,
@@ -1915,11 +1920,11 @@ for (const page of recoveredRootPages) {
     html = html
       .replace(
         "Analytics, Vimeo, YouTube, chatbot, social and other embeds need accurate disclosure. Click-to-load media reduces unnecessary third-party requests but does not replace disclosure.",
-        "Media87 uses Google measurement, Meta advertising measurement and Google AdSense technology. These services may process website usage, browser, device, approximate-location and cookie or similar identifier data. The current public identifiers are Google tag GT-KVFLZP7K, Meta Pixel 942291175461032 and AdSense publisher ca-pub-6396157876082473.",
+        "Media87 uses Google measurement, Meta advertising measurement, Google AdSense technology and an embedded NewOaks/ChatPilot chatbot served from chat.media87.com. These services may process website usage, browser, device, approximate-location and cookie or similar identifier data. The chatbot may also process the messages and contact details a visitor chooses to enter. The current public identifiers are Google tag GT-KVFLZP7K, Meta Pixel 942291175461032 and AdSense publisher ca-pub-6396157876082473.",
       )
       .replace(
         "Name relevant processor categories, safeguards and retention logic without promising absolute security. Data should be kept only for an approved purpose and period.",
-        "Processors may include Cloudflare for website hosting, Tally for contact-form delivery and submission handling, Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 retains enquiry and measurement data only for a relevant business, legal or security purpose and does not promise absolute security.",
+        "Processors may include Cloudflare for website hosting, Tally for contact-form delivery and submission handling, NewOaks/ChatPilot for the website chatbot, Google for measurement, advertising and AdSense, and Meta for advertising measurement. Media87 retains enquiry, chatbot and measurement data only for a relevant business, legal or security purpose and does not promise absolute security.",
       )
       .replace(
         "The final policy should explain applicable access, correction, deletion, objection or complaint routes and identify the responsible contact.",

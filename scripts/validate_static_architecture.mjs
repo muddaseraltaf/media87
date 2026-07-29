@@ -69,6 +69,7 @@ for (const requiredFile of [
   "_headers",
   "ads.txt",
   "assets/site-tags.js",
+  "assets/chatbot-loader.js",
   "assets/localzen.css",
   "assets/og/media87-social-card.jpg",
 ]) {
@@ -104,6 +105,7 @@ for (const file of htmlFiles) {
     ["Twitter card", /<meta\s+name="twitter:card"\s+content="summary_large_image"/i],
     ["JSON-LD", /<script\s+type="application\/ld\+json">/i],
     ["site tag loader", /<script\s+src="\/assets\/site-tags\.js\?v=[^"]+"\s+defer><\/script>/i],
+    ["chatbot loader", /<script\s+src="\/assets\/chatbot-loader\.js\?v=[^"]+"\s+defer><\/script>/i],
   ]) {
     if (!pattern.test(html)) errors.push(`${route}: missing ${label}`);
   }
@@ -337,6 +339,26 @@ if (fs.existsSync(siteTagsPath)) {
   }
   if (/data-consent-choice|data-cookie-settings|consent-panel/.test(siteTags)) {
     errors.push("Site tag loader still contains the removed consent popup");
+  }
+}
+
+const chatbotLoaderPath = path.join(
+  architectureDir,
+  "assets/chatbot-loader.js",
+);
+if (fs.existsSync(chatbotLoaderPath)) {
+  const chatbotLoader = fs.readFileSync(chatbotLoaderPath, "utf8");
+  for (const identifier of [
+    "bfa81d9bba3647f9907117b422fca4cf",
+    "https://chat.media87.com",
+    "embed.min.js",
+  ]) {
+    if (!chatbotLoader.includes(identifier)) {
+      errors.push(`Chatbot loader is missing ${identifier}`);
+    }
+  }
+  if (!/requestIdleCallback/.test(chatbotLoader)) {
+    errors.push("Chatbot loader is not deferred until the browser is idle");
   }
 }
 
