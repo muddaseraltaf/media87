@@ -72,6 +72,7 @@ for (const requiredFile of [
   "assets/chatbot-loader.js",
   "assets/localzen.css",
   "assets/og/media87-social-card.jpg",
+  "assets/img/site/articles/top-digital-marketers/muddaser-altaf-hd.jpg",
 ]) {
   if (!fs.existsSync(path.join(architectureDir, requiredFile))) {
     errors.push(`Missing technical SEO file: ${requiredFile}`);
@@ -535,6 +536,9 @@ if (fs.existsSync(contactPath)) {
     ["privacy link", /href="\/privacy-policy\/"/i],
     ["email fallback", /href="mailto:hello@media87\.com"/i],
     ["Google Business Profile link", /maps\.app\.goo\.gl\/MnLoZ7Vj2iKCbeFWA/i],
+    ["Google Maps embed", /google\.com\/maps\?q=Media87%20Digital%20Marketing%20Services&amp;output=embed/i],
+    ["lazy map loading", /<iframe[\s\S]*?google\.com\/maps[\s\S]*?loading="lazy"/i],
+    ["descriptive map title", /title="Map showing Media87 Digital Marketing Services"/i],
   ]) {
     if (!pattern.test(contactHtml)) errors.push(`/contact-us/: missing ${label}`);
   }

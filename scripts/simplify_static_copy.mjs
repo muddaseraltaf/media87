@@ -965,7 +965,7 @@ function listHtmlFiles(directory) {
   return files;
 }
 
-const performanceAssetVersion = "20260803-audit1";
+const performanceAssetVersion = "20260803-contact2";
 const chatbotAssetVersion = "20260729-chatbot1";
 
 function applyPerformanceAndAccessibilityMarkup(html) {

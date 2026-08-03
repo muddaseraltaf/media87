@@ -71,7 +71,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260803-audit1";
+const assetVersion = "20260803-contact2";
 const chatbotAssetVersion = "20260729-chatbot1";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 

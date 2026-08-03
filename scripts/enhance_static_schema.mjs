@@ -151,7 +151,7 @@ function founderNode() {
     name: "Muddaser Altaf",
     jobTitle: "Founder",
     url: `${siteUrl}/authors-team/#muddaser-altaf`,
-    image: `${siteUrl}/assets/img/site/articles/top-digital-marketers/muddaser-altaf.webp`,
+    image: `${siteUrl}/assets/img/site/articles/top-digital-marketers/muddaser-altaf-hd.jpg`,
     worksFor: { "@id": organizationId },
     sameAs: ["https://muddaser.com"],
   };
