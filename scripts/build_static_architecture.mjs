@@ -71,7 +71,7 @@ const siteUrl = "https://media87.com";
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const socialImageUrl = `${siteUrl}/assets/og/media87-social-card.jpg`;
-const assetVersion = "20260728-performance5";
+const assetVersion = "20260803-audit1";
 const chatbotAssetVersion = "20260729-chatbot1";
 const dmcaVerification = "SGZBeklUVW1FQ2RnSlNhTysyc0c5dz090";
 
@@ -1297,14 +1297,14 @@ function improveExisting(route, input) {
 const seoOverrides = new Map(
   Object.entries({
     "": {
-      title: "Media87 | Digital Marketing, Local SEO & Practical AI Systems",
+      title: "Digital Marketing & AI Agency in Dubai | Media87",
       description:
-        "Media87 connects digital marketing, local discovery, paid media, content and practical AI systems around clearer customer journeys.",
+        "Media87 is a Dubai digital marketing and AI agency providing SEO, paid advertising, content creation and practical automation for clearer customer journeys.",
     },
     services: {
-      title: "Digital Marketing, Local SEO & AI Services",
+      title: "Digital Marketing & AI Services in Dubai",
       description:
-        "Explore Media87 services for local SEO, paid media, AI conversations, content, reputation workflows and connected digital delivery.",
+        "Explore Media87 services for SEO, paid advertising, AI chatbots, automation, content and reputation management in Dubai and for international projects.",
     },
     "ads-management": {
       title: "Google, Meta & TikTok Ads Management",
@@ -1337,9 +1337,9 @@ const seoOverrides = new Map(
         "Media87 provides digital marketing services from its Dubai market context, connecting strategy, content, paid media, SEO and practical automation.",
     },
     "seo-for-dubai-businesses": {
-      title: "SEO for Dubai Businesses: Practical Guide",
+      title: "SEO for Dubai Businesses: Complete 2026 Guide",
       description:
-        "A practical guide to technical, on-page, local and content SEO considerations for businesses serving customers in Dubai.",
+        "A practical guide to technical SEO, service pages, local search, content planning, costs and measurement for businesses serving customers in Dubai.",
     },
     "human-like-ai-calling-bots": {
       title: "Human-Like AI Calling Bots: Workflow & Safeguards",
@@ -1357,14 +1357,14 @@ const seoOverrides = new Map(
         "Media87 plans AI-assisted video concepts, scripts, generation, editing and channel adaptations with human review and clear usage boundaries.",
     },
     "contact-us": {
-      title: "Contact Media87",
+      title: "Contact Media87 — Dubai Digital Marketing Agency",
       description:
-        "Contact Media87 about local SEO, paid media, content, AI conversations, reputation workflows or a connected digital project.",
+        "Contact Media87 in Dubai about SEO, paid advertising, content, AI automation, ChatZen or LocalZen. Call, email or send a project brief.",
     },
     "about-us": {
-      title: "About Media87",
+      title: "About Media87 — Dubai Digital Marketing & AI Agency",
       description:
-        "Learn how Media87 approaches creative direction, technical execution, practical AI systems and human-reviewed digital delivery.",
+        "Media87 is a Dubai digital marketing agency connecting SEO, paid advertising, content, websites and practical AI automation under one clear plan.",
     },
     faqs: {
       title: "Media87 Frequently Asked Questions",
@@ -1377,9 +1377,9 @@ const seoOverrides = new Map(
         "Media87 connects restaurant search visibility, paid campaigns, reputation signals, local pages and enquiry or booking journeys.",
     },
     "llm-package": {
-      title: "LLM Visibility Package",
+      title: "AI & LLM Visibility Services",
       description:
-        "A Media87 package framework for reviewing crawl access, entity clarity, source content, citations and visibility across AI-assisted discovery.",
+        "Make your business easier for search engines and AI tools to understand through entity clarity, structured data, source content and technical access.",
     },
     prompts: {
       title: "Media87 Prompt Library",
@@ -1387,9 +1387,9 @@ const seoOverrides = new Map(
         "A practical prompt library for structured content, research, automation and review workflows, with human judgement kept in the process.",
     },
     "authors-team": {
-      title: "Media87 Authors and Team",
+      title: "Authors & Team | Media87",
       description:
-        "Review Media87 authorship, editorial responsibilities and the evidence boundaries applied to company and article content.",
+        "Meet the people responsible for Media87 strategy and content, including founder Muddaser Altaf, and learn how articles are reviewed and corrected.",
     },
     "editorial-guidelines": {
       title: "Media87 Editorial Guidelines",
@@ -1776,7 +1776,15 @@ Sitemap: ${siteUrl}/sitemap.xml
     path.join(architectureDir, "llms.txt"),
     `# Media87
 
-> Media87 is a Dubai-based digital marketing and practical AI systems company. Its website covers SEO, paid media, AI-assisted customer conversations, reputation management, content, and related services and products.
+> Media87 is a Dubai-based digital marketing and practical AI agency. It provides SEO, paid advertising, content creation, AI chatbots, reputation management and workflow automation for UAE and international projects when the scope fits.
+
+## Entity facts
+
+- Founder: [Muddaser Altaf](${siteUrl}/authors-team/#muddaser-altaf)
+- Location: Dubai, United Arab Emirates
+- Email: hello@media87.com
+- Phone: +971 50 332 1743
+- Google Business Profile: [View Media87 on Google Maps](https://maps.app.goo.gl/MnLoZ7Vj2iKCbeFWA)
 
 ## Primary pages
 
@@ -1788,6 +1796,9 @@ Sitemap: ${siteUrl}/sitemap.xml
 - [LocalZen](${siteUrl}/localzen/)
 - [AI Conversation Systems](${siteUrl}/ai-powered-conversations/)
 - [AI Video Creation](${siteUrl}/ai-video-creation-service/)
+- [Digital Marketing Services in Dubai](${siteUrl}/digital-marketing-services-in-dubai/)
+- [SEO for Dubai Businesses](${siteUrl}/seo-for-dubai-businesses/)
+- [AI and LLM Visibility Services](${siteUrl}/llm-package/)
 
 ## Editorial and trust
 
@@ -1797,7 +1808,7 @@ Sitemap: ${siteUrl}/sitemap.xml
 - [Editorial Guidelines](${siteUrl}/editorial-guidelines/)
 - [Contact](${siteUrl}/contact-us/)
 
-Use the canonical page linked above for current service scope, availability, pricing logic, and claims. Rankings, traffic, leads, or AI citations are not guaranteed.
+Use each canonical page for its current service scope, product features, pricing logic and claims. Media87 does not guarantee rankings, traffic, leads or citation by an AI system.
 `,
   );
   fs.writeFileSync(
@@ -1806,7 +1817,7 @@ Use the canonical page linked above for current service scope, availability, pri
 
 ## Organisation
 
-Media87 is a Dubai-based digital marketing and practical AI systems company. The site presents agency services, product pages, editorial guides, and contact information. The canonical website is ${siteUrl}/.
+Media87 is a Dubai-based digital marketing and practical AI agency. The site presents agency services, product pages, editorial guides and contact information. Muddaser Altaf is the founder. The canonical website is ${siteUrl}/. The public contact details are hello@media87.com and +971 50 332 1743. Its Google Business Profile is available at https://maps.app.goo.gl/MnLoZ7Vj2iKCbeFWA.
 
 ## Services and products
 

@@ -1033,3 +1033,34 @@ footer{background:var(--ink);color:#fff;padding:76px 0 36px;border-top:1px solid
   .client-logo-duplicate{display:none}
   html{scroll-behavior:auto}
 }
+
+/* 2026-08 audit improvements: clearer reach, service selection and trust */
+.hero-reach{max-width:720px!important;margin:16px auto 0!important;font-size:14px!important;line-height:1.6!important;color:var(--muted)!important}
+.hero-reach strong{color:var(--ink)}
+.service-decision{padding:100px 0}
+.service-decision>.wrap>.lead{max-width:820px;margin-top:18px}
+.decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:42px}
+.decision-card{min-height:240px;padding:32px;border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 18px 45px rgba(20,27,17,.05)}
+.decision-card>span{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;margin-bottom:28px;border-radius:50%;background:var(--lime);font:700 11px var(--mono)}
+.decision-card h3{font-size:clamp(21px,2.3vw,30px);line-height:1.08;margin-bottom:16px}
+.decision-card p{color:var(--muted);line-height:1.75}
+.decision-card a{color:var(--green);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.scope-note{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start;margin-top:20px;padding:28px 32px;border-radius:20px;background:var(--ink);color:#fff}
+.scope-note strong{font-size:20px}
+.scope-note p{color:rgba(255,255,255,.74);line-height:1.7}
+.founder-profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:34px;align-items:start}
+.founder-profile figure{margin:0}
+.founder-profile img{display:block;width:180px;height:180px;object-fit:cover;border-radius:24px;border:1px solid var(--line)}
+.founder-profile .profile-role{margin-top:-10px;color:var(--green);font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.profile-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px}
+.profile-links a{color:var(--green);font-weight:700}
+.contact-next-step{margin-top:26px;padding:22px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.05)}
+.contact-next-step span{display:block;margin-bottom:9px;color:var(--lime);font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.contact-next-step p{margin:0!important;color:rgba(255,255,255,.72)!important;line-height:1.65}
+@media(max-width:720px){
+  .decision-grid{grid-template-columns:1fr}
+  .decision-card{min-height:0;padding:26px}
+  .scope-note{grid-template-columns:1fr;gap:10px;padding:25px}
+  .founder-profile{grid-template-columns:1fr;gap:24px}
+  .founder-profile img{width:140px;height:140px}
+}

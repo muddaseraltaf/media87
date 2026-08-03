@@ -128,6 +128,7 @@ for (const file of htmlFiles) {
   }
   if (ogUrl !== canonical) errors.push(`${route}: Open Graph URL differs from canonical`);
 
+  const schemaNodes = [];
   for (const match of html.matchAll(
     /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi,
   )) {
@@ -136,8 +137,97 @@ for (const file of htmlFiles) {
       if (parsed["@context"] !== "https://schema.org") {
         errors.push(`${route}: JSON-LD has an unexpected context`);
       }
+      schemaNodes.push(
+        ...(Array.isArray(parsed["@graph"]) ? parsed["@graph"] : [parsed]),
+      );
     } catch {
       errors.push(`${route}: JSON-LD is not valid JSON`);
+    }
+  }
+
+  for (const [label, type] of [
+    ["Organization entity", "Organization"],
+    ["WebSite entity", "WebSite"],
+  ]) {
+    if (!schemaNodes.some((node) => schemaTypeIncludes(node, type))) {
+      errors.push(`${route}: missing ${label}`);
+    }
+  }
+  if (!schemaNodes.some((node) => /#webpage$/.test(node?.["@id"] || ""))) {
+    errors.push(`${route}: missing linked page entity`);
+  }
+  const pageEntity = schemaNodes.find((node) =>
+    /#webpage$/.test(node?.["@id"] || ""),
+  );
+  if (decodeEntities(pageEntity?.name || "") !== decodeEntities(title)) {
+    errors.push(`${route}: page entity name differs from the HTML title`);
+  }
+  const metaDescription = valueFor(
+    html,
+    /<meta\s+name="description"\s+content="([^"]+)"/i,
+  );
+  if (
+    decodeEntities(pageEntity?.description || "") !==
+    decodeEntities(metaDescription)
+  ) {
+    errors.push(`${route}: page entity description differs from the meta description`);
+  }
+  const organizationNode = schemaNodes.find((node) =>
+    schemaTypeIncludes(node, "Organization"),
+  );
+  if (
+    organizationNode?.location?.hasMap !==
+    "https://maps.app.goo.gl/MnLoZ7Vj2iKCbeFWA"
+  ) {
+    errors.push(`${route}: Organization location is missing the Google Business Profile`);
+  }
+
+  const visibleFaqCount =
+    (html.match(/class="[^"]*faq-item[^"]*"/gi) || []).length ||
+    (route === "/faqs/"
+      ? (html.match(/class="[^"]*content-block[^"]*"/gi) || []).length
+      : 0);
+  const faqNode = schemaNodes.find((node) =>
+    schemaTypeIncludes(node, "FAQPage"),
+  );
+  if (visibleFaqCount && !faqNode) {
+    errors.push(`${route}: visible FAQs are missing FAQPage schema`);
+  } else if (
+    visibleFaqCount &&
+    (!Array.isArray(faqNode.mainEntity) ||
+      faqNode.mainEntity.length !== visibleFaqCount)
+  ) {
+    errors.push(`${route}: FAQPage schema does not match the visible FAQ count`);
+  }
+
+  if (
+    route === "/authors-team/" &&
+    !schemaNodes.some(
+      (node) =>
+        schemaTypeIncludes(node, "Person") &&
+        node["@id"] ===
+          "https://media87.com/authors-team/#muddaser-altaf",
+    )
+  ) {
+    errors.push("/authors-team/: missing the linked founder Person entity");
+  }
+  if (
+    route === "/services/" &&
+    !schemaNodes.some((node) => schemaTypeIncludes(node, "ItemList"))
+  ) {
+    errors.push("/services/: missing the visible service ItemList entity");
+  }
+  if (
+    route === "/seo-for-dubai-businesses/" &&
+    !schemaNodes.some((node) => schemaTypeIncludes(node, "Article"))
+  ) {
+    errors.push("/seo-for-dubai-businesses/: missing Article schema");
+  }
+  for (const article of schemaNodes.filter((node) =>
+    schemaTypeIncludes(node, "Article"),
+  )) {
+    if (article.publisher?.["@id"] !== "https://media87.com/#organization") {
+      errors.push(`${route}: Article publisher is not linked to Media87`);
     }
   }
 
@@ -444,6 +534,7 @@ if (fs.existsSync(contactPath)) {
     ["Tally embed loader", /tally\.so\/widgets\/embed\.js/i],
     ["privacy link", /href="\/privacy-policy\/"/i],
     ["email fallback", /href="mailto:hello@media87\.com"/i],
+    ["Google Business Profile link", /maps\.app\.goo\.gl\/MnLoZ7Vj2iKCbeFWA/i],
   ]) {
     if (!pattern.test(contactHtml)) errors.push(`/contact-us/: missing ${label}`);
   }
@@ -507,6 +598,28 @@ function routeFor(file) {
 
 function valueFor(html, pattern) {
   return html.match(pattern)?.[1] || "";
+}
+
+function decodeEntities(value = "") {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'")
+    .replaceAll("&apos;", "'")
+    .replaceAll("&nbsp;", " ")
+    .replace(/&#(\d+);/g, (_, number) =>
+      String.fromCodePoint(Number(number)),
+    )
+    .replace(/&#x([0-9a-f]+);/gi, (_, number) =>
+      String.fromCodePoint(Number.parseInt(number, 16)),
+    );
+}
+
+function schemaTypeIncludes(node, expectedType) {
+  const types = Array.isArray(node?.["@type"])
+    ? node["@type"]
+    : [node?.["@type"]];
+  return types.includes(expectedType);
 }
 
 function resolveReference(file, reference) {
