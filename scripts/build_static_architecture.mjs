@@ -526,7 +526,7 @@ const customPages = [
     related: [
       { label: "Explore all services", href: "/services/" },
       { label: "Discuss a video brief", href: "/contact-us/" },
-      { label: "Read Media87 articles", href: "/blog/" },
+      { label: "Use the AI prompt library", href: "/prompts/" },
     ],
   },
   {
@@ -866,6 +866,7 @@ function articlePage(post) {
     .filter(
       (candidate) =>
         candidate.slug !== post.slug &&
+        approvedIndexableArticleSlugs.has(candidate.slug) &&
         categoryForPost(candidate) === category,
     )
     .slice(0, 3);

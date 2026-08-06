@@ -48,6 +48,10 @@ const warnings = [];
 const indexableTitles = new Map();
 const indexableCanonicals = new Map();
 const internalInlinks = new Map();
+const internalLinkGraph = new Map();
+const contextualLinkGraph = new Map();
+const noindexRoutes = new Set();
+let maxClickDepth = 0;
 
 for (const route of requiredRoutes) {
   const file = path.join(architectureDir, route, "index.html");
@@ -82,6 +86,9 @@ for (const requiredFile of [
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file, "utf8");
   const route = routeFor(file);
+  internalLinkGraph.set(route, internalRoutesFrom(html, route));
+  const mainContent = html.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0] || "";
+  contextualLinkGraph.set(route, internalRoutesFrom(mainContent, route));
   const visibleText = html
     .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
     .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
@@ -120,6 +127,7 @@ for (const file of htmlFiles) {
     html,
     /<meta\s+name="robots"\s+content="([^"]+)"/i,
   );
+  if (/\bnoindex\b/i.test(robots)) noindexRoutes.add(route);
   const ogUrl = valueFor(
     html,
     /<meta\s+property="og:url"\s+content="([^"]+)"/i,
@@ -399,6 +407,52 @@ if (fs.existsSync(sitemapPath)) {
       errors.push(`${pathname}: sitemap URL has no crawlable internal link`);
     }
   }
+
+  const indexablePaths = new Set(
+    sitemapUrls.map((url) => new URL(url).pathname),
+  );
+  const clickDepth = new Map([["/", 0]]);
+  const crawlQueue = ["/"];
+  while (crawlQueue.length) {
+    const source = crawlQueue.shift();
+    const sourceDepth = clickDepth.get(source);
+    for (const target of internalLinkGraph.get(source) || []) {
+      if (!indexablePaths.has(target) || clickDepth.has(target)) continue;
+      clickDepth.set(target, sourceDepth + 1);
+      crawlQueue.push(target);
+    }
+  }
+  for (const pathname of indexablePaths) {
+    const depth = clickDepth.get(pathname);
+    if (depth === undefined) {
+      errors.push(`${pathname}: indexable page is unreachable from the homepage`);
+      continue;
+    }
+    maxClickDepth = Math.max(maxClickDepth, depth);
+    if (depth > 3) {
+      errors.push(`${pathname}: indexable page requires ${depth} clicks from the homepage`);
+    }
+  }
+
+  const contextualInlinks = new Map(
+    [...indexablePaths].map((pathname) => [pathname, 0]),
+  );
+  for (const source of indexablePaths) {
+    for (const target of internalLinkGraph.get(source) || []) {
+      if (noindexRoutes.has(target)) {
+        errors.push(`${source}: published content links to noindex draft ${target}`);
+      }
+    }
+    for (const target of contextualLinkGraph.get(source) || []) {
+      if (!indexablePaths.has(target) || source === target) continue;
+      contextualInlinks.set(target, contextualInlinks.get(target) + 1);
+    }
+  }
+  for (const [pathname, count] of contextualInlinks) {
+    if (pathname !== "/" && count === 0) {
+      errors.push(`${pathname}: indexable page has no contextual in-content link`);
+    }
+  }
 }
 
 const robotsPath = path.join(architectureDir, "robots.txt");
@@ -615,6 +669,7 @@ console.log(
       htmlFiles: htmlFiles.length,
       requiredRoutes: requiredRoutes.length,
       indexableRoutes: indexableCanonicals.size,
+      maxClickDepth,
       articleDrafts: articleDrafts.length,
       excludedRoutesAbsent: excludedRoutes.length,
       errors,
@@ -640,6 +695,23 @@ function walk(dir) {
 function routeFor(file) {
   const relative = path.relative(architectureDir, path.dirname(file));
   return relative ? `/${relative}/` : "/";
+}
+
+function internalRoutesFrom(html, currentRoute) {
+  const routes = new Set();
+  for (const match of html.matchAll(/\bhref="([^"]+)"/gi)) {
+    const reference = match[1];
+    if (/^(?:#|mailto:|tel:|data:|javascript:)/i.test(reference)) continue;
+    try {
+      const url = new URL(reference, `https://media87.com${currentRoute}`);
+      if (url.hostname !== "media87.com") continue;
+      if (url.pathname !== "/" && !url.pathname.endsWith("/")) continue;
+      if (url.pathname !== currentRoute) routes.add(url.pathname);
+    } catch {
+      // Broken references are reported by the existing local-reference check.
+    }
+  }
+  return routes;
 }
 
 function valueFor(html, pattern) {
