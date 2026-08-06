@@ -275,7 +275,10 @@ for (const file of htmlFiles) {
     }
     if (reference.startsWith("/")) {
       const cleanReference = reference.split(/[?#]/)[0];
-      if (cleanReference.endsWith("/") || cleanReference === "/") {
+      if (
+        (cleanReference.endsWith("/") || cleanReference === "/") &&
+        cleanReference !== route
+      ) {
         internalInlinks.set(
           cleanReference,
           (internalInlinks.get(cleanReference) || 0) + 1,
@@ -340,6 +343,35 @@ for (const file of htmlFiles) {
   }
 }
 
+const servicesHtml = fs.readFileSync(
+  path.join(architectureDir, "services", "index.html"),
+  "utf8",
+);
+if (!servicesHtml.includes('href="/seo-and-ads-management-for-restaurants/"')) {
+  errors.push("/services/: missing a contextual link to the restaurant service");
+}
+if (!servicesHtml.includes('href="/llm-package/"')) {
+  errors.push("/services/: missing a contextual link to the AI and LLM visibility service");
+}
+
+const whatsappRestaurantGuideHtml = fs.readFileSync(
+  path.join(
+    architectureDir,
+    "whatsapp-automation-for-restaurants-complete-2025-guide",
+    "index.html",
+  ),
+  "utf8",
+);
+if (
+  !whatsappRestaurantGuideHtml.includes(
+    'href="/seo-and-ads-management-for-restaurants/"',
+  )
+) {
+  errors.push(
+    "/whatsapp-automation-for-restaurants-complete-2025-guide/: missing a contextual restaurant-service link",
+  );
+}
+
 const articleDrafts = htmlFiles.filter((file) => {
   const html = fs.readFileSync(file, "utf8");
   return (
@@ -377,6 +409,16 @@ if (fs.existsSync(robotsPath)) {
   }
   if (!/Sitemap:\s*https:\/\/media87\.com\/sitemap\.xml/i.test(robots)) {
     errors.push("robots.txt does not declare the canonical sitemap");
+  }
+}
+
+const securityHeadersPath = path.join(architectureDir, "_headers");
+if (fs.existsSync(securityHeadersPath)) {
+  const headers = fs.readFileSync(securityHeadersPath, "utf8");
+  if (
+    !/Strict-Transport-Security:\s*max-age=31536000(?:\s|$)/i.test(headers)
+  ) {
+    errors.push("_headers does not set the required HSTS policy");
   }
 }
 

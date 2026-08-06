@@ -19,6 +19,8 @@ const serviceItems = [
   ["AI Video Creation", "/ai-video-creation-service/"],
   ["ChatZen", "/chatzen/"],
   ["LocalZen", "/localzen/"],
+  ["Restaurant SEO & Ads", "/seo-and-ads-management-for-restaurants/"],
+  ["AI & LLM Visibility", "/llm-package/"],
 ];
 
 const dubaiServiceRoutes = new Set([

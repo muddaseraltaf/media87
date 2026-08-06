@@ -1299,7 +1299,7 @@ const seoOverrides = new Map(
     "": {
       title: "Digital Marketing & AI Agency in Dubai | Media87",
       description:
-        "Media87 is a Dubai digital marketing and AI agency providing SEO, paid advertising, content creation and practical automation for clearer customer journeys.",
+        "Media87 is a Dubai digital marketing and AI agency offering SEO, paid advertising, content and practical automation for clearer customer experiences.",
     },
     services: {
       title: "Digital Marketing & AI Services in Dubai",
@@ -1382,12 +1382,12 @@ const seoOverrides = new Map(
         "Make your business easier for search engines and AI tools to understand through entity clarity, structured data, source content and technical access.",
     },
     prompts: {
-      title: "Media87 Prompt Library",
+      title: "AI Prompt Library for Marketing & Automation | Media87",
       description:
         "A practical prompt library for structured content, research, automation and review workflows, with human judgement kept in the process.",
     },
     "authors-team": {
-      title: "Authors & Team | Media87",
+      title: "Media87 Founder, Authors & Editorial Team",
       description:
         "Meet the people responsible for Media87 strategy and content, including founder Muddaser Altaf, and learn how articles are reviewed and corrected.",
     },
@@ -1407,9 +1407,24 @@ const seoOverrides = new Map(
         "Terms governing use of the Media87 website and the relationship between public information, accepted proposals and third-party platforms.",
     },
     blog: {
-      title: "Media87 Blog",
+      title: "Digital Marketing & AI Guides | Media87",
       description:
         "Media87 guides about SEO, paid media, practical AI workflows, content, local discovery and digital decision-making.",
+    },
+    "top-digital-marketers-in-pakistan": {
+      title: "Top Digital Marketers in Pakistan: 2026 Shortlist Guide | Media87",
+      description:
+        "A 2026 shortlist of Pakistan-connected digital marketers, organised by specialism with selection criteria and a practical hiring checklist.",
+    },
+    "social-media-marketing-agency-dubai-services-costs-hiring-checklist": {
+      title: "Dubai Social Media Agency: Costs & Hiring Guide | Media87",
+      description:
+        "Compare Dubai social media agency services, cost drivers, red flags, KPIs and the questions to ask before signing.",
+    },
+    "whatsapp-automation-for-restaurants-complete-2025-guide": {
+      title: "WhatsApp Automation for Restaurants | 2026 Guide",
+      description:
+        "A practical guide to restaurant WhatsApp automation for enquiries, reservations, reminders, feedback and transfer to a person.",
     },
   }),
 );
