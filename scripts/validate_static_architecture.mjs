@@ -12,6 +12,7 @@ const requiredRoutes = [
   "ai-powered-conversations",
   "chatzen",
   "localzen",
+  "localzen-concept",
   "local-seo-services",
   "digital-marketing-services-in-dubai",
   "seo-for-dubai-businesses",
@@ -105,7 +106,7 @@ for (const file of htmlFiles) {
     ["H1", /<h1\b/i],
     ["main landmark", /<main(?:\s|>)/i],
     ["header", /<header\s+id="header"/i],
-    ["footer", /<footer>/i],
+    ["footer", /<footer(?:\s|>)/i],
     ["Open Graph title", /<meta\s+property="og:title"\s+content="[^"]+"/i],
     ["Open Graph description", /<meta\s+property="og:description"\s+content="[^"]+"/i],
     ["Open Graph URL", /<meta\s+property="og:url"\s+content="[^"]+"/i],
@@ -378,6 +379,21 @@ if (
   errors.push(
     "/whatsapp-automation-for-restaurants-complete-2025-guide/: missing a contextual restaurant-service link",
   );
+}
+
+const localzenConceptHtml = fs.readFileSync(
+  path.join(architectureDir, "localzen-concept", "index.html"),
+  "utf8",
+);
+if (!/<meta\s+name="robots"\s+content="noindex,follow"/i.test(localzenConceptHtml)) {
+  errors.push("/localzen-concept/: private concept page must remain noindex");
+}
+if (
+  !/<link\s+rel="canonical"\s+href="https:\/\/media87\.com\/localzen\/"/i.test(
+    localzenConceptHtml,
+  )
+) {
+  errors.push("/localzen-concept/: concept page must canonicalize to /localzen/");
 }
 
 const articleDrafts = htmlFiles.filter((file) => {
